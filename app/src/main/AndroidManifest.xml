@@ -17,11 +17,8 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key"/>
         <activity
-            android:name=".FavorisActivity"
+            android:name=".MapActivity"
             android:exported="true" />
-        <activity
-            android:name=".ImageGalleryActivity"
-            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

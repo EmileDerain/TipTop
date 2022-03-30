@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FavorisActivity">
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText">
 
-
-    <!--text view for heading-->
     <TextView
         android:id="@+id/idTVHeader"
         android:layout_width="match_parent"
@@ -19,6 +18,7 @@
         android:textAlignment="center"
         android:textColor="@color/purple_700"
         android:textSize="18sp" />
+
 
     <!--edit text for user name-->
     <EditText
@@ -56,34 +56,28 @@
         android:layout_marginEnd="10dp"
         android:entries="@array/types_bon_plan" />
 
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+    <!--Button to open the image selector-->
 
+    <!--ImageView to preview the selected image-->
 
     <Button
-        android:id="@+id/buttonLoadPicture"
+        android:id="@+id/BSelectImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="126dp"
-        android:layout_marginEnd="10dp"
-        android:text="Load Picture" />
-
-    <Button
-        android:id="@+id/idBtnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Adresse"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="155dp"
-        android:layout_marginEnd="10dp"
+        android:layout_below="@id/type"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/green"
-        android:text="Inscrivez-vous"
-        android:textAllCaps="false" />
+        android:text="SELECT IMAGE"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
+    <ImageView
+        android:id="@+id/IVPreviewImage"
+        android:layout_width="395dp"
+        android:layout_height="183dp"
+        android:layout_below="@id/BSelectImage"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="133dp"
+        android:layout_marginEnd="16dp" />
 
 </RelativeLayout>

@@ -1,51 +1,76 @@
 package etu.toptip;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
+    public class FavorisActivity extends AppCompatActivity {
 
-public class FavorisActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+    // One Button
+    Button BSelectImage;
+
+    // One Preview Image
+    ImageView IVPreviewImage;
+
+    // constant to compare 
+    // the activity result code
+    int SELECT_PICTURE = 200;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoris);
 
-        Intent intent = new Intent(FavorisActivity.this, ImageGalleryActivity.class);
-        startActivity(intent);
+        // register the UI widgets with their appropriate IDs
+        BSelectImage = findViewById(R.id.BSelectImage);
+        IVPreviewImage = findViewById(R.id.IVPreviewImage);
 
-        Spinner spinner = (Spinner) findViewById(R.id.type);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.types_bon_plan, android.R.layout.simple_spinner_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        // handle the Choose Image button to trigger 
+        // the image chooser function
+        BSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String text = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(adapterView.getContext(),text , Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onClick(View v) {
+                imageChooser();
             }
         });
     }
 
+    // this function is triggered when
+    // the Select Image Button is clicked
+    void imageChooser() {
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        // create an instance of the 
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
 
+        // pass the constant to compare it 
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    // this function is triggered when user
+    // selects the image from the imageChooser
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    IVPreviewImage.setImageURI(selectedImageUri);
+                }
+            }
+        }
     }
 }
