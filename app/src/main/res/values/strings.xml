@@ -9,4 +9,9 @@
         <item>Epiceries</item>
         <item>Poissoneries</item>
     </string-array>
+    <string name="title_maps">MAP</string>
+    <string name="title_profil">COMPTE</string>
+    <string name="title_accueil">ACCUEIL</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
