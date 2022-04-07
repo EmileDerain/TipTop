@@ -3,6 +3,7 @@ package etu.toptip.fragments;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,12 +18,16 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+
 import etu.toptip.R;
 import etu.toptip.models.ListPlaces;
 import etu.toptip.models.Place;
 
 
-public class MapsFragment extends Fragment {
+public class MapsFragment extends Fragment implements IGPS{
+    private GPSFragment gpsFragment ;
 
     GoogleMap map;
 
@@ -66,6 +71,40 @@ public class MapsFragment extends Fragment {
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
+            gpsFragment = (GPSFragment) getParentFragmentManager().findFragmentById(R.id.map);
+            if(gpsFragment==null){
+                gpsFragment = new GPSFragment(this);
+                FragmentTransaction gpsTransaction =getParentFragmentManager().beginTransaction();
+                gpsTransaction.replace(R.id.map,gpsFragment);
+                gpsTransaction.addToBackStack(null);
+                gpsTransaction.commit();
+            }
+
+            NavigationFragment  navigationFragment =  (NavigationFragment) getParentFragmentManager().findFragmentById(R.id.navigation_maps);
+            if(navigationFragment==null){
+                navigationFragment = new NavigationFragment();
+                FragmentTransaction nvgTransaction =getParentFragmentManager().beginTransaction();
+                nvgTransaction.replace(R.id.navigation_maps,navigationFragment);
+                nvgTransaction.addToBackStack(null);
+                nvgTransaction.commit();
+            }
         }
+
+    }
+
+    @Override
+    public void moveCamera() {
+        try{
+            gpsFragment.setPLaceName("ville "+gpsFragment.getPlaceName());
+        }catch (IOException e){
+            gpsFragment.setPLaceName("Ville inconnue ");
+        }
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(gpsFragment.getPosition(),15f));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode , String[] permissions , int[] grantedResults){
+
+
     }
 }
