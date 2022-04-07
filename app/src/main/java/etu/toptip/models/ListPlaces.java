@@ -11,7 +11,7 @@ import etu.toptip.R;
 
 public class ListPlaces {
 
-    private static ArrayList<Place> listPlaces = new ArrayList<>();
+    public static ArrayList<Place> listPlaces = new ArrayList<>();
 
     public ListPlaces() {
 
@@ -19,9 +19,9 @@ public class ListPlaces {
         listPlaces.clear();
         try {
             listPlaces.add(new Place("Casino", "Supermarché", format.parse("2022-03-26"), R.drawable.img, "Antibes", "Super promo tout à 50 %", new LatLng(43.583096, 7.124432)));
-            listPlaces.add(new Place("Carrefour", "Supermarché", format.parse("2022-03-26"), R.drawable.img, "Antibes", "Super promo tout à 50 %", new LatLng(43.580111, 7.083920)));
-            listPlaces.add(new Place("Lidl", "Supermarché", format.parse("2022-03-26"), R.drawable.img, "Cannes", "Super promo tout à 50 %", new LatLng(43.569384, 7.082547)));
-            listPlaces.add(new Place("Boucherie", "Boucherie", format.parse("2022-03-26"), R.drawable.img, "Antibes", "1kg de viande gratuit !!!", new LatLng(43.588567, 7.094391)));
+            listPlaces.add(new Place("Carrefour", "Supermarché", format.parse("2022-03-26"), R.drawable.carrefour, "Antibes", "Super promo tout à 50 %", new LatLng(43.580111, 7.083920)));
+            listPlaces.add(new Place("Lidl", "Supermarché", format.parse("2022-03-26"), R.drawable.lidl, "Cannes", "Super promo tout à 50 %", new LatLng(43.569384, 7.082547)));
+            listPlaces.add(new Place("Boucherie", "Boucherie", format.parse("2022-03-26"), R.drawable.bouch, "Antibes", "1kg de viande gratuit !!!", new LatLng(43.588567, 7.094391)));
         } catch (ParseException e) {
             e.printStackTrace();
         }

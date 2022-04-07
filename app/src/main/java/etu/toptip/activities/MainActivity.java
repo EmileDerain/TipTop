@@ -15,7 +15,7 @@ import java.util.Objects;
 import etu.toptip.R;
 import etu.toptip.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity   {
 
     private ActivityMainBinding binding;
 
