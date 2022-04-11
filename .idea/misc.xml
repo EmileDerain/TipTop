@@ -9,12 +9,16 @@
         <entry key="..\:/Android/app/src/main/res/drawable/ic_profil.xml" value="0.1" />
         <entry key="..\:/Android/app/src/main/res/drawable/maps_background.xml" value="0.1" />
         <entry key="..\:/Android/app/src/main/res/layout/activity_favoris.xml" value="0.1" />
+        <entry key="..\:/Android/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Android/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Android/app/src/main/res/layout/activity_map.xml" value="0.11979166666666667" />
+        <entry key="..\:/Android/app/src/main/res/layout/activity_maps.xml" value="0.1" />
         <entry key="..\:/Android/app/src/main/res/layout/activity_signup.xml" value="0.11979166666666667" />
         <entry key="..\:/Android/app/src/main/res/layout/adapter_item.xml" value="0.14175724637681159" />
+        <entry key="..\:/Android/app/src/main/res/layout/fragement_navigation.xml" value="0.1" />
         <entry key="..\:/Android/app/src/main/res/layout/fragment_acceuil.xml" value="0.11979166666666667" />
         <entry key="..\:/Android/app/src/main/res/layout/fragment_accueil.xml" value="0.1105072463768116" />
+        <entry key="..\:/Android/app/src/main/res/layout/fragment_gps.xml" value="0.1" />
         <entry key="..\:/Android/app/src/main/res/layout/fragment_map.xml" value="0.1105072463768116" />
         <entry key="..\:/Android/app/src/main/res/layout/fragment_maps.xml" value="0.1105072463768116" />
         <entry key="..\:/Android/app/src/main/res/layout/fragment_place_details.xml" value="0.1" />

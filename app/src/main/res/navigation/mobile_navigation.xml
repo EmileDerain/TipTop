@@ -5,11 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_accueil">
 
-    <fragment
+    <activity
         android:id="@+id/navigation_maps"
         android:name="etu.toptip.fragments.MapsFragment"
         android:label="@string/title_maps"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_maps" />
 
     <fragment
         android:id="@+id/navigation_accueil"

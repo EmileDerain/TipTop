@@ -19,7 +19,7 @@ import static etu.toptip.fragments.IGPS.REQUEST_CODE ;
 import etu.toptip.R;
 
 public class NavigationFragment extends Fragment {
-    NavigationFragment(){
+    public NavigationFragment(){
 
     }
 

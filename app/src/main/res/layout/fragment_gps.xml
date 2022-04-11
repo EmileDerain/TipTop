@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="left"
-    tools:context=".NavigationFragment">
+    tools:context=".fragments.NavigationFragment">
 
     <ImageView
         android:id="@+id/imageGPSGranted"
