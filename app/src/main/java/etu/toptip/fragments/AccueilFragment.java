@@ -1,21 +1,36 @@
 package etu.toptip.fragments;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import etu.toptip.IListner;
 import etu.toptip.R;
+import etu.toptip.models.ListPlaces;
+import etu.toptip.models.Place;
+import etu.toptip.models.PlaceAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AccueilFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccueilFragment extends Fragment {
+public class AccueilFragment extends Fragment implements IListner {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,16 +66,39 @@ public class AccueilFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_accueil, container, false);
+        ListPlaces places = new ListPlaces();
+        View view = inflater.inflate(R.layout.fragment_accueil, container, false);
+        ListView listView = view.findViewById(R.id.place_list_view);
+        PlaceAdapter adap = new PlaceAdapter(container.getContext(),places.getPlaces());
+        listView.setAdapter(adap);
+        adap.addListner(this);
+        return view ;
     }
+
+    @Override
+    public void OnClickPlace(Place place) {
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("place");
+        builder.setMessage("vous avez cliquer sur"+ place.getName());
+        builder.setNegativeButton("ok",null);
+        builder.show();*/
+
+        Fragment placeDetails = new PlaceDetails();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("place", (Parcelable)place );
+        placeDetails.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.list, placeDetails);
+        fragmentTransaction.commit();
+
+    }
+
+
 }
