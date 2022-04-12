@@ -24,6 +24,7 @@ import android.widget.Button;
 import java.util.Objects;
 
 import etu.toptip.R;
+import etu.toptip.activities.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +34,11 @@ import etu.toptip.R;
 public class ProfilFragment extends Fragment implements FragmentChangeListener {
 
     Button favButton;
+    Button infoButton;
+    Button walletButton;
+    Button histButton;
+    Button reglagesButton;
+    Button decoButton;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,6 +90,38 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
             @Override
             public void onClick(View v) {
                 replaceFragment(new ListFavorisFragment());
+            }
+        });
+
+        infoButton = view.findViewById(R.id.idButtonInfo);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new InformationsCompteFragment());
+            }
+        });
+
+        walletButton = view.findViewById(R.id.idButtonWallet);
+        walletButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new WalletFragment());
+            }
+        });
+
+        histButton = view.findViewById(R.id.idButtonHistorique);
+        histButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new HistoriqueFragment());
+            }
+        });
+
+        reglagesButton = view.findViewById(R.id.idButtonRéglages);
+        reglagesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new ReglagesFragment());
             }
         });
 
