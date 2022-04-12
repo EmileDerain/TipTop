@@ -20,8 +20,8 @@
             android:value="@string/map_key" />
 
         <activity
-            android:name=".fragments.MapsFragment"
-            android:exported="false"/>
+            android:name=".fragments.navActivity"
+            android:exported="true"/>
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">

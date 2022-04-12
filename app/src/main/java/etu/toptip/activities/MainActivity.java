@@ -1,58 +1,43 @@
 package etu.toptip.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Objects;
 
 import etu.toptip.R;
-import etu.toptip.databinding.ActivityMainBinding;
-import etu.toptip.fragments.GPSFragment;
-import etu.toptip.fragments.IGPS;
-import etu.toptip.fragments.MapsFragment;
-import etu.toptip.fragments.NavigationFragment;
+import etu.toptip.fragments.navActivity;
 
-public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
-
+public class MainActivity extends AppCompatActivity  {
+    private Button mBoutonDeguster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        setUpBottomNavigationBar();
+        getSupportActionBar().hide();
+        setContentView(R.layout.activity_main);
+
+        mBoutonDeguster = findViewById(R.id.main_deguster);
+
+
+        mBoutonDeguster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gameActivityIntent = new Intent(getApplicationContext(), navActivity.class);
+                startActivity(gameActivityIntent);
+            }
+        });
+
+
 
     }
 
-    public  void setUpBottomNavigationBar() {
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_accueil,
-                R.id.navigation_maps,
-                R.id.navigation_profil)
-                .build();
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.nav_host_fragment_activity_main);
-        NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
-    }
-
-
-
-
-
+   /* public void foodtruck(View view){
+        Intent gameActivityIntent = new Intent(MainActivity.this, ConnexionActivity.class);
+        startActivity(gameActivityIntent);
+    }*/
 }

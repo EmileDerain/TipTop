@@ -7,7 +7,7 @@
 
     <activity
         android:id="@+id/navigation_maps"
-        android:name="etu.toptip.fragments.MapsFragment"
+        android:name="etu.toptip.fragments.MapsActivity"
         android:label="@string/title_maps"
         tools:layout="@layout/fragment_maps" />
 

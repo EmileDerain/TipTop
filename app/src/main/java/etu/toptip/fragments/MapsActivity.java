@@ -1,7 +1,12 @@
 package etu.toptip.fragments;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,19 +16,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,63 +42,35 @@ import java.util.Locale;
 
 import etu.toptip.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GPSFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class GPSFragment extends Fragment  implements OnMapReadyCallback , LocationListener,
-        GoogleMap.OnMarkerClickListener {
+
+public class MapsActivity extends AppCompatActivity implements LocationListener , GoogleMap.OnMarkerClickListener,
+        OnMapReadyCallback {
     private LocationManager lm;
     private ImageView filter;
     private static final int PERMS_CALL_ID = 1234;
     private SupportMapFragment mapFragment;
     private GoogleMap googleMap;
     private LatLng googleLocation;
-    private Geocoder coder;
+    private   Geocoder coder;
     private boolean first =true;
     SearchView searchView;
     private boolean sumbitText =false;
 
 
 
-
-    public GPSFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MapFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static GPSFragment newInstance(String param1, String param2) {
-        GPSFragment fragment = new GPSFragment();
-        return fragment;
-    }
-
+    @SuppressLint("WrongThread")
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        getSupportActionBar().hide();
+        setContentView(R.layout.fragment_maps);
+        //filter = findViewById(R.id.filter);
+        coder = new Geocoder(this, Locale.getDefault());
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_gps, container, false);
-        //filter =view.findViewById(R.id.filter);
-        coder = new Geocoder(getActivity(), Locale.getDefault());
+        //searchView = findViewById(R.id.idSearchView);
 
-        //searchView =view.findViewById(R.id.idSearchView);
-
-
-        mapFragment=((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
-
-
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         checkPermission();
         mapFragment.getMapAsync(this);
 
@@ -110,7 +79,8 @@ public class GPSFragment extends Fragment  implements OnMapReadyCallback , Locat
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        rlp.setMargins(0, 0, 40, 300);
+        rlp.setMargins(0, 0, 30, 30);
+
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -121,7 +91,7 @@ public class GPSFragment extends Fragment  implements OnMapReadyCallback , Locat
                 sumbitText = true ;
                 List<Address> addressList = null;
                 if (location != null || location.equals("")) {
-                    Geocoder geocoder = new Geocoder(getActivity());
+                    Geocoder geocoder = new Geocoder(MapsActivity.this);
                     try {
                         addressList = geocoder.getFromLocationName(location, 1);
                         System.out.println(addressList);
@@ -130,12 +100,14 @@ public class GPSFragment extends Fragment  implements OnMapReadyCallback , Locat
                         e.printStackTrace();
                     }
                     if(addressList!=null && addressList.size()>0){
+
                         Address address = addressList.get(0);
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        // googleMap.addMarker(new MarkerOptions().position(latLng).title(location));
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
                     }else{
-                        Toast.makeText(getActivity(), "l'adresse est introuvable ", Toast.LENGTH_SHORT).show();  // Check whether the fields are not blank
+
                     }
                 }
                 return false;
@@ -145,23 +117,23 @@ public class GPSFragment extends Fragment  implements OnMapReadyCallback , Locat
                 return false;
             }
         });
-
-
-
-
-
-        return view ;
     }
+
 
     @SuppressLint("MissingPermission")
     @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        this.googleMap = googleMap;
-        this.googleMap = googleMap;
-        //googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+    public void onMapReady(GoogleMap mGoogleMap) {
+        this.googleMap = mGoogleMap;
+        MapsActivity.this.googleMap = googleMap;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         googleMap.setMyLocationEnabled(true);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPermission();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -172,15 +144,15 @@ public class GPSFragment extends Fragment  implements OnMapReadyCallback , Locat
     }
 
     private void checkPermission() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,
             }, this.PERMS_CALL_ID);
             return;
         }
-        lm =(LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             lm.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER, 10000, 0, this);
@@ -195,6 +167,10 @@ public class GPSFragment extends Fragment  implements OnMapReadyCallback , Locat
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
 
     @Override
@@ -209,8 +185,6 @@ public class GPSFragment extends Fragment  implements OnMapReadyCallback , Locat
             }
             first =false;
 
-
-
         }
     }
 
@@ -220,14 +194,5 @@ public class GPSFragment extends Fragment  implements OnMapReadyCallback , Locat
         bundle.putString("FOOD", marker.getTitle());
         return true ;
     }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
-
-
 
 }
