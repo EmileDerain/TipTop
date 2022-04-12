@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import etu.toptip.R;
+import etu.toptip.fragments.ListFavorisFragment;
 
 public class FavorisActivity extends AppCompatActivity {
 
     // One Button
     Button BSelectImage;
+    Button BAjoutFav;
 
     // One Preview Image
     ImageView IVPreviewImage;
@@ -29,6 +31,7 @@ public class FavorisActivity extends AppCompatActivity {
 
         // register the UI widgets with their appropriate IDs
         BSelectImage = findViewById(R.id.BSelectImage);
+        BAjoutFav = findViewById(R.id.BtnAjouterFav);
         IVPreviewImage = findViewById(R.id.IVPreviewImage);
 
         // handle the Choose Image button to trigger 
@@ -37,6 +40,14 @@ public class FavorisActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 imageChooser();
+            }
+        });
+
+        BAjoutFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getBaseContext(), ListFavorisFragment.class);
+                startActivity(myIntent);
             }
         });
     }

@@ -80,4 +80,15 @@
         android:layout_marginTop="133dp"
         android:layout_marginEnd="16dp" />
 
+    <Button
+        android:id="@+id/BtnAjouterFav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/BSelectImage"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/green"
+        android:text="AJOUTER LE FAVORIS"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
 </RelativeLayout>
