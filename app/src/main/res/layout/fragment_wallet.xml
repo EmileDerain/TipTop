@@ -16,4 +16,16 @@
         android:textColor="@color/purple_700"
         android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/idBtnCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Camera"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/green"
+        android:textAllCaps="false" />
+
 </RelativeLayout>
