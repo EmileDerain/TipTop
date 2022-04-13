@@ -34,7 +34,7 @@ public class GPSFragment extends Fragment {
     private Location currentLocation ;
 
     public GPSFragment(MapsFragment mapsFragment) {
-        igps=mapsFragment;
+        
     }
 
     public GPSFragment(){
