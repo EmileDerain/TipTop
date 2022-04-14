@@ -7,10 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AccueilFragment">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="280dp"
+        android:id="@+id/BAjouterBP"
+        android:text="AJOUTER UN BON PLAN" />
 
     <ListView
         android:id="@+id/place_list_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"></ListView>
 
 </FrameLayout>

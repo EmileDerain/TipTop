@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -21,6 +22,8 @@ import java.util.List;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
+import etu.toptip.activities.AddBPActivity;
+import etu.toptip.activities.MainActivity;
 import etu.toptip.models.ListPlaces;
 import etu.toptip.models.Place;
 import etu.toptip.models.PlaceAdapter;
@@ -78,6 +81,16 @@ public class AccueilFragment extends Fragment implements IListner {
         PlaceAdapter adap = new PlaceAdapter(container.getContext(),places.getPlaces());
         listView.setAdapter(adap);
         adap.addListner(this);
+
+        Button addBP = (Button) view.findViewById(R.id.BAjouterBP);
+        addBP.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(container.getContext(), AddBPActivity.class);
+                startActivity(myIntent);
+            }
+
+        });
+
         return view ;
     }
 

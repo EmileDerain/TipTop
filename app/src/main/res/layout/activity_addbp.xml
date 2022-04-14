@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddBPActivity"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/idAddHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="Ajoutez un bon plan"
+        android:textAlignment="center"
+        android:textColor="@color/purple_700"
+        android:textSize="18sp" />
+
+
+    <EditText
+        android:id="@+id/nameResto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idAddHeader"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Enter le nom du restaurant"
+        android:inputType="text" />
+
+
+
+    <EditText
+        android:id="@+id/AdresseResto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameResto"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Entrer l'adresse du restaurant"
+        android:inputType="textPostalAddress"
+        tools:ignore="DuplicateIds" />
+
+    <Spinner
+        android:id="@+id/typeResto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/AdresseResto"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:entries="@array/types_bon_plan" />
+
+    <EditText
+        android:id="@+id/DescriptionResto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/typeResto"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Entrer une description"
+        tools:ignore="DuplicateIds" />
+
+    <EditText
+        android:id="@+id/ExpirationResto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DescriptionResto"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Date d'expiration"
+        tools:ignore="DuplicateIds" />
+
+    <Button
+        android:id="@+id/BSelectImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ExpirationResto"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/green"
+        android:text="SELECTIONNER UNE IMAGE"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/BCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/BSelectImage"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/green"
+        android:text="PRENDRE UNE PHOTO"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/BtnAjouterBP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/BCamera"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/green"
+        android:text="AJOUTER LE BON PLAN"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</RelativeLayout>
