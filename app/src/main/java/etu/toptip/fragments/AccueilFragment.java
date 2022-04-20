@@ -33,7 +33,7 @@ import etu.toptip.models.PlaceAdapter;
  * Use the {@link AccueilFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccueilFragment extends Fragment implements IListner {
+public class AccueilFragment extends Fragment implements IListner, FragmentChangeListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -102,16 +102,30 @@ public class AccueilFragment extends Fragment implements IListner {
         builder.setNegativeButton("ok",null);
         builder.show();*/
 
-        Fragment placeDetails = new PlaceDetails();
+        /*Fragment placeDetails = new PlaceDetails();
         Bundle bundle = new Bundle();
         bundle.putParcelable("place", (Parcelable)place );
         placeDetails.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list, placeDetails);
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
+
+        Fragment placeDetails = new PlaceDetails();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("place", (Parcelable)place );
+        placeDetails.setArguments(bundle);
+        replaceFragment(placeDetails);
 
     }
 
 
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, fragment, fragment.toString());
+        fragmentTransaction.addToBackStack(fragment.toString());
+        fragmentTransaction.commit();
+    }
 }

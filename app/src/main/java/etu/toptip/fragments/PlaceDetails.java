@@ -1,16 +1,24 @@
 package etu.toptip.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import etu.toptip.R;
+import etu.toptip.activities.AddBPActivity;
+import etu.toptip.models.ListFavoris;
+import etu.toptip.models.ListPlaces;
 import etu.toptip.models.Place;
 
 /**
@@ -62,14 +70,37 @@ public class PlaceDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_place_details, container, false);
         Bundle bundle = this.getArguments();
         Place model = bundle.getParcelable("place");
+
         TextView nameView = view.findViewById(R.id.name);
         nameView.setText(model.getName());
 
-        TextView detailsView = view.findViewById(R.id.details);
+        TextView detailsView = view.findViewById(R.id.description);
         detailsView.setText(model.getDescription());
+
+        /**TextView localisationView = view.findViewById(R.id.localisation);
+        localisationView.setText(model.getDescription());
+
+        TextView typeView = view.findViewById(R.id.type);
+        typeView.setText(model.getDescription());
+
+        TextView dateView = view.findViewById(R.id.date);
+        dateView.setText(model.getDescription());*/
 
         ImageView imageView = view.findViewById(R.id.icon);
         imageView.setImageResource(model.getImage());
+
+        Button addToFavs = (Button) view.findViewById(R.id.BAjouterAuxFavs);
+        addToFavs.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                ListPlaces places = new ListPlaces();
+                ListFavoris listFavoris = new ListFavoris();
+                listFavoris.getFavoris().add(places.getPlaceByName(nameView.getText().toString()));
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+            }
+
+        });
 
         return view;
     }

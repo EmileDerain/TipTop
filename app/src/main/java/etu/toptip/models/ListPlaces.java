@@ -30,4 +30,13 @@ public class ListPlaces {
     public ArrayList<Place> getPlaces(){
         return listPlaces ;
     }
+
+    public Place getPlaceByName(String name){
+        for (Place place : listPlaces
+             ) {
+            if (place.getName()==name) return place;
+        }
+        return null;
+    }
+
 }
