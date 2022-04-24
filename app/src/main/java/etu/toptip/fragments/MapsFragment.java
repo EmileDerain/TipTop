@@ -202,6 +202,4 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         }
     }
 
-    @Override
-    public void on
 }
