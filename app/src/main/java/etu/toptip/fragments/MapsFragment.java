@@ -60,17 +60,16 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6154778, 7.0722062), 12.0f));
 
-            map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-                @Override
-                public void onMapLongClick(LatLng latLng) {
-                    Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(latLng.latitude, latLng.longitude)).title("Ajouter un lieu ici").icon(BitmapDescriptorFactory.fromResource(R.drawable.pin2)));
-                    marker.showInfoWindow();
-                }
-            });
             int i=0;
             for(Place place : places.getPlaces()){
-                googleMap.addMarker(new MarkerOptions().position(place.getPositiongps()).title(place.getName()).zIndex(i));
-                i++;
+                try {
+                    Address location = coder.getFromLocationName(place.getLocalisation(), 5).get(0);
+                    LatLng l = new LatLng(location.getLatitude(), location.getLongitude() );
+                    googleMap.addMarker(new MarkerOptions().position(l).title(place.getName()).zIndex(i));
+                    i++;
+                }
+                catch (Exception e){
+                }
             }
         }
     };
@@ -202,4 +201,7 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
             first =false;
         }
     }
+
+    @Override
+    public void on
 }
