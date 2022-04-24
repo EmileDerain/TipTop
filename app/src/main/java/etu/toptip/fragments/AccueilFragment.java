@@ -96,27 +96,11 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
 
     @Override
     public void OnClickPlace(Place place) {
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("place");
-        builder.setMessage("vous avez cliquer sur"+ place.getName());
-        builder.setNegativeButton("ok",null);
-        builder.show();*/
-
-        /*Fragment placeDetails = new PlaceDetails();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("place", (Parcelable)place );
-        placeDetails.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.list, placeDetails);
-        fragmentTransaction.commit();*/
-
         Fragment placeDetails = new PlaceDetails();
         Bundle bundle = new Bundle();
         bundle.putParcelable("place", (Parcelable)place );
         placeDetails.setArguments(bundle);
         replaceFragment(placeDetails);
-
     }
 
 
