@@ -1,9 +1,7 @@
-package etu.toptip.models;
+package etu.toptip.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Date;
 
@@ -11,26 +9,24 @@ import java.util.Date;
 public class Place implements Parcelable {
 
     private String name;
-    private String type;
-    private Date date;
+    private int type;
+    private String date;
     private Integer image;
     private String localisation;
     private String description;
-    private LatLng positiongps;
 
-    public Place(String name, String type, Date date, Integer image, String localisation, String description, LatLng positiongps) {
+    public Place(String name, int type, String date, Integer image, String localisation, String description) {
         this.name = name;
         this.date = date;
         this.image = image;
         this.type = type ;
         this.localisation = localisation;
         this.description = description;
-        this.positiongps=positiongps;
     }
 
     protected Place(Parcel in) {
         name = in.readString();
-        type = in.readString();
+        type = in.readInt();
         if (in.readByte() == 0) {
             image = null;
         } else {
@@ -38,7 +34,6 @@ public class Place implements Parcelable {
         }
         localisation = in.readString();
         description = in.readString();
-        positiongps = in.readParcelable(LatLng.class.getClassLoader());
     }
 
     public static final Creator<Place> CREATOR = new Creator<Place>() {
@@ -57,11 +52,11 @@ public class Place implements Parcelable {
         return name;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -77,9 +72,6 @@ public class Place implements Parcelable {
         return description;
     }
 
-    public LatLng getPositiongps() {
-        return positiongps;
-    }
 
     @Override
     public int describeContents() {
@@ -89,7 +81,7 @@ public class Place implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
-        parcel.writeString(type);
+        parcel.writeInt(type);
         if (image == null) {
             parcel.writeByte((byte) 0);
         } else {
@@ -98,6 +90,5 @@ public class Place implements Parcelable {
         }
         parcel.writeString(localisation);
         parcel.writeString(description);
-        parcel.writeParcelable(positiongps, i);
     }
 }

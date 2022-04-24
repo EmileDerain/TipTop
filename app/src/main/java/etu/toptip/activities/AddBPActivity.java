@@ -2,6 +2,7 @@ package etu.toptip.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,17 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import etu.toptip.R;
-import etu.toptip.models.ListPlaces;
-import etu.toptip.models.Place;
+import etu.toptip.model.Place;
+import etu.toptip.model.ListPlaces;
+import etu.toptip.model.factory.PlaceFactory;
+
 
 public class AddBPActivity extends AppCompatActivity {
 
     int SELECT_PICTURE = 200;
     ListPlaces listPlaces = new ListPlaces();
     ArrayList<String> infos = new ArrayList<>();
+
+    public AddBPActivity() throws Throwable {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,30 +40,28 @@ public class AddBPActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText name = (EditText) findViewById(R.id.nameResto);
                 String nameText = name.getText().toString();
-                infos.add(nameText);
 
                 EditText adresse = (EditText) findViewById(R.id.AdresseResto);
-                String adresseText = name.getText().toString();
-                infos.add(adresseText);
-
+                String adresseText = adresse.getText().toString();
 
                 EditText description = (EditText) findViewById(R.id.DescriptionResto);
-                String descriptionText = name.getText().toString();
-                infos.add(descriptionText);
+                String descriptionText = description.getText().toString();
 
                 EditText expiration = (EditText) findViewById(R.id.ExpirationResto);
                 String expirationText = name.getText().toString();
-                infos.add(expirationText);
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-                Spinner type = (Spinner) findViewById(R.id.typeResto);
-                String typeText = type.getSelectedItem().toString();
-                infos.add(typeText);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar c = Calendar.getInstance();
+                String date = sdf.format(c.getTime());
+
+                Spinner typeSpinner = (Spinner) findViewById(R.id.typeResto);
+                int type = typeSpinner.getSelectedItemPosition();
+
 
                 try{
-                    listPlaces.getPlaces().add(new Place(infos.get(0),infos.get(4),format.parse("2022-03-26"),1,infos.get(1),infos.get(2),null));
+                    listPlaces.getPlaces().add(PlaceFactory.build(nameText,type,date,null,adresseText,descriptionText));
 
-                } catch (ParseException e) {
+                } catch (Throwable e) {
                     e.printStackTrace();
                 }
 

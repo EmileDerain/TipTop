@@ -1,12 +1,8 @@
-package etu.toptip.models;
+package etu.toptip.model;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import etu.toptip.R;
+import etu.toptip.model.Place;
 
 
 public class ListFavoris {

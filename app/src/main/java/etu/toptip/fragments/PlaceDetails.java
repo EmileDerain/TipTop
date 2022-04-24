@@ -1,6 +1,5 @@
 package etu.toptip.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,13 +12,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import etu.toptip.R;
-import etu.toptip.activities.AddBPActivity;
-import etu.toptip.models.ListFavoris;
-import etu.toptip.models.ListPlaces;
-import etu.toptip.models.Place;
+import etu.toptip.model.ListFavoris;
+import etu.toptip.model.ListPlaces;
+import etu.toptip.model.Place;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,7 +89,12 @@ public class PlaceDetails extends Fragment {
         addToFavs.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                ListPlaces places = new ListPlaces();
+                ListPlaces places = null;
+                try {
+                    places = new ListPlaces();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
                 ListFavoris listFavoris = new ListFavoris();
                 listFavoris.getFavoris().add(places.getPlaceByName(nameView.getText().toString()));
                 FragmentManager fm = getActivity().getSupportFragmentManager();

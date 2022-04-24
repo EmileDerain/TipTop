@@ -35,8 +35,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import etu.toptip.R;
-import etu.toptip.models.ListPlaces;
-import etu.toptip.models.Place;
+import etu.toptip.model.ListPlaces;
+import etu.toptip.model.Place;
 
 
 public class MapsFragment extends Fragment  implements OnMapReadyCallback , LocationListener,
@@ -55,7 +55,8 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
 
     public ListPlaces places = new ListPlaces();
 
-
+    public MapsFragment() throws Throwable {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

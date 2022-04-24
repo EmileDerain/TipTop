@@ -12,10 +12,9 @@ import androidx.annotation.Nullable;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
-import etu.toptip.models.ListFavoris;
-import etu.toptip.models.ListPlaces;
-import etu.toptip.models.Place;
-import etu.toptip.models.PlaceAdapter;
+import etu.toptip.model.ListFavoris;
+import etu.toptip.model.Place;
+import etu.toptip.model.PlaceAdapter;
 
 public class ListFavorisFragment extends Fragment implements IListner {
 

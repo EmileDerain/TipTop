@@ -1,6 +1,5 @@
 package etu.toptip.fragments;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,18 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import etu.toptip.IListner;
 import etu.toptip.R;
 import etu.toptip.activities.AddBPActivity;
-import etu.toptip.activities.MainActivity;
-import etu.toptip.models.ListPlaces;
-import etu.toptip.models.Place;
-import etu.toptip.models.PlaceAdapter;
+
+import etu.toptip.model.Place;
+import etu.toptip.model.ListPlaces;
+import etu.toptip.model.PlaceAdapter;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +70,12 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ListPlaces places = new ListPlaces();
+        ListPlaces places = null;
+        try {
+            places = new ListPlaces();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
         ListView listView = view.findViewById(R.id.place_list_view);
         PlaceAdapter adap = new PlaceAdapter(container.getContext(),places.getPlaces());
