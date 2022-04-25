@@ -1,5 +1,7 @@
 package etu.toptip.activities;
 
+import static etu.toptip.activities.NotificationActivity.CHANNEL_ID;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +27,7 @@ import etu.toptip.model.factory.PlaceFactory;
 public class AddBPActivity extends AppCompatActivity {
 
     int SELECT_PICTURE = 200;
+    private int notifID = 0;
     ListPlaces listPlaces = new ListPlaces();
     ArrayList<String> infos = new ArrayList<>();
 
@@ -60,7 +64,7 @@ public class AddBPActivity extends AppCompatActivity {
 
                 try{
                     listPlaces.getPlaces().add(PlaceFactory.build(nameText,type,date,null,adresseText,descriptionText));
-
+                    sendNotificationChannel(nameText,descriptionText,CHANNEL_ID,NotificationCompat.PRIORITY_DEFAULT);
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }
@@ -100,5 +104,14 @@ public class AddBPActivity extends AppCompatActivity {
 
     public ListPlaces getListPlaces(){
         return listPlaces ;
+    }
+
+    private void sendNotificationChannel(String title, String message, String channelId, int priority) {
+        NotificationCompat.Builder notif = new NotificationCompat.Builder(getApplicationContext(), channelId) //création de la notif
+                //.setSmallIcon(R.drawable.ic_android_black_24dp)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(priority);
+        NotificationActivity.getNotificationManager().notify(notifID,notif.build());
     }
 }
