@@ -19,9 +19,6 @@ public class User implements IUser{
     }
     @Override
     public int isValid() {
-        // 0. Check for Email Empty
-        // 1. Check for Email Match pattern
-        // 2. Check for Password > 6
         if(TextUtils.isEmpty(getEmail()))
             return  0;
         else if(!Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches())

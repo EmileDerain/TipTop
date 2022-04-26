@@ -77,10 +77,11 @@ public class AddBPActivity extends AppCompatActivity {
 
                 try{
                     listPlaces.getPlaces().add(PlaceFactory.build(nameText,type,date,null,adresseText,descriptionText));
-                    sendNotificationChannel(nameText,descriptionText,CHANNEL_ID,NotificationCompat.PRIORITY_DEFAULT, null);
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }
+
+                sendNotificationChannel(nameText,descriptionText,CHANNEL_ID,NotificationCompat.PRIORITY_DEFAULT, null);
 
                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(myIntent);
