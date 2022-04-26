@@ -1,0 +1,7 @@
+{
+  "name": "backtiptopnew",
+  "version": "1.0.0",
+  "dependencies": {
+    "bcrypt": "^5.0.1"
+  }
+}

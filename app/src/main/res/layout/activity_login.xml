@@ -29,14 +29,26 @@
         android:layout_gravity="top"
         android:src="@drawable/logo" />
 
+    <TextView
+        android:id="@+id/idErreur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Logo"
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp"
+        android:padding="5dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/red" />
+
     <EditText
         android:id="@+id/email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Logo"
+        android:layout_below="@id/idErreur"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:hint="Entrez votre email"
+        android:hint="Email"
         android:minHeight="48dp"
         android:textSize="15dp" />
 
@@ -47,7 +59,7 @@
         android:layout_below="@id/email"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:hint="Entrez votre mot de passe"
+        android:hint="Mot de passe"
         android:minHeight="48dp"
         android:textSize="15dp" />
 

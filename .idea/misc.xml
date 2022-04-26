@@ -13,8 +13,6 @@
         <entry key="..\:/Android/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Android/app/src/main/res/layout/activity_map.xml" value="0.11979166666666667" />
         <entry key="..\:/Android/app/src/main/res/layout/activity_signup.xml" value="0.11979166666666667" />
-
-        <entry key="..\:/Android/app/src/main/res/layout/fragment_acceuil.xml" value="0.11979166666666667" />
         <entry key="..\:/Android/app/src/main/res/layout/adapter_item.xml" value="0.14175724637681159" />
         <entry key="..\:/Android/app/src/main/res/layout/fragement_navigation.xml" value="0.2" />
         <entry key="..\:/Android/app/src/main/res/layout/fragment_acceuil.xml" value="0.11979166666666667" />
@@ -28,6 +26,8 @@
         <entry key="..\:/Users/BUNICE/Documents/GitHub/TipTop/app/src/main/res/layout/activity_favoris.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/BUNICE/Documents/GitHub/TipTop/app/src/main/res/layout/activity_signup.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/emile/AndroidStudioProjects/TopTip/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/emile/Documents/TipTop/app/src/main/res/layout/activity_login.xml" value="0.4" />
+        <entry key="..\:/Users/emile/Documents/TipTop/app/src/main/res/layout/activity_signup.xml" value="0.4392220421393841" />
         <entry key="..\:/Users/morga/Documents/L3/S6/IHM/TipTop/app/src/main/res/layout/activity_addbp.xml" value="0.1" />
         <entry key="..\:/Users/morga/Documents/L3/S6/IHM/TipTop/app/src/main/res/layout/activity_camera.xml" value="0.1796875" />
         <entry key="..\:/Users/morga/Documents/L3/S6/IHM/TipTop/app/src/main/res/layout/activity_favoris.xml" value="0.1" />
