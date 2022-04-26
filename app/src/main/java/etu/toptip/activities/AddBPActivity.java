@@ -3,11 +3,14 @@ package etu.toptip.activities;
 import static etu.toptip.activities.NotificationActivity.CHANNEL_ID;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import etu.toptip.R;
+import etu.toptip.fragments.CameraFragment;
 import etu.toptip.model.Place;
 import etu.toptip.model.ListPlaces;
 import etu.toptip.model.factory.PlaceFactory;
@@ -30,6 +34,8 @@ public class AddBPActivity extends AppCompatActivity {
     private int notifID = 0;
     ListPlaces listPlaces = new ListPlaces();
     ArrayList<String> infos = new ArrayList<>();
+    ImageView imageView;
+    CameraFragment cameraFragment;
 
     public AddBPActivity() throws Throwable {
     }
@@ -39,11 +45,18 @@ public class AddBPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addbp);
 
+        /**imageView = findViewById(R.id.click_imageBP);
+        imageView.setImageBitmap(cameraFragment.getBitmap());
+
+        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();*/
+
         Button addBP = (Button) findViewById(R.id.BtnAjouterBP);
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 EditText name = (EditText) findViewById(R.id.nameResto);
                 String nameText = name.getText().toString();
+
 
                 EditText adresse = (EditText) findViewById(R.id.AdresseResto);
                 String adresseText = adresse.getText().toString();
@@ -64,7 +77,7 @@ public class AddBPActivity extends AppCompatActivity {
 
                 try{
                     listPlaces.getPlaces().add(PlaceFactory.build(nameText,type,date,null,adresseText,descriptionText));
-                    sendNotificationChannel(nameText,descriptionText,CHANNEL_ID,NotificationCompat.PRIORITY_DEFAULT);
+                    sendNotificationChannel(nameText,descriptionText,CHANNEL_ID,NotificationCompat.PRIORITY_DEFAULT, null);
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }
@@ -106,12 +119,16 @@ public class AddBPActivity extends AppCompatActivity {
         return listPlaces ;
     }
 
-    private void sendNotificationChannel(String title, String message, String channelId, int priority) {
+    private void sendNotificationChannel(String title, String message, String channelId, int priority, Bitmap bitmap) {
         NotificationCompat.Builder notif = new NotificationCompat.Builder(getApplicationContext(), channelId) //création de la notif
-                //.setSmallIcon(R.drawable.ic_android_black_24dp)
+                .setSmallIcon(R.drawable.logo)
+                .setLargeIcon(bitmap)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setPriority(priority);
-        NotificationActivity.getNotificationManager().notify(notifID,notif.build());
+                .setPriority(priority)
+                .setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(bitmap)
+                        .bigLargeIcon(null));
+        NotificationActivity.getNotificationManager().notify(notifID, notif.build());
     }
 }
