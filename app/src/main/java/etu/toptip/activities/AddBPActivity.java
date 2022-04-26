@@ -27,6 +27,7 @@ import etu.toptip.R;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.model.Place;
 import etu.toptip.model.ListPlaces;
+import etu.toptip.model.factory.FactoryManager;
 import etu.toptip.model.factory.PlaceFactory;
 
 
@@ -79,7 +80,7 @@ public class AddBPActivity extends AppCompatActivity {
 
 
                 try{
-                    listPlaces.getPlaces().add(PlaceFactory.build(nameText,type,date,null,adresseText,descriptionText));
+                    listPlaces.getPlaces().add(FactoryManager.build(nameText,type,date,null,adresseText,descriptionText));
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }

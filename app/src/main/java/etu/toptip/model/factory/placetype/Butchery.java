@@ -1,14 +1,12 @@
-package etu.toptip.model.factory;
+package etu.toptip.model.factory.placetype;
 
 import android.os.Parcel;
-
-import java.util.Date;
 
 import etu.toptip.model.Place;
 
 public class Butchery extends Place {
     public Butchery(String name,  String date, Integer image, String localisation, String description) {
-        super(name, 3, date, image, localisation, description);
+        super(name, 4, date, image, localisation, description);
     }
 
     protected Butchery(Parcel in) {

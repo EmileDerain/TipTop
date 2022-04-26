@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import etu.toptip.R;
 import etu.toptip.model.Place;
+import etu.toptip.model.factory.FactoryManager;
 import etu.toptip.model.factory.PlaceFactory;
 
 
@@ -20,10 +21,10 @@ public class ListPlaces {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         listPlaces.clear();
         try {
-            listPlaces.add(PlaceFactory.build("Casino", 0, "2022-03-26", R.drawable.img, "2255 route des dolines valbonne", "Super promo tout à 50 %"));
-            listPlaces.add(PlaceFactory.build("Carrefour", 0, "2022-03-26", R.drawable.carrefour, "Nice", "Super promo tout à 50 %"));
-            listPlaces.add(PlaceFactory.build("Lidl", 0, "2022-03-26", R.drawable.lidl, "Cannes", "Super promo tout à 50 %"));
-            listPlaces.add(PlaceFactory.build("Boucherie", 1, "2022-03-26", R.drawable.bouch, "Antibes", "1kg de viande gratuit !!!"));
+            listPlaces.add(FactoryManager.build("Casino", 0, "2022-03-26", R.drawable.img, "2255 route des dolines valbonne", "Super promo tout à 50 %"));
+            listPlaces.add(FactoryManager.build("Carrefour", 0, "2022-03-26", R.drawable.carrefour, "Nice", "Super promo tout à 50 %"));
+            listPlaces.add(FactoryManager.build("Lidl", 0, "2022-03-26", R.drawable.lidl, "Cannes", "Super promo tout à 50 %"));
+            listPlaces.add(FactoryManager.build("Boucherie", 1, "2022-03-26", R.drawable.bouch, "Antibes", "1kg de viande gratuit !!!"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
