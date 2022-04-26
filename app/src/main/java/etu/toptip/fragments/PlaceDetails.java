@@ -3,15 +3,19 @@ package etu.toptip.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import etu.toptip.R;
-import etu.toptip.models.Place;
+import etu.toptip.model.ListFavoris;
+import etu.toptip.model.ListPlaces;
+import etu.toptip.model.Place;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,14 +66,42 @@ public class PlaceDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_place_details, container, false);
         Bundle bundle = this.getArguments();
         Place model = bundle.getParcelable("place");
+
         TextView nameView = view.findViewById(R.id.name);
         nameView.setText(model.getName());
 
-        TextView detailsView = view.findViewById(R.id.details);
+        TextView detailsView = view.findViewById(R.id.description);
         detailsView.setText(model.getDescription());
+
+        /**TextView localisationView = view.findViewById(R.id.localisation);
+        localisationView.setText(model.getDescription());
+
+        TextView typeView = view.findViewById(R.id.type);
+        typeView.setText(model.getDescription());
+
+        TextView dateView = view.findViewById(R.id.date);
+        dateView.setText(model.getDescription());*/
 
         ImageView imageView = view.findViewById(R.id.icon);
         imageView.setImageResource(model.getImage());
+
+        Button addToFavs = (Button) view.findViewById(R.id.BAjouterAuxFavs);
+        addToFavs.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                ListPlaces places = null;
+                try {
+                    places = new ListPlaces();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+                ListFavoris listFavoris = new ListFavoris();
+                listFavoris.getFavoris().add(places.getPlaceByName(nameView.getText().toString()));
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+            }
+
+        });
 
         return view;
     }

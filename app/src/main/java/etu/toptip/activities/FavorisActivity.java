@@ -82,6 +82,8 @@ public class FavorisActivity extends AppCompatActivity {
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
                     IVPreviewImage.setImageURI(selectedImageUri);
+                    System.out.println("j'ai rentré");
+
                 }
             }
         }

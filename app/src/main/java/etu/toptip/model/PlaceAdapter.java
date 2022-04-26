@@ -1,4 +1,4 @@
-package etu.toptip.models;
+package etu.toptip.model;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import java.util.List;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
+import etu.toptip.model.Place;
 
 public class PlaceAdapter extends BaseAdapter {
 

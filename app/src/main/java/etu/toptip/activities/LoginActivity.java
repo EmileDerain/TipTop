@@ -3,7 +3,10 @@ package etu.toptip.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import etu.toptip.R;
+import etu.toptip.controller.ILoginController;
+import etu.toptip.controller.LoginController;
 import etu.toptip.fragments.ListFavorisFragment;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -14,12 +17,16 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import etu.toptip.view.ILoginView;
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -27,41 +34,43 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class LoginActivity extends AppCompatActivity {
+import android.widget.Toast;
 
+
+public class LoginActivity extends AppCompatActivity implements ILoginView {
+    EditText email, password;
+    TextView titre;
+    ILoginController loginPresenter;
+    OkHttpClient client;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button login = (Button) findViewById(R.id.idBtnLogin);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.mdp);
+        titre = findViewById(R.id.idErreur);
+
+        loginPresenter = new LoginController(this);
+        client = new OkHttpClient();
+
+        Button login = findViewById(R.id.idBtnLogin);
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                final OkHttpClient client = new OkHttpClient();
 
-                EditText email = findViewById(R.id.email);
-                EditText password = findViewById(R.id.mdp);
-                TextView titre = findViewById(R.id.idErreur);
+                int log = loginPresenter.OnLogin(email.getText().toString().trim(), password.getText().toString().trim());
+                if (log == 1) {
 
-                if (email.getText().toString().equals(""))
-                    titre.setText("Entrer un email");
-                else if (password.getText().toString().equals(""))
-                    titre.setText("Entrer un mot de passe");
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("email", email.getText().toString())
+                            .add("password", password.getText().toString())
+                            .build();
 
-                RequestBody requestBody = new FormBody.Builder()
-                        .add("email", email.getText().toString())
-                        .add("password", password.getText().toString())
-                        .build();
-
-                Request request = new Request.Builder()
-                        .url("http://192.168.1.14:3000/api/auth/login")
-                        .post(requestBody)
-                        .build();
-
-                if (!(email.getText().toString().equals("")) &&
-                        !(password.getText().toString().equals(""))) {
-
+                    Request request = new Request.Builder()
+                            .url("http://192.168.1.14:3000/api/auth/login")
+                            .post(requestBody)
+                            .build();
 
                     client.newCall(request).enqueue(new Callback() {
                         @Override
@@ -72,12 +81,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            Log.d("Emile", "login");
+//                                Log.d("Emile", "login");
                             try (ResponseBody responseBody = response.body()) {
-                                Log.d("Emile", "JSP");
+//                                    Log.d("Emile", "JSP");
                                 JSONObject jsonObj = new JSONObject(responseBody.string());
-                                Log.d("Emile", "responseBody: " + jsonObj.getString("error"));
+//                                    Log.d("Emile", "responseBody: " + jsonObj.getString("error"));
                                 titre.setText(jsonObj.getString("error"));
+//                                    iLoginView.OnLoginError(jsonObj.getString("error"));
                                 if (jsonObj.getString("correct").equals("true")) {
                                     Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                     startActivity(myIntent);
@@ -90,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 }
             }
-
         });
 
 
@@ -102,5 +111,15 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+    }
+
+    @Override
+    public void OnLoginSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void OnLoginError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

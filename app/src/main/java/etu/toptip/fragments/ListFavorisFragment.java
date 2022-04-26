@@ -5,13 +5,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import etu.toptip.IListner;
 import etu.toptip.R;
+import etu.toptip.model.ListFavoris;
+import etu.toptip.model.Place;
+import etu.toptip.model.PlaceAdapter;
 
-public class ListFavorisFragment extends Fragment {
+public class ListFavorisFragment extends Fragment implements IListner {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -44,6 +49,18 @@ public class ListFavorisFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listefavoris, container, false);
+
+        ListFavoris favoris = new ListFavoris();
+        ListView listView = view.findViewById(R.id.place_fav_list_view);
+        PlaceAdapter adap = new PlaceAdapter(container.getContext(),favoris.getFavoris());
+        listView.setAdapter(adap);
+        adap.addListner(this);
+
+
         return view;
+    }
+
+    @Override
+    public void OnClickPlace(Place place) {
     }
 }

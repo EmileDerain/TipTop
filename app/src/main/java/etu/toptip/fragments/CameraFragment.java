@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -19,10 +20,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import etu.toptip.R;
+import etu.toptip.activities.AddBPActivity;
+import etu.toptip.activities.MainActivity;
 
 public class CameraFragment extends Fragment {
 
     ImageView image;
+    Bitmap bitmap;
 
     public CameraFragment(){
 
@@ -46,6 +50,18 @@ public class CameraFragment extends Fragment {
                 }
             }
         });
+
+        Button btnBack = view.findViewById(R.id.back_button);
+        btnBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
+                bitmap = drawable.getBitmap();
+                Intent myIntent = new Intent(getContext(), AddBPActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
         return view;
     }
 
@@ -55,4 +71,7 @@ public class CameraFragment extends Fragment {
     }
 
     public void setImage(Bitmap bitmap){image.setImageBitmap(bitmap);}
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 }

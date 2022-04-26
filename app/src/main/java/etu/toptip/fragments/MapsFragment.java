@@ -5,6 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,6 +18,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +28,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -32,12 +35,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import etu.toptip.R;
-import etu.toptip.models.ListPlaces;
-import etu.toptip.models.Place;
+import etu.toptip.model.ListPlaces;
+import etu.toptip.model.Place;
 
 
 public class MapsFragment extends Fragment  implements OnMapReadyCallback , LocationListener,
-        GoogleMap.OnMarkerClickListener  {
+        GoogleMap.OnMarkerClickListener , FragmentChangeListener {
     GoogleMap map;
 
     private LocationManager lm;
@@ -52,28 +55,8 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
 
     public ListPlaces places = new ListPlaces();
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            map = googleMap;
-            googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6154778, 7.0722062), 12.0f));
-
-            map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-                @Override
-                public void onMapLongClick(LatLng latLng) {
-                    Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(latLng.latitude, latLng.longitude)).title("Ajouter un lieu ici").icon(BitmapDescriptorFactory.fromResource(R.drawable.pin2)));
-                    marker.showInfoWindow();
-                }
-            });
-            int i=0;
-            for(Place place : places.getPlaces()){
-                googleMap.addMarker(new MarkerOptions().position(place.getPositiongps()).title(place.getName()).zIndex(i));
-                i++;
-            }
-        }
-    };
+    public MapsFragment() throws Throwable {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,21 +122,30 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
-            mapFragment.getMapAsync(callback);
+            mapFragment.getMapAsync(this);
         }
-    }
-
-    @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        return false;
     }
 
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         this.googleMap = googleMap;
-        this.googleMap = googleMap;
+        map = googleMap;
         googleMap.setMyLocationEnabled(true);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        int i=0;
+        for(Place place : places.getPlaces()){
+            try {
+                Address location = coder.getFromLocationName(place.getLocalisation(), 5).get(0);
+                LatLng l = new LatLng(location.getLatitude(), location.getLongitude() );
+                MarkerOptions m = new MarkerOptions().position(l).title(place.getName()).zIndex(i);
+                googleMap.addMarker(m);
+                i++;
+            }
+            catch (Exception e){
+            }
+        }
     }
 
 
@@ -197,9 +189,37 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
             googleLocation = new LatLng(latitude, longitude);
             googleMap.setOnMarkerClickListener( this);
             if(sumbitText==false && first==true ){
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(googleLocation, 15));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(googleLocation, 12.0f));
             }
             first =false;
         }
     }
+
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        marker.showInfoWindow();
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Fragment placeDetails = new PlaceDetails();
+                Bundle bundle = new Bundle();
+                Place place = places.getPlaces().get((int) marker.getZIndex());
+                bundle.putParcelable("place", (Parcelable)place);
+                placeDetails.setArguments(bundle);
+                replaceFragment(placeDetails);
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, fragment, fragment.toString());
+        fragmentTransaction.addToBackStack(fragment.toString());
+        fragmentTransaction.commit();
+    }
+
 }

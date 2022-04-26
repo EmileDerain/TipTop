@@ -1,6 +1,7 @@
 package etu.toptip.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import java.util.Objects;
 
 import etu.toptip.R;
+import etu.toptip.activities.CameraActivity;
 import etu.toptip.activities.LoginActivity;
 
 /**
@@ -122,6 +124,15 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
             @Override
             public void onClick(View v) {
                 replaceFragment(new ReglagesFragment());
+            }
+        });
+
+        decoButton = view.findViewById(R.id.idButtonDeconnexion);
+        decoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                startActivity(myIntent);
             }
         });
 
