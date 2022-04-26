@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">TopTip</string>
     <string-array name="types_bon_plan">
-        <item>Restaurants</item>
         <item>Suermarchés</item>
+        <item>Hypermarchés</item>
+        <item>Restaurants</item>
         <item>Epiceries</item>
         <item>Boucheries</item>
-        <item>Fast food</item>
         <item>Boulangeries</item>
         <item>Poissoneries</item>
     </string-array>
