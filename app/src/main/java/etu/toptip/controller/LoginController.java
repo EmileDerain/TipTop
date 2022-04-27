@@ -16,10 +16,10 @@ public class LoginController implements ILoginController {
         {
             loginView.OnLoginError("Veuillez rentrer un e-mail");
         }else  if (loginCode == 1){
-            loginView.OnLoginError("Veuillez rentrer un e-mail valide (avec un @)");
+            loginView.OnLoginError("Veuillez rentrer un e-mail valide");
         } else  if (loginCode == 2)
         {
-            loginView.OnLoginError("Veuillez rentrer un mot de passe d'une longueur > 6");
+            loginView.OnLoginError("Veuillez rentrer un mot de passe");
         }else  if(loginCode == 3){
             loginView.OnLoginError("Veuillez rentrer un mot de passe d'une longueur > 6");
         }

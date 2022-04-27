@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import etu.toptip.R;
+import etu.toptip.controller.SignUpController;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -40,7 +41,7 @@ import etu.toptip.view.ILoginView;
 public class SignupActivity extends AppCompatActivity implements ILoginView {
     EditText email, password, userName, secondPassword;
     Button loginb;
-    ILoginController loginPresenter;
+    SignUpController signUpController;
     OkHttpClient client;
     TextView titre;
 
@@ -56,17 +57,16 @@ public class SignupActivity extends AppCompatActivity implements ILoginView {
         email = findViewById(R.id.Email);
         password = findViewById(R.id.idEdtPassword);
 
-        loginPresenter = new LoginController(this);
+        signUpController = new SignUpController(this);
         client = new OkHttpClient();
 
         Button next = findViewById(R.id.idBtnRegister);
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                int log = loginPresenter.OnLogin(email.getText().toString().trim(), password.getText().toString().trim());
+                int log = signUpController.OnSignUp(userName.getText().toString().trim(),email.getText().toString().trim(), password.getText().toString().trim(), secondPassword.getText().toString().trim());
                 if (log == 1) {
-
-                    Log.d("Emile", "onClick: " + password.getText().toString());
+                    /**Log.d("Emile", "onClick: " + password.getText().toString());
 
                     if (userName.getText().toString().equals(""))
                         titre.setText("Entrer un nom d'utilisateur");
@@ -80,7 +80,7 @@ public class SignupActivity extends AppCompatActivity implements ILoginView {
                         titre.setText("Les mots de passe de correspondent pas");
 
                     if (!(userName.getText().toString().equals("")) &&
-                            (password.getText().toString().equals(secondPassword.getText().toString()))) {
+                            (password.getText().toString().equals(secondPassword.getText().toString())))*/ {
 
                         RequestBody requestBody = new FormBody.Builder()
                                 .add("email", email.getText().toString())
@@ -89,7 +89,7 @@ public class SignupActivity extends AppCompatActivity implements ILoginView {
                                 .build();
 
                         Request request = new Request.Builder()
-                                .url("http://192.168.1.14:3000/api/auth/signup")
+                                .url("http://90.8.217.30:3000/api/auth/signup")
                                 .post(requestBody)
                                 .build();
 
