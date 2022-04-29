@@ -17,13 +17,13 @@ public class SpecificPlanFactory  extends PlaceFactory {
 
 
     @Override
-    public Place build(String name, int type, String date, String image, String localisation, String description) throws Throwable {
+    public Place build(String name, int type,  String image, String localisation, String description) throws Throwable {
 
             switch (type){
-                case GROCERY: return new Grocery(name,date,image,localisation,description) ;
-                case BUTECHERY: return new Butchery(name,date,image,localisation,description) ;
-                case BAKERY: return new Bakery(name,date,image,localisation,description) ;
-                case FISHSHOP: return new FishShop(name,date,image,localisation,description) ;
+                case GROCERY: return new Grocery(name,image,localisation,description) ;
+                case BUTECHERY: return new Butchery(name,image,localisation,description) ;
+                case BAKERY: return new Bakery(name,image,localisation,description) ;
+                case FISHSHOP: return new FishShop(name,image,localisation,description) ;
                 default: throw new Throwable("not made");
             }
         }

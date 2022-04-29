@@ -10,14 +10,12 @@ public class Place implements Parcelable {
 
     private String name;
     private int type;
-    private String date;
     private String image;
     private String localisation;
     private String description;
 
-    public Place(String name, int type, String date, String image, String localisation, String description) {
+    public Place(String name, int type, String image, String localisation, String description) {
         this.name = name;
-        this.date = date;
         this.image = image;
         this.type = type;
         this.localisation = localisation;
@@ -56,9 +54,6 @@ public class Place implements Parcelable {
         return type;
     }
 
-    public String getDate() {
-        return date;
-    }
 
     public String getImage() {
         return image;

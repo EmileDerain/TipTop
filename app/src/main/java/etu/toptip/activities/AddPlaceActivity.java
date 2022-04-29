@@ -80,7 +80,7 @@ public class AddPlaceActivity extends AppCompatActivity {
 
 
                 try{
-                    listPlaces.getPlaces().add(FactoryManager.build(nameText,type,date,null,adresseText,descriptionText));
+                    listPlaces.getPlaces().add(FactoryManager.build(nameText,type,null,adresseText,descriptionText));
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }
