@@ -31,7 +31,7 @@ import etu.toptip.model.factory.FactoryManager;
 import etu.toptip.model.factory.PlaceFactory;
 
 
-public class AddBPActivity extends AppCompatActivity {
+public class AddPlaceActivity extends AppCompatActivity {
 
     int SELECT_PICTURE = 200;
     private int notifID = 0;
@@ -41,7 +41,7 @@ public class AddBPActivity extends AppCompatActivity {
     CameraFragment cameraFragment;
     ImageView IVPreviewImage;
 
-    public AddBPActivity() throws Throwable {
+    public AddPlaceActivity() throws Throwable {
     }
 
     @Override

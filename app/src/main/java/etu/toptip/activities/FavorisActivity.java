@@ -28,7 +28,6 @@ public class FavorisActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoris);
-
         // register the UI widgets with their appropriate IDs
         BSelectImage = findViewById(R.id.BSelectImage);
         BAjoutFav = findViewById(R.id.BtnAjouterFav);

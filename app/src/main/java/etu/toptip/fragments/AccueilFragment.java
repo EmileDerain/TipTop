@@ -16,7 +16,8 @@ import android.widget.ListView;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
-import etu.toptip.activities.AddBPActivity;
+import etu.toptip.activities.AddBonPlanActivity;
+import etu.toptip.activities.AddPlaceActivity;
 
 import etu.toptip.model.Place;
 import etu.toptip.model.ListPlaces;
@@ -85,7 +86,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         Button addBP = (Button) view.findViewById(R.id.BAjouterBP);
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(container.getContext(), AddBPActivity.class);
+                Intent myIntent = new Intent(container.getContext(), AddPlaceActivity.class);
                 startActivity(myIntent);
             }
 
