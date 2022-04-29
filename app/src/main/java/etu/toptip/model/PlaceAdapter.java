@@ -1,6 +1,11 @@
 package etu.toptip.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 import etu.toptip.IListner;
@@ -51,7 +61,7 @@ public class PlaceAdapter extends BaseAdapter {
         Place currentPlace = getItem(i);
         String name = currentPlace.getName();
         String details = currentPlace.getDescription();
-        Integer image = currentPlace.getImage();
+        String image = currentPlace.getImage();
 
         TextView nameView = view.findViewById(R.id.place_name);
         nameView.setText(name);
@@ -59,9 +69,10 @@ public class PlaceAdapter extends BaseAdapter {
         TextView detailsView = view.findViewById(R.id.place_details);
         detailsView.setText(details);
 
-
         ImageView imageView = view.findViewById(R.id.place_icon);
-        imageView.setImageResource(image);
+        Picasso.get().load(image).into(imageView);
+
+
 
         view.setOnClickListener(click->{
             listner.OnClickPlace(currentPlace);

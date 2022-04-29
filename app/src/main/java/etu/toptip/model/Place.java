@@ -11,15 +11,15 @@ public class Place implements Parcelable {
     private String name;
     private int type;
     private String date;
-    private Integer image;
+    private String image;
     private String localisation;
     private String description;
 
-    public Place(String name, int type, String date, Integer image, String localisation, String description) {
+    public Place(String name, int type, String date, String image, String localisation, String description) {
         this.name = name;
         this.date = date;
         this.image = image;
-        this.type = type ;
+        this.type = type;
         this.localisation = localisation;
         this.description = description;
     }
@@ -30,7 +30,7 @@ public class Place implements Parcelable {
         if (in.readByte() == 0) {
             image = null;
         } else {
-            image = in.readInt();
+            image = in.readString();
         }
         localisation = in.readString();
         description = in.readString();
@@ -60,7 +60,7 @@ public class Place implements Parcelable {
         return date;
     }
 
-    public Integer getImage() {
+    public String getImage() {
         return image;
     }
 
@@ -86,7 +86,7 @@ public class Place implements Parcelable {
             parcel.writeByte((byte) 0);
         } else {
             parcel.writeByte((byte) 1);
-            parcel.writeInt(image);
+            parcel.writeString(image);
         }
         parcel.writeString(localisation);
         parcel.writeString(description);

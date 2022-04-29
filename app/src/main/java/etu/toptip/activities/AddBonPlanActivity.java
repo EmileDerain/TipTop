@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +51,6 @@ public class AddBonPlanActivity extends AppCompatActivity {
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-
                 EditText description = (EditText) findViewById(R.id.description);
                 String descriptionText = description.getText().toString();
 
@@ -69,8 +69,8 @@ public class AddBonPlanActivity extends AppCompatActivity {
         cam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getBaseContext(), CameraActivity.class);
-                startActivity(myIntent);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 101);
             }
         });
 
@@ -85,7 +85,6 @@ public class AddBonPlanActivity extends AppCompatActivity {
     }
 
     void imageChooser() {
-
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
@@ -98,7 +97,6 @@ public class AddBonPlanActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-
             // compare the resultCode with the
             // SELECT_PICTURE constant
             if (requestCode == SELECT_PICTURE) {
@@ -108,8 +106,11 @@ public class AddBonPlanActivity extends AppCompatActivity {
                     // update the preview image in the layout
                     IVPreviewImage.setImageURI(selectedImageUri);
                     System.out.println("j'ai rentré");
-
                 }
+            }
+            if (requestCode == 101) {
+                Bitmap bitmap = (Bitmap) (data != null ? data.getExtras().get("data") : null);
+                IVPreviewImage.setImageBitmap(bitmap);
             }
         }
     }
@@ -130,4 +131,6 @@ public class AddBonPlanActivity extends AppCompatActivity {
                         .bigLargeIcon(null));
         NotificationActivity.getNotificationManager().notify(notifID, notif.build());
     }
+
+
 }

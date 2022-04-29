@@ -1,5 +1,7 @@
 package etu.toptip.model;
 
+import static java.lang.Integer.parseInt;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.ParseException;
@@ -21,10 +23,10 @@ public class ListPlaces {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         listPlaces.clear();
         try {
-            listPlaces.add(FactoryManager.build("Casino", 0, "2022-03-26", R.drawable.img, "2255 route des dolines valbonne", "Super promo tout à 50 %"));
-            listPlaces.add(FactoryManager.build("Carrefour", 0, "2022-03-26", R.drawable.carrefour, "Nice", "Super promo tout à 50 %"));
-            listPlaces.add(FactoryManager.build("Lidl", 0, "2022-03-26", R.drawable.lidl, "Cannes", "Super promo tout à 50 %"));
-            listPlaces.add(FactoryManager.build("Boucherie", 1, "2022-03-26", R.drawable.bouch, "Antibes", "1kg de viande gratuit !!!"));
+            listPlaces.add(FactoryManager.build("Casino", 0, "2022-03-26", "https://static.apidae-tourisme.com/filestore/objets-touristiques/images/182/165/1549750-diaporama.jpg","2255 route des dolines valbonne", "Super promo tout à 50 %"));
+            listPlaces.add(FactoryManager.build("Carrefour", 0, "2022-03-26", "https://upload.wikimedia.org/wikipedia/fr/thumb/3/3b/Logo_Carrefour.svg/1200px-Logo_Carrefour.svg.png", "Nice", "Super promo tout à 50 %"));
+            listPlaces.add(FactoryManager.build("Lidl", 0, "2022-03-26", "https://www.lsa-conso.fr/mediatheque/0/1/2/000162210_5.jpg", "Cannes", "Super promo tout à 50 %"));
+            listPlaces.add(FactoryManager.build("Boucherie", 1, "2022-03-26","https://www.gastronomiac.com/wp/wp-content/uploads/2021/07/Boucherie-charcuterie.jpg", "Antibes", "1kg de viande gratuit !!!"));
         } catch (ParseException e) {
             e.printStackTrace();
         }

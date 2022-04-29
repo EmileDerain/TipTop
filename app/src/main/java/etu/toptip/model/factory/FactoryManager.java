@@ -6,7 +6,7 @@ import etu.toptip.model.factory.factorytype.SpecificPlanFactory;
 
 public class FactoryManager {
 
-    public static Place build(String name, int type, String date, Integer image, String localisation, String description) throws Throwable {
+    public static Place build(String name, int type, String date, String image, String localisation, String description) throws Throwable {
         if(type<=3){
             MultiplePlanFactory multiplePlanFactory = new MultiplePlanFactory();
             return multiplePlanFactory.build(name,type,date,image,localisation,description);

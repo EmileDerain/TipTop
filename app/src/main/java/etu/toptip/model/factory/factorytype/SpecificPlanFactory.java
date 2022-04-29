@@ -17,7 +17,7 @@ public class SpecificPlanFactory  extends PlaceFactory {
 
 
     @Override
-    public Place build(String name, int type, String date, Integer image, String localisation, String description) throws Throwable {
+    public Place build(String name, int type, String date, String image, String localisation, String description) throws Throwable {
 
             switch (type){
                 case GROCERY: return new Grocery(name,date,image,localisation,description) ;
