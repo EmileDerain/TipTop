@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SignupActivity">
+    tools:context=".activities.SignUpActivity">
 
 
     <!--text view for heading-->
@@ -31,7 +31,7 @@
         android:padding="5dp"
         android:text=""
         android:textAlignment="center"
-        android:textColor="@color/red"
+        android:textColor="@color/redAuth"
         android:textSize="15sp" />
 
     <EditText

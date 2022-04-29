@@ -1,32 +1,30 @@
 package etu.toptip.controller;
 
+import android.util.Log;
+
+import etu.toptip.activities.LoginActivity;
+import etu.toptip.activities.SignUpActivity;
+import etu.toptip.model.LoginModel;
 import etu.toptip.model.User;
 import etu.toptip.view.ILoginView;
 
-public class LoginController implements ILoginController {
-    ILoginView loginView;
-    public LoginController(ILoginView loginView) {
-        this.loginView = loginView;
+public class LoginController {
+
+    private LoginModel loginModel;
+    private LoginActivity loginActivity;  //View
+
+    public LoginController(LoginActivity loginActivity) {
+        this.loginModel = new LoginModel(this);
+        this.loginActivity = loginActivity;
     }
-    @Override
-    public int OnLogin(String email, String password) {
-        User user = new User(email,password);
-        int loginCode = user.isValid();
-        if(loginCode == 0)
-        {
-            loginView.OnLoginError("Veuillez rentrer un e-mail");
-        }else  if (loginCode == 1){
-            loginView.OnLoginError("Veuillez rentrer un e-mail valide");
-        } else  if (loginCode == 2)
-        {
-            loginView.OnLoginError("Veuillez rentrer un mot de passe");
-        }else  if(loginCode == 3){
-            loginView.OnLoginError("Veuillez rentrer un mot de passe d'une longueur > 6");
-        }
-        else {
-//            loginView.OnLoginSuccess("Ok");
-            return 1;
-        }
-        return -1;
+
+    public void OnLogin(String email, String password) {     //Envoie model
+        this.loginModel.LoginModel2(email, password);
     }
+
+    public void OnLoginError2(String error,Boolean connect) {   //Recois du model et envoie au view
+        this.loginActivity.showError(error, connect);
+    }
+
+
 }

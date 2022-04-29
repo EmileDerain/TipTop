@@ -1,43 +1,29 @@
 package etu.toptip.controller;
 
+import android.util.Log;
+
+import etu.toptip.activities.LoginActivity;
+import etu.toptip.activities.SignUpActivity;
+import etu.toptip.model.LoginModel;
+import etu.toptip.model.SignUpModel;
 import etu.toptip.model.User;
 import etu.toptip.view.ILoginView;
 
-public class SignUpController implements ISignUpController{
-    ILoginView loginView;
-    public SignUpController(ILoginView loginView) {
-        this.loginView = loginView;
+public class SignUpController {
+
+    private SignUpModel signUpModel;
+    private SignUpActivity signUpActivity;  //View
+
+    public SignUpController(SignUpActivity signUpActivity) {
+        this.signUpModel = new SignUpModel(this);
+        this.signUpActivity = signUpActivity;
     }
-    @Override
-    public int OnSignUp(String username, String email, String password, String confirmPassword) {
-        User user = new User(username,email,password,confirmPassword);
-        int signUpCode = user.isValidSignUp();
-        switch (signUpCode) {
-            case 0:
-                loginView.OnLoginError("Veuillez rentrer un e-mail");
-                break;
-            case 1:
-                loginView.OnLoginError("Veuillez rentrer un e-mail valide");
-                break;
-            case 2:
-                loginView.OnLoginError("Veuillez rentrer un mot de passe");
-                break;
-            case 3:
-                loginView.OnLoginError("Veuillez rentrer un mot de passe d'une longueur > 6");
-                break;
-            case 4:
-                loginView.OnLoginError("Veuillez rentrer un nom d'utilisateur");
-                break;
-            case 5:
-                loginView.OnLoginError("Veuillez confirmer le mot de passe");
-                break;
-            case 6:
-                loginView.OnLoginError("Les deux mots de passes ne sont pas identiques");
-                break;
-            default:
-//            loginView.OnLoginSuccess("Ok");
-                return 1;
-        }
-        return -1;
+
+    public void OnSignUp(String email, String userName, String password, String validationPassword) {     //Envoie model
+        this.signUpModel.SignUpModel2(email, userName, password, validationPassword);
+    }
+
+    public void OnSignUpError2(String error, Boolean create) {   //Recois du model et envoie au view
+        this.signUpActivity.showError(error, create);
     }
 }
