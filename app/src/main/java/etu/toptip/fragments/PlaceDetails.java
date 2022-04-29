@@ -1,5 +1,6 @@
 package etu.toptip.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,19 +11,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import etu.toptip.IListner;
 import etu.toptip.R;
+import etu.toptip.activities.AddBonPlanActivity;
+import etu.toptip.activities.AddPlaceActivity;
+import etu.toptip.model.BonPlan;
+import etu.toptip.model.BonPlanAdapter;
 import etu.toptip.model.ListFavoris;
 import etu.toptip.model.ListPlaces;
 import etu.toptip.model.Place;
+import etu.toptip.model.PlaceAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PlaceDetails#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlaceDetails extends Fragment {
+public class PlaceDetails extends Fragment implements IListner, FragmentChangeListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,11 +71,28 @@ public class PlaceDetails extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_place_details, container, false);
+/*
+        List<BonPlan> plans = new ArrayList<>();
+        plans.add(new BonPlan("today",null,0,0,"hij igy nhu nhu i i"));
+        ListView listView = view.findViewById(R.id.place_list_view);
+        BonPlanAdapter adap = new BonPlanAdapter(container.getContext(),plans);
+        listView.setAdapter(adap);
+        adap.addListner(this);*/
+
+        Button add = (Button) view.findViewById(R.id.BAjouterBP);
+        add.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(container.getContext(), AddBonPlanActivity.class);
+                startActivity(myIntent);
+            }
+
+        });
         Bundle bundle = this.getArguments();
+
         Place model = bundle.getParcelable("place");
 
         TextView nameView = view.findViewById(R.id.name);
@@ -72,15 +100,6 @@ public class PlaceDetails extends Fragment {
 
         TextView detailsView = view.findViewById(R.id.description);
         detailsView.setText(model.getDescription());
-
-        /**TextView localisationView = view.findViewById(R.id.localisation);
-        localisationView.setText(model.getDescription());
-
-        TextView typeView = view.findViewById(R.id.type);
-        typeView.setText(model.getDescription());
-
-        TextView dateView = view.findViewById(R.id.date);
-        dateView.setText(model.getDescription());*/
 
         ImageView imageView = view.findViewById(R.id.icon);
         imageView.setImageResource(model.getImage());
@@ -104,5 +123,15 @@ public class PlaceDetails extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void OnClickPlace(Place place) {
+
+    }
+
+    @Override
+    public void replaceFragment(Fragment fragment) {
+
     }
 }

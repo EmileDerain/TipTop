@@ -14,61 +14,27 @@
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="Ajoutez un lieu"
+        android:text="Ajoutez un bon plan"
         android:textAlignment="center"
         android:textColor="@color/purple_700"
         android:textSize="18sp" />
 
-
     <EditText
-        android:id="@+id/nameResto"
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
         android:layout_below="@id/idAddHeader"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="10dp"
-        android:hint="Enter le nom du restaurant"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/AdresseResto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/nameResto"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="10dp"
-        android:hint="Entrer l'adresse du restaurant"
-        android:inputType="textPostalAddress"
-        tools:ignore="DuplicateIds" />
-
-    <Spinner
-        android:id="@+id/typeResto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/AdresseResto"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="10dp"
-        android:entries="@array/types_bon_plan" />
-
-    <EditText
-        android:id="@+id/DescriptionResto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/typeResto"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="10dp"
         android:hint="Entrer une description"
         tools:ignore="DuplicateIds" />
 
     <EditText
-        android:id="@+id/ExpirationResto"
+        android:id="@+id/expiration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/DescriptionResto"
+        android:layout_below="@id/description"
         android:layout_marginStart="10dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="10dp"
@@ -79,7 +45,7 @@
         android:id="@+id/BSelectImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ExpirationResto"
+        android:layout_below="@id/expiration"
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/green"
         android:text="SELECTIONNER UNE IMAGE"

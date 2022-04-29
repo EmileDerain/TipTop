@@ -20,8 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import etu.toptip.R;
-import etu.toptip.activities.AddBPActivity;
-import etu.toptip.activities.MainActivity;
+import etu.toptip.activities.AddPlaceActivity;
 
 public class CameraFragment extends Fragment {
 
@@ -57,7 +56,7 @@ public class CameraFragment extends Fragment {
             public void onClick(View view) {
                 BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
                 bitmap = drawable.getBitmap();
-                Intent myIntent = new Intent(getContext(), AddBPActivity.class);
+                Intent myIntent = new Intent(getContext(), AddPlaceActivity.class);
                 startActivity(myIntent);
             }
         });
