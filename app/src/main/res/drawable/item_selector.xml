@@ -3,6 +3,6 @@
 
     <item android:state_selected="true"  android:color="@color/black"/>
     <item android:state_checkable="true"  android:color="@color/black"/>
-    <item android:color ="@color/back" />
+    <item android:color ="#fdaaaa" />
 
 </selector>
