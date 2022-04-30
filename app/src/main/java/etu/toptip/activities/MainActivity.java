@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView= findViewById(R.id.nav_view);
         try {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container,new MapsFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,new AccueilFragment()).commit();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-        bottomNavigationView.setSelectedItemId(R.id.map);
+        bottomNavigationView.setSelectedItemId(R.id.accueil);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -50,16 +50,16 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch(item.getItemId()){
 
+                    case R.id.accueil:
+                        fragment = new AccueilFragment();
+                        break;
+
                     case R.id.maps:
                         try {
                             fragment = new MapsFragment();
                         } catch (Throwable throwable) {
                             throwable.printStackTrace();
                         }
-                        break;
-
-                    case R.id.accueil:
-                        fragment = new AccueilFragment();
                         break;
 
                     case R.id.profil:
