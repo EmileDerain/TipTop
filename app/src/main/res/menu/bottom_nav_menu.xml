@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_profil"
         android:title="@string/title_profil" />
 
+    <item
+        android:id="@+id/favoris"
+        android:icon="@drawable/ic_favoris"
+        android:title="@string/title_facvoris"/>
+
 </menu>

@@ -17,6 +17,7 @@ package etu.toptip.activities;
         import etu.toptip.fragments.AccueilFragment;
         import etu.toptip.fragments.GPSFragment;
         import etu.toptip.fragments.IGPS;
+        import etu.toptip.fragments.ListFavorisFragment;
         import etu.toptip.fragments.MapsFragment;
         import etu.toptip.fragments.NavigationFragment;
         import etu.toptip.fragments.ProfilFragment;
@@ -64,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.profil:
                         fragment = new ProfilFragment();
                         break;
+
+                    case R.id.favoris:
+                        fragment = new ListFavorisFragment();
+                        break;
+
 
                 }
                 assert fragment != null;
