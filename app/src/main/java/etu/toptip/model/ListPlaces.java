@@ -38,6 +38,8 @@ public class ListPlaces {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         listPlaces.clear();
 
+        listPlaces.add(FactoryManager.build("Picare", 0, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Antibes", "06600", "1770 Rte de Grasse"));
+
         try {
             OkHttpClient client = new OkHttpClient();
 
@@ -80,6 +82,8 @@ public class ListPlaces {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+//        listPlaces.remove(0);
     }
 
     public ArrayList<Place> getPlaces() {
