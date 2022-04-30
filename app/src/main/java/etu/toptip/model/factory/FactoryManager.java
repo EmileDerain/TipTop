@@ -6,14 +6,14 @@ import etu.toptip.model.factory.factorytype.SpecificPlanFactory;
 
 public class FactoryManager {
 
-    public static Place build(String name, int type, String image, String localisation, String description) throws Throwable {
+    public static Place build(String name, int type, String image, String ville, String codeP, String adresse) throws Throwable {
         if(type<=3){
             MultiplePlanFactory multiplePlanFactory = new MultiplePlanFactory();
-            return multiplePlanFactory.build(name,type,image,localisation,description);
+            return multiplePlanFactory.build(name,type,image,ville,codeP, adresse);
         }
         else {
             SpecificPlanFactory specificPlanFactory = new SpecificPlanFactory();
-            return specificPlanFactory.build(name,type,image,localisation,description);
+            return specificPlanFactory.build(name,type,image,ville,codeP, adresse);
         }
     }
 }

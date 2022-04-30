@@ -61,31 +61,22 @@ public class AddPlaceActivity extends AppCompatActivity {
                 EditText name = (EditText) findViewById(R.id.nameResto);
                 String nameText = name.getText().toString();
 
+                EditText ville = (EditText) findViewById(R.id.VilleResto);
+                String villeText = ville.getText().toString();
+
+                EditText code = (EditText) findViewById(R.id.CodeP);
+                String codeText = ville.getText().toString();
+
 
                 EditText adresse = (EditText) findViewById(R.id.AdresseResto);
                 String adresseText = adresse.getText().toString();
 
-                EditText description = (EditText) findViewById(R.id.DescriptionResto);
-                String descriptionText = description.getText().toString();
-
-                EditText expiration = (EditText) findViewById(R.id.ExpirationResto);
-                String expirationText = name.getText().toString();
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar c = Calendar.getInstance();
-                String date = sdf.format(c.getTime());
 
                 Spinner typeSpinner = (Spinner) findViewById(R.id.typeResto);
                 int type = typeSpinner.getSelectedItemPosition();
 
-
-                try{
-                    listPlaces.getPlaces().add(FactoryManager.build(nameText,type,null,adresseText,descriptionText));
-                } catch (Throwable e) {
-                    e.printStackTrace();
-                }
-
-                sendNotificationChannel(nameText,descriptionText,CHANNEL_ID,NotificationCompat.PRIORITY_DEFAULT, null);
+                Place place = new Place(nameText,type,"",villeText,codeText,adresseText);
+          //      sendNotificationChannel(nameText,"",CHANNEL_ID,NotificationCompat.PRIORITY_DEFAULT, null);
 
                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(myIntent);
@@ -121,7 +112,7 @@ public class AddPlaceActivity extends AppCompatActivity {
         startActivityIfNeeded(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
-
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

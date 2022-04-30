@@ -1,11 +1,31 @@
 package etu.toptip.fragments;
 
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import etu.toptip.R;
+import etu.toptip.activities.CameraActivity;
+import etu.toptip.activities.MainActivity;
+import etu.toptip.model.ListPlaces;
+import etu.toptip.model.factory.FactoryManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +34,14 @@ import etu.toptip.R;
  *
  */
 public class AddPlaceFragment extends Fragment {
+
+
+    int SELECT_PICTURE = 200;
+    private int notifID = 0;
+    ImageView imageView;
+    CameraFragment cameraFragment;
+    ImageView IVPreviewImage;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +87,78 @@ public class AddPlaceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_place, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_place, container, false);
+        /**imageView = findViewById(R.id.click_imageBP);
+         imageView.setImageBitmap(cameraFragment.getBitmap());
+
+         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+         Bitmap bitmap = drawable.getBitmap();*/
+
+        Button addBP = (Button) view.findViewById(R.id.BtnAjouterBP);
+        addBP.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                EditText name = (EditText) view.findViewById(R.id.nameResto);
+                String nameText = name.getText().toString();
+
+
+                EditText adresse = (EditText) view.findViewById(R.id.AdresseResto);
+                String adresseText = adresse.getText().toString();
+
+
+                Spinner typeSpinner = (Spinner) view.findViewById(R.id.typeResto);
+                int type = typeSpinner.getSelectedItemPosition();
+
+
+                Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                startActivity(myIntent);
+            }
+
+        });
+
+        Button cam = (Button) view.findViewById(R.id.BCamera);
+        cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        Button BSelectImage = view.findViewById(R.id.selectImage);
+        IVPreviewImage = view.findViewById(R.id.IVPreviewImage);
+        BSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageChooser();
+            }
+        });
+        return view;
+    }
+
+    void imageChooser() {
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+        getActivity().startActivityIfNeeded(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("test","ok");
+        if (resultCode == getActivity().RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    IVPreviewImage.setImageURI(selectedImageUri);
+                    System.out.println("j'ai rentré");
+
+                }
+            }
+        }
     }
 }

@@ -134,7 +134,7 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         int i=0;
         for(Place place : places.getPlaces()){
             try {
-                Address location = codergeo.getFromLocationName(place.getLocalisation(), 5).get(0);
+                Address location = codergeo.getFromLocationName(place.getAdresse()+place.getVille(), 5).get(0);
                 LatLng l = new LatLng(location.getLatitude(), location.getLongitude() );
                 MarkerOptions m = new MarkerOptions().position(l).title(place.getName()).zIndex(i);
                 googleMap.addMarker(m);

@@ -13,11 +13,11 @@ public class MultiplePlanFactory extends PlaceFactory {
 
 
     @Override
-    public Place build(String name, int type, String image, String localisation, String description) throws Throwable {
+    public Place build(String name, int type, String image, String ville, String codeP, String adresse) throws Throwable {
         switch (type){
-            case RESTAURANT: return new Restaurant(name,image,localisation,description) ;
-            case SUPERMARKET: return new Supermarket(name,image,localisation,description) ;
-            case HYPERMARKETS: return new Hypermarket(name,image,localisation,description) ;
+            case RESTAURANT: return new Restaurant(name,image,ville, codeP, adresse) ;
+            case SUPERMARKET: return new Supermarket(name,image,ville, codeP, adresse) ;
+            case HYPERMARKETS: return new Hypermarket(name,image,ville, codeP, adresse) ;
             default: throw new Throwable("not made");
         }
     }

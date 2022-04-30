@@ -60,7 +60,7 @@ public class PlaceAdapter extends BaseAdapter {
         view = (LinearLayout) (convertView == null ? inflater.inflate(R.layout.adapter_item, parent, false) : convertView);
         Place currentPlace = getItem(i);
         String name = currentPlace.getName();
-        String details = currentPlace.getDescription();
+        String details = currentPlace.getVille();
         String image = currentPlace.getImage();
 
         TextView nameView = view.findViewById(R.id.place_name);
@@ -71,8 +71,6 @@ public class PlaceAdapter extends BaseAdapter {
 
         ImageView imageView = view.findViewById(R.id.place_icon);
         Picasso.get().load(image).into(imageView);
-
-
 
         view.setOnClickListener(click->{
             listner.OnClickPlace(currentPlace);

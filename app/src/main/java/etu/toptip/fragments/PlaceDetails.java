@@ -103,7 +103,7 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
         nameView.setText(model.getName());
 
         TextView detailsView = view.findViewById(R.id.description);
-        detailsView.setText(model.getDescription());
+        detailsView.setText(model.getVille());
 
         ImageView imageView = view.findViewById(R.id.icon);
         Picasso.get().load(model.getImage()).into(imageView);

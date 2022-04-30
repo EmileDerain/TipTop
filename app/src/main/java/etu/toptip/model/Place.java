@@ -11,15 +11,17 @@ public class Place implements Parcelable {
     private String name;
     private int type;
     private String image;
-    private String localisation;
-    private String description;
+    private String ville;
+    private String codeP;
+    private String adresse;
 
-    public Place(String name, int type, String image, String localisation, String description) {
+    public Place(String name, int type, String image, String ville, String codeP, String adresse) {
         this.name = name;
         this.image = image;
         this.type = type;
-        this.localisation = localisation;
-        this.description = description;
+        this.ville = ville;
+        this.adresse = adresse;
+        this.codeP = codeP ;
     }
 
     protected Place(Parcel in) {
@@ -30,8 +32,9 @@ public class Place implements Parcelable {
         } else {
             image = in.readString();
         }
-        localisation = in.readString();
-        description = in.readString();
+        ville = in.readString();
+        codeP = in.readString();
+        adresse = in.readString();
     }
 
     public static final Creator<Place> CREATOR = new Creator<Place>() {
@@ -54,19 +57,9 @@ public class Place implements Parcelable {
         return type;
     }
 
-
     public String getImage() {
         return image;
     }
-
-    public String getLocalisation() {
-        return localisation;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
 
     @Override
     public int describeContents() {
@@ -83,7 +76,20 @@ public class Place implements Parcelable {
             parcel.writeByte((byte) 1);
             parcel.writeString(image);
         }
-        parcel.writeString(localisation);
-        parcel.writeString(description);
+        parcel.writeString(codeP);
+        parcel.writeString(adresse);
+        parcel.writeString(ville);
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public String getCodeP() {
+        return codeP;
+    }
+
+    public String getAdresse() {
+        return adresse;
     }
 }
