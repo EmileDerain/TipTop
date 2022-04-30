@@ -10,4 +10,12 @@
     <color name="green">#33A01A</color>
     <color name="redAuth">#FF0000</color>
     <color name="greenAuth">#43B02A</color>
+    <color name="purple_light">#87CEFA</color>
+    <color name="blue_medium">#008B8B</color>
+    <color name="blue_light">#87CEFA</color>
+    <color name="red">#CD5C5C</color>
+    <color name="checkedChip">#88CF00</color>
+    <color name="uncheckedChip">#E5E5E5</color>
+    <color name="ratingBar">#D1D100</color>
+    <color name="back">#83B4D8</color>
 </resources>

@@ -44,7 +44,6 @@ public class ListPlaces {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-//                    .url("http://192.168.1.14:3000/api/lieu")
                     .url("http://90.8.217.30:3000/api/lieu")
                     .build();
 
@@ -63,13 +62,13 @@ public class ListPlaces {
                         JSONArray jsonarray = new JSONArray(responseBody.string());
 
                         for (int i = 0; i < jsonarray.length(); i++) {
+                            imageUrl = ((JSONObject) jsonarray.get(i)).getString("imageUrl");
                             adresse = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
                             codepostal = ((JSONObject) jsonarray.get(i)).getString("codepostal");
                             typeBonPlan = Integer.parseInt(((JSONObject) jsonarray.get(i)).getString("typeBonPlan"));
                             ville = ((JSONObject) jsonarray.get(i)).getString("ville");
                             nomDuLieu = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
-                            imageUrl = ((JSONObject) jsonarray.get(i)).getString("imageUrl");
-
+                            System.out.println(imageUrl);
                             listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse));
                         }
                     } catch (Exception e) {
