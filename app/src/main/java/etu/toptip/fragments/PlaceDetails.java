@@ -1,5 +1,7 @@
 package etu.toptip.fragments;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,10 +103,10 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
         nameView.setText(model.getName());
 
         TextView detailsView = view.findViewById(R.id.description);
-        detailsView.setText(model.getDescription());
+        detailsView.setText(model.getVille());
 
         ImageView imageView = view.findViewById(R.id.icon);
-        imageView.setImageResource(model.getImage());
+        Picasso.get().load(model.getImage()).into(imageView);
 
         Button addToFavs = (Button) view.findViewById(R.id.BAjouterAuxFavs);
         addToFavs.setOnClickListener(new View.OnClickListener() {

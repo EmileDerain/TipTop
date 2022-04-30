@@ -1,5 +1,6 @@
 package etu.toptip.model;
 
+import etu.toptip.R;
 import etu.toptip.controller.LoginController;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -10,6 +11,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -47,8 +49,8 @@ public class LoginModel {
                     .build();
 
             Request request = new Request.Builder()
-//                    .url("http://90.8.217.30:3000/api/auth/login")
-                    .url("http://192.168.1.14:3000/api/auth/login")
+                    .url("http://90.8.217.30:3000/api/auth/login")
+//                    .url("http://192.168.1.14:3000/api/auth/login")
                     .post(requestBody)
                     .build();
 

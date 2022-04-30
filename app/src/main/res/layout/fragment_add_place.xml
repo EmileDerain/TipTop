@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AddPlaceActivity"
+    tools:context=".fragments.AddPlaceFragment"
     tools:ignore="HardcodedText">
-
     <TextView
         android:id="@+id/idAddHeader"
         android:layout_width="match_parent"
@@ -14,7 +13,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="Ajoutez un bon plan"
+        android:text="Ajoutez un lieu"
         android:textAlignment="center"
         android:textColor="@color/purple_700"
         android:textSize="18sp" />
@@ -31,55 +30,59 @@
         android:hint="Enter le nom du restaurant"
         android:inputType="text" />
 
-    <EditText
-        android:id="@+id/AdresseResto"
+
+    <Spinner
+        android:id="@+id/typeResto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nameResto"
         android:layout_marginStart="10dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="10dp"
-        android:hint="Entrer l'adresse du restaurant"
-        android:inputType="textPostalAddress"
-        tools:ignore="DuplicateIds" />
-
-    <Spinner
-        android:id="@+id/typeResto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/AdresseResto"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="10dp"
         android:entries="@array/types_bon_plan" />
 
     <EditText
-        android:id="@+id/DescriptionResto"
+        android:id="@+id/AdresseResto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/typeResto"
         android:layout_marginStart="10dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="10dp"
-        android:hint="Entrer une description"
+        android:hint="Entrer l'adresse"
+        android:inputType="textPostalAddress"
         tools:ignore="DuplicateIds" />
 
     <EditText
-        android:id="@+id/ExpirationResto"
+        android:id="@+id/VilleResto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/DescriptionResto"
+        android:layout_below="@id/AdresseResto"
         android:layout_marginStart="10dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="10dp"
-        android:hint="Date d'expiration"
+        android:hint="Entrer la ville"
+        android:inputType="textPostalAddress"
         tools:ignore="DuplicateIds" />
 
-    <Button
-        android:id="@+id/BSelectImage"
+    <EditText
+        android:id="@+id/CodeP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ExpirationResto"
+        android:layout_below="@id/VilleResto"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Entrer code postale"
+        android:inputType="textPostalAddress"
+        tools:ignore="DuplicateIds" />
+
+
+    <Button
+        android:id="@+id/selectImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CodeP"
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/green"
         android:text="SELECTIONNER UNE IMAGE"
@@ -91,7 +94,7 @@
         android:id="@+id/BCamera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/BSelectImage"
+        android:layout_below="@id/selectImage"
         android:layout_marginTop="9dp"
         android:backgroundTint="@color/green"
         android:text="PRENDRE UNE PHOTO"
@@ -102,7 +105,7 @@
         android:id="@+id/IVPreviewImage"
         android:layout_width="395dp"
         android:layout_height="183dp"
-        android:layout_below="@id/BSelectImage"
+        android:layout_below="@id/BCamera"
         android:layout_marginStart="16dp"
         android:layout_marginTop="133dp"
         android:layout_marginEnd="16dp" />
