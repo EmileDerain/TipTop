@@ -17,8 +17,8 @@ public class LoginController {
         this.loginModel.LoginModel2(email, password);
     }
 
-    public void OnLoginError2(String error,Boolean connect) {   //Recois du model et envoie au view
-        this.loginActivity.showError(error, connect);
+    public void OnLoginError2(String error,Boolean connect, String id) {   //Recois du model et envoie au view
+        this.loginActivity.showError(error, connect, id);
     }
 
 

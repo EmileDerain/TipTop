@@ -57,8 +57,8 @@ public class SignUpModel {
                     .build();
 
             Request request = new Request.Builder()
-//                    .url("http://192.168.1.14:3000/api/auth/signup")
-                    .url("http://90.8.217.30:3000/api/auth/signup")
+//                    .url("http://192.168.1.14:3000/api/user/auth/signup")
+                    .url("http://90.8.217.30:3000/api/user/auth/signup")
                     .post(requestBody)
                     .build();
 

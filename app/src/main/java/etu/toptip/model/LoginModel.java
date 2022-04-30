@@ -34,11 +34,11 @@ public class LoginModel {
     public void LoginModel2(String email, String password) {
 
         if (TextUtils.isEmpty(email)) {
-            loginController.OnLoginError2("Veuillez rentrer un e-mail", false);
+            loginController.OnLoginError2("Veuillez rentrer un e-mail", false, null);
         } else if ((!Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
-            loginController.OnLoginError2("Veuillez rentrer un e-mail valide", false);
+            loginController.OnLoginError2("Veuillez rentrer un e-mail valide", false, null);
         } else if (TextUtils.isEmpty(password)) {
-            loginController.OnLoginError2("Veuillez rentrer un mot de passe", false);
+            loginController.OnLoginError2("Veuillez rentrer un mot de passe", false, null);
         } else {
 
             client = new OkHttpClient();
@@ -49,8 +49,8 @@ public class LoginModel {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://90.8.217.30:3000/api/auth/login")
-//                    .url("http://192.168.1.14:3000/api/auth/login")
+                    .url("http://90.8.217.30:3000/api/user/auth/login")
+//                    .url("http://192.168.1.14:3000/api/user/auth/login")
                     .post(requestBody)
                     .build();
 
@@ -69,9 +69,9 @@ public class LoginModel {
                         JSONObject jsonObj = new JSONObject(responseBody.string());
 
                         if (jsonObj.getString("correct").equals("true"))
-                            loginController.OnLoginError2(jsonObj.getString("message"), true);
+                            loginController.OnLoginError2(jsonObj.getString("message"), true, jsonObj.getString("user"));
                         else
-                            loginController.OnLoginError2(jsonObj.getString("message"), false);
+                            loginController.OnLoginError2(jsonObj.getString("message"), false, null);
                     } catch (JSONException e) {
                         Log.d("Emile", "ERROR onResponse" + e.toString());
                         e.printStackTrace();

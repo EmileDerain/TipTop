@@ -37,47 +37,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("Emile", "onClickLogin");
                 loginController.OnLogin(email.getText().toString(), password.getText().toString());
-//
-//                int log = loginPresenter.OnLogin(email.getText().toString().trim(), password.getText().toString().trim());
-//                if (log == 1) {
-//
-//                    RequestBody requestBody = new FormBody.Builder()
-//                            .add("email", email.getText().toString())
-//                            .add("password", password.getText().toString())
-//                            .build();
-//
-//                    Request request = new Request.Builder()
-//                            .url("http://90.8.217.30:3000/api/auth/login")
-//                            .post(requestBody)
-//                            .build();
-//
-//                    client.newCall(request).enqueue(new Callback() {
-//                        @Override
-//                        public void onFailure(Call call, IOException e) {
-//                            Log.d("Emile", "ERROR login");
-//                            e.printStackTrace();
-//                        }
-//
-//                        @Override
-//                        public void onResponse(Call call, Response response) throws IOException {
-////                                Log.d("Emile", "login");
-//                            try (ResponseBody responseBody = response.body()) {
-////                                    Log.d("Emile", "JSP");
-//                                JSONObject jsonObj = new JSONObject(responseBody.string());
-////                                    Log.d("Emile", "responseBody: " + jsonObj.getString("error"));
-//                                titre.setText(jsonObj.getString("error"));
-////                                    iLoginView.OnLoginError(jsonObj.getString("error"));
-//                                if (jsonObj.getString("correct").equals("true")) {
-//                                    Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
-//                                    startActivity(myIntent);
-//                                }
-//                            } catch (JSONException e) {
-//                                Log.d("Emile", "Fail 2.0: " + e.getMessage());
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    });
-//                }
             }
         });
 
@@ -91,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void showError(String error, Boolean connect) {
+    public void showError(String error, Boolean connect, String id) {
 //        Toast toast = Toast.makeText(this, error, Toast.LENGTH_SHORT);
 //        toast.setGravity(Gravity.TOP | Gravity.CENTER, 20, 30);
 //        toast.show();
@@ -100,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         this.titre.setText(error);
         if (connect) {
+            Infologin.setIdUser(id);
             Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
             startActivity(myIntent);
         }

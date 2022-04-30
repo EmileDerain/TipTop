@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import etu.toptip.R;
+import etu.toptip.activities.Infologin;
 import etu.toptip.model.Place;
 import etu.toptip.model.factory.FactoryManager;
 import etu.toptip.model.factory.PlaceFactory;
