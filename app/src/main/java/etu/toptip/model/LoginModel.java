@@ -1,7 +1,5 @@
 package etu.toptip.model;
 
-import etu.toptip.controller.ILoginController;
-
 import etu.toptip.controller.LoginController;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -15,9 +13,6 @@ import okhttp3.ResponseBody;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.widget.EditText;
-
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;

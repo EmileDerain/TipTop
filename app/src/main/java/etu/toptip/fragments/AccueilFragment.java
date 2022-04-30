@@ -79,7 +79,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         }
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
         ListView listView = view.findViewById(R.id.place_list_view);
-        PlaceAdapter adap = new PlaceAdapter(container.getContext(),places.getPlaces());
+        PlaceAdapter adap = new PlaceAdapter(container.getContext(), places.getPlaces());
         listView.setAdapter(adap);
         adap.addListner(this);
 

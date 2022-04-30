@@ -1,13 +1,7 @@
 package etu.toptip.controller;
 
-import android.util.Log;
-
-import etu.toptip.activities.LoginActivity;
 import etu.toptip.activities.SignUpActivity;
-import etu.toptip.model.LoginModel;
 import etu.toptip.model.SignUpModel;
-import etu.toptip.model.User;
-import etu.toptip.view.ILoginView;
 
 public class SignUpController {
 
