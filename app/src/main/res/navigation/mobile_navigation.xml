@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_profil"
-        android:name="etu.toptip.fragments.AddPlaceFragment"
+        android:name="etu.toptip.fragments.ProfilFragment"
         android:label="@string/title_profil"
         tools:layout="@layout/fragment_profil" >
     </fragment>
