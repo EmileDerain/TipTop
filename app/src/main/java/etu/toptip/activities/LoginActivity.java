@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import etu.toptip.R;
 import etu.toptip.controller.LoginController;
+import etu.toptip.helper.Infologin;
 
 
 import android.content.Intent;

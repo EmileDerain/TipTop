@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -17,15 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import etu.toptip.R;
 import etu.toptip.activities.CameraActivity;
 import etu.toptip.activities.MainActivity;
-import etu.toptip.model.ListPlaces;
-import etu.toptip.model.factory.FactoryManager;
 
 /**
  * A simple {@link Fragment} subclass.

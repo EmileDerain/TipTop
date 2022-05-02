@@ -1,7 +1,5 @@
 package etu.toptip.activities;
 
-import static etu.toptip.activities.NotificationActivity.CHANNEL_ID;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -15,23 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import etu.toptip.R;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.model.BonPlan;
-import etu.toptip.model.ListPlaces;
-import etu.toptip.model.factory.FactoryManager;
+import etu.toptip.helper.ListPlacesThread;
 
 public class AddBonPlanActivity extends AppCompatActivity {
 
     int SELECT_PICTURE = 200;
     private int notifID = 0;
-    ListPlaces listPlaces = new ListPlaces();
+    ListPlacesThread listPlacesThread = new ListPlacesThread();
     ArrayList<String> infos = new ArrayList<>();
     ImageView imageView;
     CameraFragment cameraFragment;
@@ -115,8 +109,8 @@ public class AddBonPlanActivity extends AppCompatActivity {
         }
     }
 
-    public ListPlaces getListPlaces(){
-        return listPlaces ;
+    public ListPlacesThread getListPlaces(){
+        return listPlacesThread;
     }
 
     private void sendNotificationChannel(String title, String message, String channelId, int priority, Bitmap bitmap) {

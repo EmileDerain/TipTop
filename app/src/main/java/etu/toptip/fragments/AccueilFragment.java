@@ -1,6 +1,7 @@
 package etu.toptip.fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,19 +9,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import org.json.JSONObject;
+
 import etu.toptip.IListner;
 import etu.toptip.R;
-import etu.toptip.activities.AddBonPlanActivity;
 import etu.toptip.activities.AddPlaceActivity;
 
 import etu.toptip.model.Place;
-import etu.toptip.model.ListPlaces;
+import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.model.PlaceAdapter;
 
 
@@ -71,9 +74,11 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ListPlaces places = null;
+        ListPlacesThread places = null;
         try {
-            places = new ListPlaces();
+            places = new ListPlacesThread();
+            AsyncTask<String, Integer, JSONObject> execute = places.execute("http://90.8.217.30:3000/api/lieu");
+            Log.d("Emile", execute.get().toString());
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
@@ -92,14 +97,14 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
 
         });
 
-        return view ;
+        return view;
     }
 
     @Override
     public void OnClickPlace(Place place) {
         Fragment placeDetails = new PlaceDetails();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("place", (Parcelable)place );
+        bundle.putParcelable("place", (Parcelable) place);
         placeDetails.setArguments(bundle);
         replaceFragment(placeDetails);
     }

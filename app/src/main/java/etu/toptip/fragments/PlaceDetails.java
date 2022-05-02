@@ -3,34 +3,33 @@ package etu.toptip.fragments;
 import static java.lang.Integer.parseInt;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
 import etu.toptip.activities.AddBonPlanActivity;
-import etu.toptip.activities.AddPlaceActivity;
-import etu.toptip.model.BonPlan;
-import etu.toptip.model.BonPlanAdapter;
 import etu.toptip.model.ListFavoris;
-import etu.toptip.model.ListPlaces;
+import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.model.Place;
-import etu.toptip.model.PlaceAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,19 +72,18 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_place_details, container, false);
-/*
-        List<BonPlan> plans = new ArrayList<>();
-        plans.add(new BonPlan("today",null,0,0,"hij igy nhu nhu i i"));
-        ListView listView = view.findViewById(R.id.place_list_view);
-        BonPlanAdapter adap = new BonPlanAdapter(container.getContext(),plans);
-        listView.setAdapter(adap);
-        adap.addListner(this);*/
+
+//        List<BonPlan> plans = new ArrayList<>();
+//        plans.add(new BonPlan("today",null,0,0,"hij igy nhu nhu i i"));
+//        ListView listView = view.findViewById(R.id.place_list_view);
+//        BonPlanAdapter adap = new BonPlanAdapter(container.getContext(),plans);
+//        listView.setAdapter(adap);
+//        adap.addListner(this);
 
         Button add = (Button) view.findViewById(R.id.BAjouterBP);
         add.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +91,8 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
                 Intent myIntent = new Intent(container.getContext(), AddBonPlanActivity.class);
                 startActivity(myIntent);
             }
-
         });
+
         Bundle bundle = this.getArguments();
 
         Place model = bundle.getParcelable("place");
@@ -108,13 +106,13 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
         ImageView imageView = view.findViewById(R.id.icon);
         Picasso.get().load(model.getImage()).into(imageView);
 
+
         Button addToFavs = (Button) view.findViewById(R.id.BAjouterAuxFavs);
         addToFavs.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
-                ListPlaces places = null;
+                ListPlacesThread places = null;
                 try {
-                    places = new ListPlaces();
+                    places = new ListPlacesThread();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                 }

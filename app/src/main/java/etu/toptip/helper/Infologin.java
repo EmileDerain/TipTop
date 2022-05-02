@@ -1,4 +1,4 @@
-package etu.toptip.activities;
+package etu.toptip.helper;
 
 public class Infologin {
 

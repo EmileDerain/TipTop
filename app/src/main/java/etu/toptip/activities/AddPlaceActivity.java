@@ -1,13 +1,9 @@
 package etu.toptip.activities;
 
-import static etu.toptip.activities.NotificationActivity.CHANNEL_ID;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,25 +13,19 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
-import java.sql.SQLOutput;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import etu.toptip.R;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.model.Place;
-import etu.toptip.model.ListPlaces;
-import etu.toptip.model.factory.FactoryManager;
-import etu.toptip.model.factory.PlaceFactory;
+import etu.toptip.helper.ListPlacesThread;
 
 
 public class AddPlaceActivity extends AppCompatActivity {
 
     int SELECT_PICTURE = 200;
     private int notifID = 0;
-    ListPlaces listPlaces = new ListPlaces();
+    ListPlacesThread listPlacesThread = new ListPlacesThread();
     ArrayList<String> infos = new ArrayList<>();
     ImageView imageView;
     CameraFragment cameraFragment;
@@ -133,8 +123,8 @@ public class AddPlaceActivity extends AppCompatActivity {
         }
     }
 
-    public ListPlaces getListPlaces(){
-        return listPlaces ;
+    public ListPlacesThread getListPlaces(){
+        return listPlacesThread;
     }
 
     private void sendNotificationChannel(String title, String message, String channelId, int priority, Bitmap bitmap) {

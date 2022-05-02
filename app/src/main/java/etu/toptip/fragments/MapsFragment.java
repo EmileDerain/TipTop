@@ -17,8 +17,10 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +33,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import etu.toptip.R;
-import etu.toptip.model.ListPlaces;
+import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.model.Place;
 
 
@@ -53,7 +58,7 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
     SearchView searchView;
     private boolean textSubmitted =false;
 
-    public ListPlaces places = new ListPlaces();
+    public ListPlacesThread places = new ListPlacesThread();
 
     public MapsFragment() throws Throwable {
     }
@@ -62,6 +67,15 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
+
+        try {
+            places = new ListPlacesThread();
+            AsyncTask<String, Integer, JSONObject> execute = places.execute("http://90.8.217.30:3000/api/lieu");
+            Log.d("Emile", execute.get().toString());
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
         codergeo = new Geocoder(getActivity(), Locale.getDefault());
 
         searchView = view.findViewById(R.id.idSearchView);

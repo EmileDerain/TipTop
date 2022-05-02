@@ -1,31 +1,26 @@
 package etu.toptip.fragments;
 
 import androidx.fragment.app.Fragment;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import etu.toptip.R;
-import etu.toptip.activities.Infologin;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import etu.toptip.helper.Infologin;
+import etu.toptip.helper.InfoCompteThread;
 
 public class InformationsCompteFragment extends Fragment {
 
@@ -34,6 +29,8 @@ public class InformationsCompteFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    public TextView email, pseudo;
 
     public InformationsCompteFragment() {
     }
@@ -56,47 +53,27 @@ public class InformationsCompteFragment extends Fragment {
         }
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_infocompte, container, false);
 
-        OkHttpClient client = new OkHttpClient();
+        try {
+            String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
 
-        String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
-//        String url = "http://192.168.1.14:3000/api/user/" + Infologin.getIdUser();
+            InfoCompteThread infoCompteThread = new InfoCompteThread();
+            AsyncTask<String, Integer, JSONObject> execute;
+            execute = infoCompteThread.execute(url);
 
-        Request request = new Request.Builder()
-//                    .url("http://192.168.1.14:3000/api/user/auth/signup")
-                .url(url)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) {
-
-                TextView mail = view.findViewById(R.id.emailInfoCompteET);
-                TextView pseuso = view.findViewById(R.id.pseudoInfoCompteET);
-
-                try (ResponseBody responseBody = response.body()) {
-
-                    JSONObject jsonObj = new JSONObject(responseBody.string());
-
-                    mail.setText(jsonObj.getString("email"));
-                    pseuso.setText(jsonObj.getString("userName "));
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
+            this.email = view.findViewById(R.id.emailInfoCompteET);
+            this.email.setText(execute.get().getString("email"));
+            this.pseudo = view.findViewById(R.id.pseudoInfoCompteET);
+            this.pseudo.setText(execute.get().getString("userName"));
+        }catch (InterruptedException | ExecutionException | JSONException e) {
+            Log.d("Emile", "EROR: " + e.toString());
+            e.printStackTrace();
+        }
         return view;
     }
 }
