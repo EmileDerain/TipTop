@@ -13,19 +13,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <android.widget.SearchView
-        android:id="@+id/idSearchView2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/roundedbutton"
-        android:elevation="5dp"
-        app:iconifiedByDefault="false"
-        app:queryHint="Rechercher">
-    </android.widget.SearchView>
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/idSearchView2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/roundedbutton"
+            android:elevation="5dp"
+            app:iconifiedByDefault="false"
+            app:queryHint="Ville">
+
+        </androidx.appcompat.widget.SearchView>
 
 
         <Button
