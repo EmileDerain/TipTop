@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <androidx.appcompat.widget.SearchView
+    <android.widget.SearchView
         android:id="@+id/idSearchView2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -25,7 +25,7 @@
         android:elevation="5dp"
         app:iconifiedByDefault="false"
         app:queryHint="Rechercher">
-    </androidx.appcompat.widget.SearchView>
+    </android.widget.SearchView>
 
 
         <Button

@@ -15,8 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
@@ -87,6 +90,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         PlaceAdapter adap = new PlaceAdapter(container.getContext(), places.getPlaces());
         listView.setAdapter(adap);
         adap.addListner(this);
+        initSearchWidgets(places,listView,view);
 
         Button addBP = (Button) view.findViewById(R.id.BAjouterBP);
         addBP.setOnClickListener(new View.OnClickListener() {
@@ -117,5 +121,28 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         fragmentTransaction.replace(R.id.container, fragment, fragment.toString());
         fragmentTransaction.addToBackStack(fragment.toString());
         fragmentTransaction.commit();
+    }
+
+    public void initSearchWidgets(ListPlacesThread places,ListView listView , View view){
+        SearchView searchView = (SearchView) view.findViewById(R.id.idSearchView2);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                ArrayList<Place> filtredPlaces = new ArrayList<>();
+                for(Place place :places.getPlaces() ){
+                    if(place.getVille().toLowerCase().contains(s.toLowerCase())){
+                        filtredPlaces.add(place);
+                    }
+                }
+                PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(),filtredPlaces);
+                listView.setAdapter(placeAdapter);
+                return false;
+            }
+        });
     }
 }
