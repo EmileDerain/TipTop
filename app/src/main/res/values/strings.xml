@@ -9,9 +9,10 @@
         <item>Boulangeries</item>
         <item>Poissoneries</item>
     </string-array>
-    <string name="title_maps">MAP</string>
-    <string name="title_profil">COMPTE</string>
-    <string name="title_accueil">ACCUEIL</string>
+    <string name="title_maps"><b>MAP</b></string>
+    <string name="title_profil"><b>COMPTE </b></string>
+    <string name="title_accueil"><b>ACCUEIL</b></string>
+    <string name="title_facvoris"><b>FAVORIS</b></string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="place_name">Nom du lieu</string>
     <string name="place_details">super promo chez nous</string>
