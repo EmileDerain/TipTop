@@ -78,13 +78,6 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_place_details, container, false);
 
-//        List<BonPlan> plans = new ArrayList<>();
-//        plans.add(new BonPlan("today",null,0,0,"hij igy nhu nhu i i"));
-//        ListView listView = view.findViewById(R.id.place_list_view);
-//        BonPlanAdapter adap = new BonPlanAdapter(container.getContext(),plans);
-//        listView.setAdapter(adap);
-//        adap.addListner(this);
-
         Button add = (Button) view.findViewById(R.id.BAjouterBP);
         add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

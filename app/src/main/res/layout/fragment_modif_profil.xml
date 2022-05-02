@@ -11,13 +11,13 @@
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="Modifier mot de passe"
+        android:text="Modifier profil"
         android:textAlignment="center"
         android:textColor="@color/purple_700"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/idErreurModifPassword"
+        android:id="@+id/idErreurModifUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/idInfoHeader"
@@ -30,38 +30,27 @@
 
 
     <EditText
-        android:id="@+id/oldPassword"
+        android:id="@+id/newUserName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idErreurModifPassword"
+        android:layout_below="@id/idErreurModifUser"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:hint="Ancien mot de passe"
-        android:minHeight="48dp"
-        android:textSize="15dp" />
-
-    <EditText
-        android:id="@+id/newPassword"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/oldPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:hint="Nouveau mot de passe"
+        android:hint="Nouveau nom d'utilisateur"
         android:minHeight="48dp"
         android:textSize="15dp" />
 
     <Button
-        android:id="@+id/idBtnModifMdp"
+        android:id="@+id/idBtnModifUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/newPassword"
+        android:layout_below="@id/newUserName"
         android:layout_centerHorizontal="true"
         android:textSize="15dp"
-        android:hint="Modifier mot de passe"
+        android:hint="Modifier le profil"
         android:backgroundTint="@color/green"/>
 
 </RelativeLayout>

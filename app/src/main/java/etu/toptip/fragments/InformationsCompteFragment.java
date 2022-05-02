@@ -4,14 +4,18 @@ import androidx.fragment.app.Fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +35,7 @@ public class InformationsCompteFragment extends Fragment {
     private String mParam2;
 
     public TextView email, pseudo;
+    public String EMAIL, PSEUDO;
 
     public InformationsCompteFragment() {
     }
@@ -67,13 +72,47 @@ public class InformationsCompteFragment extends Fragment {
             execute = infoCompteThread.execute(url);
 
             this.email = view.findViewById(R.id.emailInfoCompteET);
-            this.email.setText(execute.get().getString("email"));
+            this.EMAIL = execute.get().getString("email");
+            this.email.setText(EMAIL);
             this.pseudo = view.findViewById(R.id.pseudoInfoCompteET);
-            this.pseudo.setText(execute.get().getString("userName"));
+            this.PSEUDO =execute.get().getString("userName");
+            this.pseudo.setText(this.PSEUDO);
         }catch (InterruptedException | ExecutionException | JSONException e) {
             Log.d("Emile", "EROR: " + e.toString());
             e.printStackTrace();
         }
+
+        Button modifProfil = view.findViewById(R.id.idBtnModifProfil);
+        modifProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+                public void onClick(View v) {
+                Fragment modif = new ModifProfilFragment();
+                replaceFragment(modif);
+                }
+
+        });
+
+        Button modifMdp = view.findViewById(R.id.idBtnModifMdp);
+        modifMdp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment modif = new ModifPasswordFragment();
+                replaceFragment(modif);
+            }
+
+        });
         return view;
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        Bundle bundle=new Bundle();
+        bundle.putString("pseudo", this.PSEUDO);//value= my value from code
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment, fragment.toString());
+        fragmentTransaction.addToBackStack(fragment.toString());
+        fragmentTransaction.commit();
+
     }
 }

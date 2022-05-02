@@ -21,6 +21,10 @@
         android:theme="@style/Theme.TopTip"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.login.Login22Activity"
+            android:exported="false"
+            android:label="@string/title_activity_login22" />
+        <activity
             android:name=".activities.AddBonPlanActivity"
             android:exported="false" />
 
@@ -43,7 +47,6 @@
         <activity
             android:name=".activities.SignUpActivity"
             android:exported="true" />
-
         <activity
             android:name=".activities.FavorisActivity"
             android:exported="true" />
