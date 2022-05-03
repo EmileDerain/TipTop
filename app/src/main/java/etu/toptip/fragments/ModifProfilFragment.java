@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import etu.toptip.R;
+import etu.toptip.controller.ModifPasswordController;
+import etu.toptip.controller.ModifProfilController;
 import etu.toptip.model.Place;
 
 /**
@@ -29,7 +32,9 @@ public class ModifProfilFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    String pseudo;
+    TextView titre;
+    EditText newPseudo;
+    ModifProfilController modifProfilController;
 
     public ModifProfilFragment() {
         // Required empty public constructor
@@ -63,9 +68,13 @@ public class ModifProfilFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_modif_profil, container, false);
+
+        this.titre = view.findViewById(R.id.idErreurModifUser);
+        this.newPseudo = view.findViewById(R.id.newUserName);
+
+        this.modifProfilController = new ModifProfilController(this);
 
         Bundle bundle = this.getArguments();
 
@@ -74,14 +83,31 @@ public class ModifProfilFragment extends Fragment {
         pseudoView.setText(model);
 
         Button buttonOK = view.findViewById(R.id.idBtnModifUserName);
+        buttonOK.setText("JE SUIS UN TEST");
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ///à completer
+                modifProfilController.OnModifProfil(newPseudo.getText().toString());
+
             }
 
         });
 
         return view;
     }
+
+
+    public void showError(String error, Boolean create) {
+//        Toast toast = Toast.makeText(this, error, Toast.LENGTH_SHORT);
+//        toast.setGravity(Gravity.TOP | Gravity.CENTER, 20, 30);
+//        toast.show();
+        if (create) {
+            this.titre.setTextColor(getResources().getColor(R.color.greenAuth));
+        }
+        this.titre.setText(error);
+        if (create) {
+            //Changer de fragment
+        }
+    }
+
 }

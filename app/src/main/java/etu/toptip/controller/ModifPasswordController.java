@@ -1,17 +1,18 @@
 package etu.toptip.controller;
 
 import etu.toptip.activities.LoginActivity;
+import etu.toptip.fragments.ModifPasswordFragment;
 import etu.toptip.model.LoginModel;
 import etu.toptip.model.ModifPasswordModel;
 
 public class ModifPasswordController {
 
     private ModifPasswordModel modifPasswordModel;
-//    private ModifPasswordActivity modifPasswordActivity;  //View  ???
+    private ModifPasswordFragment modifPasswordActivity;  //View  ???
 
-    public ModifPasswordController(LoginActivity loginActivity) {
+    public ModifPasswordController(ModifPasswordFragment modifPasswordActivity) {
         this.modifPasswordModel = new ModifPasswordModel(this);
-//        this.modifPasswordActivity = loginActivity;
+        this.modifPasswordActivity = modifPasswordActivity;
     }
 
     public void OnModifPassword(String oldPassword, String newPassword) {     //Envoie model
@@ -19,7 +20,7 @@ public class ModifPasswordController {
     }
 
     public void OnModifPasswordError2(String error,Boolean connect) {   //Recois du model et envoie au view
-//        this.loginActivity.showError(error, connect);
+        this.modifPasswordActivity.showError(error, connect);
     }
 
 

@@ -78,7 +78,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         try {
             places = new ListPlacesThread();
             AsyncTask<String, Integer, JSONObject> execute = places.execute("http://90.8.217.30:3000/api/lieu");
-            Log.d("Emile", execute.get().toString());
+//            Log.d("Emile", execute.get().toString());
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

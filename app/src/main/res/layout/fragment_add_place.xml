@@ -18,12 +18,23 @@
         android:textColor="@color/purple_700"
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/idErreurModifLieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/idAddHeader"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/redAuth"
+        android:textSize="15dp" />
 
     <EditText
         android:id="@+id/nameResto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idAddHeader"
+        android:layout_below="@id/idErreurModifLieu"
         android:layout_marginStart="10dp"
         android:layout_marginTop="23dp"
         android:layout_marginEnd="10dp"

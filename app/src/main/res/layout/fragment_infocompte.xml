@@ -71,23 +71,23 @@
         android:id="@+id/idBtnModifProfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:layout_below="@id/pseudoInfoCompteET"
         android:layout_centerHorizontal="true"
-        android:textSize="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
         android:hint="Modifier information compte"
-        android:backgroundTint="@color/green"/>
+        android:textSize="15dp" />
 
     <Button
         android:id="@+id/idBtnModifMdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_below="@id/idBtnModifProfil"
         android:layout_centerHorizontal="true"
-        android:textSize="15dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/green"
         android:hint="Modifier mot de passe"
-        android:backgroundTint="@color/green"/>
+        android:textSize="15dp" />
 
 </RelativeLayout>

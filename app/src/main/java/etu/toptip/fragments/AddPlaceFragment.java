@@ -15,9 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import etu.toptip.R;
 import etu.toptip.activities.CameraActivity;
+import etu.toptip.activities.LoginActivity;
 import etu.toptip.activities.MainActivity;
 
 /**
@@ -34,6 +36,7 @@ public class AddPlaceFragment extends Fragment {
     ImageView imageView;
     CameraFragment cameraFragment;
     ImageView IVPreviewImage;
+    TextView titre;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -81,6 +84,9 @@ public class AddPlaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_place, container, false);
+
+        this.titre = view.findViewById(R.id.idErreurModifLieu);
+
         /**imageView = findViewById(R.id.click_imageBP);
          imageView.setImageBitmap(cameraFragment.getBitmap());
 
@@ -153,5 +159,21 @@ public class AddPlaceFragment extends Fragment {
                 }
             }
         }
+    }
+
+
+
+    public void showError(String error, Boolean create) {
+//        Toast toast = Toast.makeText(this, error, Toast.LENGTH_SHORT);
+//        toast.setGravity(Gravity.TOP | Gravity.CENTER, 20, 30);
+//        toast.show();
+        if (create) {
+            this.titre.setTextColor(getResources().getColor(R.color.greenAuth));
+        }
+        this.titre.setText(error);
+//        if (create) {
+//            Intent myIntent = new Intent(getBaseContext(), LoginActivity.class);
+//            startActivity(myIntent);
+//        }
     }
 }

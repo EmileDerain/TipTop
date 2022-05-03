@@ -75,9 +75,10 @@ public class InformationsCompteFragment extends Fragment {
             this.EMAIL = execute.get().getString("email");
             this.email.setText(EMAIL);
             this.pseudo = view.findViewById(R.id.pseudoInfoCompteET);
-            this.PSEUDO =execute.get().getString("userName");
+            this.PSEUDO = execute.get().getString("userName");
             this.pseudo.setText(this.PSEUDO);
-        }catch (InterruptedException | ExecutionException | JSONException e) {
+
+        } catch (InterruptedException | ExecutionException | JSONException e) {
             Log.d("Emile", "EROR: " + e.toString());
             e.printStackTrace();
         }
@@ -85,17 +86,19 @@ public class InformationsCompteFragment extends Fragment {
         Button modifProfil = view.findViewById(R.id.idBtnModifProfil);
         modifProfil.setOnClickListener(new View.OnClickListener() {
             @Override
-                public void onClick(View v) {
+            public void onClick(View v) {
                 Fragment modif = new ModifProfilFragment();
                 replaceFragment(modif);
-                }
+            }
 
         });
 
         Button modifMdp = view.findViewById(R.id.idBtnModifMdp);
+        modifMdp.setText("WEfgwegweg");
         modifMdp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("Emile", "TETSETESTSET2");
                 Fragment modif = new ModifPasswordFragment();
                 replaceFragment(modif);
             }
@@ -105,7 +108,7 @@ public class InformationsCompteFragment extends Fragment {
     }
 
     public void replaceFragment(Fragment fragment) {
-        Bundle bundle=new Bundle();
+        Bundle bundle = new Bundle();
         bundle.putString("pseudo", this.PSEUDO);//value= my value from code
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
