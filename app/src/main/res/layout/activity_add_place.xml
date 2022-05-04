@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".activities.AddPlaceActivity">
 
     <RelativeLayout
@@ -14,13 +15,13 @@
         android:id="@+id/idAddHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text="Ajoutez un lieu"
         android:textAlignment="center"
-        android:textColor="@color/purple_700"
-        android:textSize="18sp" />
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
 
     <EditText
@@ -29,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/idAddHeader"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="10dp"
         android:hint="Enter le nom du restaurant"
         android:inputType="text" />
@@ -82,19 +83,18 @@
         tools:ignore="DuplicateIds" />
 
 
-    <Button
-        android:id="@+id/BSelectImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/BtnAjouterBP"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@color/green"
-        android:text="SELECTIONNER UNE IMAGE"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        <Button
+            android:id="@+id/BSelectImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnAjouterBP"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/green"
+            android:text="SELECTIONNER UNE IMAGE"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
-
-    <ImageView
+        <ImageView
         android:id="@+id/IVPreviewImage"
         android:layout_width="395dp"
         android:layout_height="183dp"

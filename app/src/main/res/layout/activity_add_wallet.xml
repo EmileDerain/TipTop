@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/bg"
     android:layout_height="match_parent"
     tools:context=".activities.AddWalletActivity">
 
@@ -14,13 +15,13 @@
             android:id="@+id/idAddHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:gravity="center_horizontal"
             android:padding="5dp"
             android:text="Ajoutez une carte "
             android:textAlignment="center"
-            android:textColor="@color/purple_700"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
 
         <Spinner
@@ -29,30 +30,31 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/idAddHeader"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="160dp"
             android:layout_marginEnd="10dp" />
 
-        <Button
-            android:id="@+id/ajout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nameW"
-            android:layout_marginTop="9dp"
-            android:backgroundTint="@color/green"
-            android:text="AJOUTER LE BON PLAN"
-            android:textColor="@android:color/white"
-            android:textSize="18dp" />
 
         <Button
             android:id="@+id/BSelectImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ajout"
-            android:layout_marginTop="28dp"
+            android:layout_below="@id/nameW"
+            android:layout_marginTop="33dp"
             android:backgroundTint="@color/green"
             android:text="SELECTIONNER UNE IMAGE"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/ajout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BSelectImage"
+            android:layout_marginTop="9dp"
+            android:backgroundTint="@color/green"
+            android:text="AJOUTER LE BON PLAN"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/IVPreviewImage"
