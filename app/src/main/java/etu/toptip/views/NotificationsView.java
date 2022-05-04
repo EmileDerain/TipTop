@@ -21,22 +21,23 @@ import java.util.Observer;
 import java.util.Random;
 
 import etu.toptip.R;
+import etu.toptip.activities.AddBonPlanActivity;
 import etu.toptip.activities.MainActivity;
 import etu.toptip.controller.NotificationsController;
 import etu.toptip.model.NotificationsModel;
 
 public class NotificationsView implements Observer {
     private NotificationsController notificationsController;
-    private final View root;
     int notificationId=0;
+    private AddBonPlanActivity addBonPlanActivity;
 
-    public NotificationsView(RelativeLayout root) {
-        this.root = root;
+    public NotificationsView(AddBonPlanActivity addBonPlanActivity) {
+        this.addBonPlanActivity=addBonPlanActivity;
         this.setListeners();
     }
 
     private void setListeners() {
-        final Button showNotificationButton = root.findViewById(R.id.BtnAjouterBP);
+        final Button showNotificationButton = addBonPlanActivity.findViewById(R.id.BtnAjouterBP);
         showNotificationButton.setOnClickListener(click -> notificationsController.newNotification());
     }
 
@@ -54,7 +55,7 @@ public class NotificationsView implements Observer {
         final String title = "TIP TOP";
         final String channelId = "notification.channel2";
         final int flags = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
-        Context context = root.getContext();
+        Context context = addBonPlanActivity.getBaseContext();
 
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         Intent intent = new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

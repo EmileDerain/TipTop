@@ -27,6 +27,7 @@ import etu.toptip.fragments.CameraFragment;
 import etu.toptip.fragments.ICameraPermission;
 import etu.toptip.model.BonPlan;
 import etu.toptip.helper.ListPlacesThread;
+import etu.toptip.views.NotificationsView;
 
 
 public class AddBonPlanActivity extends AppCompatActivity implements ICameraPermission {
@@ -39,6 +40,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
     ImageView image;
     private Bitmap picture;
     NotificationsController notificationsController;
+    NotificationsView notificationsView;
 
 
     public AddBonPlanActivity() throws Throwable {
@@ -50,7 +52,8 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bon_plan);
         image = findViewById(R.id.ImageCamera);
-        //notificationsController = new NotificationsController(new NotificationsView());
+        notificationsView = new NotificationsView(this);
+        notificationsController = new NotificationsController(notificationsView);
 
 
         Button addBP = (Button) findViewById(R.id.BtnAjouterBP);
@@ -122,9 +125,8 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
                 IVPreviewImage.setImageBitmap(bitmap);
             }
             if (requestCode==REQUEST_CAMERA){
-                if (resultCode == RESULT_OK) {
                     picture = (Bitmap) data.getExtras().get("data");
-                    setImage(picture);
+                    if (null != picture) { setImage(picture);
                 }else if (resultCode == RESULT_CANCELED) {
                     Toast toast = Toast.makeText(getApplicationContext(),"picture canceled", Toast.LENGTH_LONG );
                     toast.show();
@@ -132,6 +134,10 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
                     Toast toast = Toast.makeText(getApplicationContext(),"action failed", Toast.LENGTH_LONG );
                     toast.show();
                 }
+            }
+            if (requestCode == 101) {
+                Bitmap bitmap = (Bitmap) (data != null ? data.getExtras().get("data") : null);
+                IVPreviewImage.setImageBitmap(bitmap);
             }
         }
     }

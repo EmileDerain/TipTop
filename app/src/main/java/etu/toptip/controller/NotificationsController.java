@@ -8,15 +8,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 
-import etu.toptip.activities.NotificationActivity;
+import etu.toptip.activities.AddBonPlanActivity;
 import etu.toptip.model.NotificationsModel;
 import etu.toptip.views.NotificationsView;
 
 public class NotificationsController {
     private final NotificationsView notificationsView;
+    //private AddBonPlanActivity addBonPlanActivity;
 
     public NotificationsController(NotificationsView notificationsView) {
         this.notificationsView = notificationsView;
+        //this.addBonPlanActivity=addBonPlanActivity;
     }
 
     /**
