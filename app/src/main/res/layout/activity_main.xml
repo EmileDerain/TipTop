@@ -15,7 +15,7 @@
         app:menu="@menu/bottom_nav_menu"
         android:background="@drawable/roundbar"
         app:itemRippleColor="@android:color/transparent"
-        app:itemTextColor="@color/red"
+        app:itemTextColor="#0e81d1"
         app:itemIconSize="25dp"
         app:itemIconTint="@drawable/item_selector"
         android:id="@+id/nav_view"/>

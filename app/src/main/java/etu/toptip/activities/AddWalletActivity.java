@@ -1,37 +1,45 @@
 package etu.toptip.activities;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import etu.toptip.R;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.fragments.ICameraPermission;
 import etu.toptip.fragments.IStorageActivity;
 import etu.toptip.fragments.StorageFragment;
-import etu.toptip.model.Place;
 import etu.toptip.helper.ListPlacesThread;
+import etu.toptip.model.ListWallet;
+import etu.toptip.model.Place;
+import etu.toptip.model.Wallet;
 
-
-public class AddPlaceActivity extends AppCompatActivity implements ICameraPermission, IStorageActivity {
-
+public class AddWalletActivity extends AppCompatActivity implements ICameraPermission, IStorageActivity {
     int SELECT_PICTURE = 200;
     private int notifID = 0;
-    ListPlacesThread listPlacesThread = new ListPlacesThread();
+
+    ListPlacesThread places = new ListPlacesThread();
+    ListWallet listWallet = new ListWallet();
     ArrayList<String> infos = new ArrayList<>();
     ImageView IVPreviewImage;
     ImageView image;
@@ -39,13 +47,19 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
     private CameraFragment cameraFragment;
     private StorageFragment storageFragment;
 
-    public AddPlaceActivity() throws Throwable {
+
+    public AddWalletActivity()  throws Throwable  {
     }
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_place);
+        for(Place l : places.getPlaces()){
+            System.out.println("ok");
+            System.out.println(l.getName());
+        }
+        setContentView(R.layout.activity_add_wallet);
 
         cameraFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentCamera);
         if (cameraFragment==null) cameraFragment = new CameraFragment();
@@ -54,6 +68,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
+
         storageFragment = (StorageFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentStorage);
         if (storageFragment==null) storageFragment = new StorageFragment(this);
         FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
@@ -61,29 +76,15 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         fragmentTransaction2.addToBackStack(null);
         fragmentTransaction2.commit();
 
-        Button addBP = (Button) findViewById(R.id.BtnAjouterBP);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, places.getNames());
+        Spinner name =  findViewById(R.id.nameW);
+        name.setAdapter(spinnerAdapter);
+
+
+        Button addBP = (Button) findViewById(R.id.ajout);
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                EditText name = (EditText) findViewById(R.id.nameResto);
-                String nameText = name.getText().toString();
-
-                EditText ville = (EditText) findViewById(R.id.VilleResto);
-                String villeText = ville.getText().toString();
-
-                EditText code = (EditText) findViewById(R.id.CodeP);
-                String codeText = ville.getText().toString();
-
-
-                EditText adresse = (EditText) findViewById(R.id.AdresseResto);
-                String adresseText = adresse.getText().toString();
-
-
-                Spinner typeSpinner = (Spinner) findViewById(R.id.typeResto);
-
-                int type = typeSpinner.getSelectedItemPosition();
-
-                Place place = new Place(nameText, type, "", villeText, codeText, adresseText);
-                //      sendNotificationChannel(nameText,"",CHANNEL_ID,NotificationCompat.PRIORITY_DEFAULT, null);
+                listWallet.getWallet().add(new Wallet("nadim", "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg"));
 
                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(myIntent);
@@ -109,6 +110,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
 
         startActivityIfNeeded(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -147,6 +149,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         }
     }
 
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -181,25 +184,6 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
             }
         }
     }
-
-    public ListPlacesThread getListPlaces(){
-        return listPlacesThread;
-    }
-
-    /**
-     * private void sendNotificationChannel(String title, String message, String channelId, int priority, Bitmap bitmap) {
-     * NotificationCompat.Builder notif = new NotificationCompat.Builder(getApplicationContext(), channelId) //création de la notif
-     * .setSmallIcon(R.drawable.logo)
-     * .setLargeIcon(bitmap)
-     * .setContentTitle(title)
-     * .setContentText(message)
-     * .setPriority(priority)
-     * .setStyle(new NotificationCompat.BigPictureStyle()
-     * .bigPicture(bitmap)
-     * .bigLargeIcon(null));
-     * NotificationActivity.getNotificationManager().notify(notifID, notif.build());
-     * }
-     */
 
     @Override
     public void onPictureLoad(Bitmap bitmap) {

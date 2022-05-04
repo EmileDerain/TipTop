@@ -21,6 +21,9 @@
         android:theme="@style/Theme.TopTip"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.AddWalletActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AddBonPlanActivity"
             android:exported="false" />
 

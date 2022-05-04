@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import etu.toptip.model.Place;
 import etu.toptip.model.factory.FactoryManager;
@@ -129,5 +131,18 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
             if (place.getName() == name) return place;
         }
         return null;
+    }
+
+
+    public ArrayList<String> getNames(){
+        ArrayList<String> set = new ArrayList<>();
+        set.add("Lidl");
+        set.add("Carrefour");
+        set.add("Casino");
+        for (Place place : listPlaces) {
+            set.add(place.getName());
+        }
+
+        return set;
     }
 }

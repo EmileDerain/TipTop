@@ -60,7 +60,7 @@ public class PlaceAdapter extends BaseAdapter {
         view = (LinearLayout) (convertView == null ? inflater.inflate(R.layout.adapter_item, parent, false) : convertView);
         Place currentPlace = getItem(i);
         String name = currentPlace.getName();
-        String details = currentPlace.getVille();
+        String details = currentPlace.getVille() + " "+ currentPlace.getCodeP();
         String image = currentPlace.getImage();
 
         TextView nameView = view.findViewById(R.id.place_name);

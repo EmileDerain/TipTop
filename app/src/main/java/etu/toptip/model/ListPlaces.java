@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import etu.toptip.model.factory.FactoryManager;
 import okhttp3.Call;
@@ -92,5 +94,6 @@ public class ListPlaces {
         }
         return null;
     }
+
 
 }

@@ -81,10 +81,13 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         try {
             places = new ListPlacesThread();
             AsyncTask<String, Integer, JSONObject> execute = places.execute("http://90.8.217.30:3000/api/lieu");
-//            Log.d("Emile", execute.get().toString());
+            System.out.println("ok"+places.getPlaces());
+
+            //            Log.d("Emile", execute.get().toString());
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
+
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
         ListView listView = view.findViewById(R.id.place_list_view);
         PlaceAdapter adap = new PlaceAdapter(container.getContext(), places.getPlaces());
@@ -94,7 +97,9 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
 
         Button addBP = (Button) view.findViewById(R.id.BAjouterBP);
         addBP.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View view) {
+
                 Intent myIntent = new Intent(container.getContext(), AddPlaceActivity.class);
                 startActivity(myIntent);
             }

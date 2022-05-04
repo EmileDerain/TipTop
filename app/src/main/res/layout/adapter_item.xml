@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="#fdaaaa"
     android:layout_marginStart="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="10dp"
@@ -48,6 +47,7 @@
                 android:id="@+id/place_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/place_name"
                 android:textColor="@color/green"
                 android:textSize="20dp" />
@@ -55,6 +55,8 @@
             <TextView
                 android:id="@+id/place_details"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/place_name"
                 android:text="@string/place_details" />

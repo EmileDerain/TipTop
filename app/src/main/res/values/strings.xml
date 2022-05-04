@@ -14,7 +14,7 @@
     <string name="title_accueil"><b>ACCUEIL</b></string>
     <string name="title_facvoris"><b>FAVORIS</b></string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="place_name">Nom du lieu</string>
+    <string name="place_name"><b>Nom du lieu </b></string>
     <string name="place_details">super promo chez nous</string>
     <string name="place_ville">Ville du lieu</string>
     <string name="place_expiration">Date d expiration</string>
