@@ -40,7 +40,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
     ListPlacesThread listPlacesThread = new ListPlacesThread();
     ArrayList<String> infos = new ArrayList<>();
     ImageView IVPreviewImage;
-    ImageView image;
+
     private Bitmap picture;
     NotificationsController notificationsController;
     NotificationsView notificationsView;
@@ -75,7 +75,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         notificationsController = new NotificationsController(notificationsView);
 
 
-        Button addBP = (Button) findViewById(R.id.BtnAjouterBP);
+        Button addBP = (Button) findViewById(R.id.BtnAjouterBPOK);
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
@@ -216,4 +216,8 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         public Bitmap getPictureToSave() {
             return picture;
         }
+
+    public Bitmap getPicture() {
+        return picture;
+    }
 }

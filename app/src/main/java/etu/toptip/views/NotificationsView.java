@@ -29,6 +29,11 @@ import etu.toptip.model.NotificationsModel;
 public class NotificationsView implements Observer {
     private NotificationsController notificationsController;
     int notificationId=0;
+
+    public AddBonPlanActivity getAddBonPlanActivity() {
+        return addBonPlanActivity;
+    }
+
     private AddBonPlanActivity addBonPlanActivity;
 
     public NotificationsView(AddBonPlanActivity addBonPlanActivity) {
@@ -37,7 +42,7 @@ public class NotificationsView implements Observer {
     }
 
     private void setListeners() {
-        final Button showNotificationButton = addBonPlanActivity.findViewById(R.id.BtnAjouterBP);
+        final Button showNotificationButton = addBonPlanActivity.findViewById(R.id.BtnAjouterBPOK);
         showNotificationButton.setOnClickListener(click -> notificationsController.newNotification());
     }
 
@@ -60,16 +65,16 @@ public class NotificationsView implements Observer {
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         Intent intent = new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, flags);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
 
-        builder.setSmallIcon(R.drawable.logo);
-        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
-        builder.setContentTitle(title);
-        builder.setContentText(text);
-        builder.setContentIntent(pendingIntent);
-        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(img));
-        builder.setAutoCancel(true);
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+        .setSmallIcon(R.drawable.logo)
+        .setDefaults(NotificationCompat.DEFAULT_ALL)
+        .setContentTitle(title)
+        .setContentText(text)
+        .setContentIntent(pendingIntent)
+        .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(img))
+        .setAutoCancel(true)
+        .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (notificationManager != null && notificationManager.getNotificationChannel(channelId) == null) {
@@ -82,8 +87,10 @@ public class NotificationsView implements Observer {
             }
         }
 
-        Notification notification = builder.build();
-        Objects.requireNonNull(notificationManager).notify(notificationId++, notification);
+        //Notification notification = builder.build();
+        //Objects.requireNonNull(notificationManager).notify(notificationId++, notification);
+        notificationManager.notify(notificationId++, builder.build());
+
     }
 
     /**

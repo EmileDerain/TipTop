@@ -42,8 +42,7 @@ public class NotificationsController {
         Observable e = new Observable();
         e.notifyObservers();
         notificationsModel.setNotificationText("TipTop");
-        notificationsModel.setNotificationImage(null);
+        notificationsModel.setNotificationImage(notificationsView.getAddBonPlanActivity().getPicture());
         notificationsView.update(e, notificationsModel);
-
     }
 }
