@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".activities.SignUpActivity">
 
 
@@ -12,13 +13,13 @@
         android:id="@+id/idTVHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="Veuillez saisir vos informations !"
+        android:text="Veuillez saisir vos informations "
         android:textAlignment="center"
-        android:textColor="@color/purple_700"
-        android:textSize="18sp" />
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
     <!--edit text for user name-->
 
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/idTVHeader"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="160dp"
         android:layout_marginEnd="10dp"
         android:hint="Nom d'utilisateur"
         android:inputType="textEmailAddress" />

@@ -2,6 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.AddBonPlanActivity">
@@ -10,18 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <TextView
             android:id="@+id/idAddHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="70dp"
             android:gravity="center_horizontal"
             android:padding="5dp"
             android:text="Ajoutez un bon plan"
             android:textAlignment="center"
-            android:textColor="@color/purple_700"
-            android:textSize="18sp" />
-
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/description"
@@ -29,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/idAddHeader"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="150dp"
             android:layout_marginEnd="10dp"
             android:hint="Entrer une description"
             tools:ignore="DuplicateIds" />
