@@ -99,7 +99,7 @@ public class InformationsCompteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Emile", "TETSETESTSET2");
-                Fragment modif = new ModifPasswordFragment();
+                Fragment modif = new ModifPwdFragment();
                 replaceFragment(modif);
             }
 

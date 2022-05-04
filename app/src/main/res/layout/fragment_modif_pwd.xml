@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/idInfoCompte"
+    android:id="@+id/idPwd"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,10 +17,10 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/idErreurModifPassword"
+        android:id="@+id/idErreurModifPwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/idInfoHeader"
+        android:layout_below="@+id/idInfoHeader5"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:text=""
@@ -30,10 +30,10 @@
 
 
     <EditText
-        android:id="@+id/oldPassword"
+        android:id="@+id/pwd1"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idErreurModifPassword"
+        android:layout_below="@id/idErreurModifPwd"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -42,26 +42,27 @@
         android:textSize="15dp" />
 
     <EditText
-        android:id="@+id/newPassword"
+        android:id="@+id/pwd2"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/oldPassword"
+        android:layout_below="@id/pwd1"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:hint="Nouveau mot de passe"
         android:minHeight="48dp"
         android:textSize="15dp" />
 
     <Button
-        android:id="@+id/ok"
+        android:id="@+id/idBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/newPassword"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@color/green"
-        android:hint="Modifier "
-        android:textSize="15dp" />
+        android:layout_below="@id/pwd2"
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp"
+        android:hint="Modifier le profil"
+        android:backgroundTint="@color/green"/>
 
 </RelativeLayout>
