@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +24,11 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
     public static ArrayList<Place> listPlaces = new ArrayList<>();
 
     public ListPlacesThread() throws Throwable {
+
+
+
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        listPlaces.clear();
+
 //        listPlaces.add(FactoryManager.build("Picare", 0, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Antibes", "06600", "1770 Rte de Grasse"));
         //
 //        try {
@@ -101,16 +105,22 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
 
             jsonarray = new JSONArray(apiResponse);
 
-            for (int i = 0; i < jsonarray.length(); i++) {
-                imageUrl = ((JSONObject) jsonarray.get(i)).getString("imageUrl");
-                adresse = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
-                codepostal = ((JSONObject) jsonarray.get(i)).getString("codepostal");
-                typeBonPlan = Integer.parseInt(((JSONObject) jsonarray.get(i)).getString("typeBonPlan"));
-                ville = ((JSONObject) jsonarray.get(i)).getString("ville");
-                nomDuLieu = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
-                System.out.println(imageUrl);
-                listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse));
+
+            if(listPlaces.size() != jsonarray.length()) {
+                listPlaces.clear();
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    imageUrl = ((JSONObject) jsonarray.get(i)).getString("imageUrl");
+                    adresse = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
+                    codepostal = ((JSONObject) jsonarray.get(i)).getString("codepostal");
+                    typeBonPlan = Integer.parseInt(((JSONObject) jsonarray.get(i)).getString("typeBonPlan"));
+                    ville = ((JSONObject) jsonarray.get(i)).getString("ville");
+                    nomDuLieu = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
+                    listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse));
+                }
             }
+
+
+
 
         } catch (Exception e) {
             Log.d("Emile", "Error: " + e.toString());
