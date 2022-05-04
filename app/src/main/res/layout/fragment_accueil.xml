@@ -6,12 +6,13 @@
     android:background="@drawable/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="55dp"
+
     tools:context=".fragments.AccueilFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
         android:orientation="vertical">
 
         <TextView
