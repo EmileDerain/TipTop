@@ -38,7 +38,7 @@ public class CameraFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
         image = view.findViewById(R.id.click_image);
 
-        Button btnCamera = view.findViewById(R.id.camera_button);
+        Button btnCamera = view.findViewById(R.id.BCamera);
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,17 +47,6 @@ public class CameraFragment extends Fragment {
                 }else{
                     takePicture();
                 }
-            }
-        });
-
-        Button btnBack = view.findViewById(R.id.back_button);
-        btnBack.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
-                bitmap = drawable.getBitmap();
-                Intent myIntent = new Intent(getContext(), AddPlaceActivity.class);
-                startActivity(myIntent);
             }
         });
 

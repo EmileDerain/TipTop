@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Intent;
@@ -25,12 +26,14 @@ import etu.toptip.R;
 import etu.toptip.controller.NotificationsController;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.fragments.ICameraPermission;
+import etu.toptip.fragments.IStorageActivity;
+import etu.toptip.fragments.StorageFragment;
 import etu.toptip.model.BonPlan;
 import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.views.NotificationsView;
 
 
-public class AddBonPlanActivity extends AppCompatActivity implements ICameraPermission {
+public class AddBonPlanActivity extends AppCompatActivity implements ICameraPermission, IStorageActivity {
 
     int SELECT_PICTURE = 200;
     private int notifID = 0;
@@ -41,6 +44,8 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
     private Bitmap picture;
     NotificationsController notificationsController;
     NotificationsView notificationsView;
+    private CameraFragment cameraFragment;
+    private StorageFragment storageFragment;
 
 
     public AddBonPlanActivity() throws Throwable {
@@ -51,7 +56,21 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bon_plan);
-        image = findViewById(R.id.ImageCamera);
+
+        cameraFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentCamera);
+        if (cameraFragment==null) cameraFragment = new CameraFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentCamera, cameraFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        storageFragment = (StorageFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentStorage);
+        if (storageFragment==null) storageFragment = new StorageFragment(this);
+        FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction2.replace(R.id.fragmentStorage, storageFragment);
+        fragmentTransaction2.addToBackStack(null);
+        fragmentTransaction2.commit();
+
         notificationsView = new NotificationsView(this);
         notificationsController = new NotificationsController(notificationsView);
 
@@ -74,18 +93,6 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
             }
         });
 
-        Button cam = (Button) findViewById(R.id.BCamera);
-        cam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-                    ActivityCompat.requestPermissions(AddBonPlanActivity.this, new String[]{Manifest.permission.CAMERA}, ICameraPermission.REQUEST_CAMERA);
-                }else{
-                    takePicture();
-                }
-            }
-        });
-
         Button BSelectImage = (Button) findViewById(R.id.BSelectImage);
         IVPreviewImage = findViewById(R.id.IVPreviewImage);
         BSelectImage.setOnClickListener(new View.OnClickListener() {
@@ -102,44 +109,6 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         i.setAction(Intent.ACTION_GET_CONTENT);
 
         startActivityIfNeeded(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
-    }
-
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    IVPreviewImage.setImageURI(selectedImageUri);
-                    System.out.println("j'ai rentré");
-                }
-            }
-            if (requestCode == 101) {
-                Bitmap bitmap = (Bitmap) (data != null ? data.getExtras().get("data") : null);
-                IVPreviewImage.setImageBitmap(bitmap);
-            }
-            if (requestCode==REQUEST_CAMERA){
-                    picture = (Bitmap) data.getExtras().get("data");
-                    if (null != picture) { setImage(picture);
-                }else if (resultCode == RESULT_CANCELED) {
-                    Toast toast = Toast.makeText(getApplicationContext(),"picture canceled", Toast.LENGTH_LONG );
-                    toast.show();
-                }else{
-                    Toast toast = Toast.makeText(getApplicationContext(),"action failed", Toast.LENGTH_LONG );
-                    toast.show();
-                }
-            }
-            if (requestCode == 101) {
-                Bitmap bitmap = (Bitmap) (data != null ? data.getExtras().get("data") : null);
-                IVPreviewImage.setImageBitmap(bitmap);
-            }
-        }
     }
 
     public ListPlacesThread getListPlaces(){
@@ -167,19 +136,84 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast toast = Toast.makeText(getApplicationContext(), "CAMERA authorization granted", Toast.LENGTH_LONG);
                     toast.show();
-                    this.takePicture();
+                    cameraFragment.takePicture();
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "CAMERA authorization not granted", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+            case REQUEST_MEDIA_WRITE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    storageFragment.saveToInternalStorage(picture);
+                    Toast toast = Toast.makeText(getApplicationContext(), "write authorization granted", Toast.LENGTH_LONG);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "write authorization not granted", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+            case REQUEST_MEDIA_READ: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "read authorization granted", Toast.LENGTH_LONG);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "read authorization not granted", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+            break;
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    IVPreviewImage.setImageURI(selectedImageUri);
+                    //System.out.println("j'ai rentré");
+                }
+            }
+            if (requestCode == 101) {
+                Bitmap bitmap = (Bitmap) (data != null ? data.getExtras().get("data") : null);
+                IVPreviewImage.setImageBitmap(bitmap);
+            }
+            if (requestCode == REQUEST_CAMERA) {
+                if (resultCode == RESULT_OK) {
+                    picture = (Bitmap) data.getExtras().get("data");
+                    cameraFragment.setImage(picture);
+                    storageFragment.setEnabledSaveButton();
+                } else if (resultCode == RESULT_CANCELED) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "picture canceled", Toast.LENGTH_LONG);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "action failed", Toast.LENGTH_LONG);
                     toast.show();
                 }
             }
         }
     }
 
-    public void setImage(Bitmap bitmap){IVPreviewImage.setImageBitmap(bitmap);}
+    //public void setImage(Bitmap bitmap){IVPreviewImage.setImageBitmap(bitmap);}
 
-    public void takePicture(){
+    /**public void takePicture(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivity(intent);
-    }
+    }*/
+
+        @Override
+        public void onPictureLoad(Bitmap bitmap) {
+            cameraFragment.setImage(bitmap);
+        }
+
+        @Override
+        public Bitmap getPictureToSave() {
+            return picture;
+        }
 }

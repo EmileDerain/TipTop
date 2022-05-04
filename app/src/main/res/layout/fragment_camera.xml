@@ -8,11 +8,14 @@
     tools:context=".fragments.CameraFragment">
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="140dp"
-        android:id="@+id/camera_button"
-        android:text="Camera" />
+        android:id="@+id/BCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="@color/green"
+        android:text="PRENDRE UNE PHOTO"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
 
     <ImageView
@@ -22,13 +25,5 @@
         android:layout_height="450dp"
         android:id="@+id/click_image"
         android:layout_marginBottom="10dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/back_button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:text="AJOUTER" />
 
 </RelativeLayout>

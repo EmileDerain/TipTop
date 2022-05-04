@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AddPlaceActivity"
-    tools:ignore="HardcodedText">
+    tools:context=".activities.AddPlaceActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/idAddHeader"
@@ -83,24 +86,13 @@
         android:id="@+id/BSelectImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/CodeP"
+        android:layout_below="@id/BtnAjouterBP"
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/green"
         android:text="SELECTIONNER UNE IMAGE"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-
-    <Button
-        android:id="@+id/BCamera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/BSelectImage"
-        android:layout_marginTop="9dp"
-        android:backgroundTint="@color/green"
-        android:text="PRENDRE UNE PHOTO"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/IVPreviewImage"
@@ -111,24 +103,28 @@
         android:layout_marginTop="133dp"
         android:layout_marginEnd="16dp" />
 
+        <FrameLayout
+            android:id="@+id/fragmentCamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/BSelectImage"></FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fragmentStorage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragmentCamera"></FrameLayout>
+
     <Button
         android:id="@+id/BtnAjouterBP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/BCamera"
+        android:layout_below="@id/CodeP"
         android:layout_marginTop="9dp"
         android:backgroundTint="@color/green"
         android:text="AJOUTER LE BON PLAN"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-    <ImageView
-        android:layout_marginTop="70dp"
-        android:layout_width="350dp"
-        android:layout_marginLeft="15dp"
-        android:layout_height="450dp"
-        android:id="@+id/ImageCamera"
-        android:layout_below="@id/BtnAjouterBP"
-        android:layout_marginBottom="10dp"/>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
