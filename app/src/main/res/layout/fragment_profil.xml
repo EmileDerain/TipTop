@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     android:id="@+id/idProfil"
     tools:context=".fragments.ProfilFragment">
 
@@ -16,22 +17,23 @@
         android:padding="5dp"
         android:text="Mon compte"
         android:textAlignment="center"
-        android:textColor="@color/purple_700"
-        android:textSize="18sp" />
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
 
     <Button
         android:id="@+id/idButtonInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_above="@id/idButtonWallet"
-        android:text="Informations"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="250dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="-176dp"
         android:backgroundTint="@color/green"
+        android:text="Informations"
         android:textAllCaps="false" />
-
 
     <Button
         android:id="@+id/idButtonWallet"
@@ -50,52 +52,38 @@
         android:id="@+id/idButtonFavoris"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Favoris"
+        android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/green"
+        android:text="Favoris"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/idButtonHistorique"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/idButtonFavoris"
-        android:text="Historique"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/green"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/idButtonRéglages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/idButtonHistorique"
-        android:text="Réglages"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="66dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/green"
+        android:text="Historique"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/idButtonDeconnexion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/idButtonHistorique"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/idButtonRéglages"
-        android:text="Déconnexion"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/green"
+        android:text="Déconnexion"
         android:textAllCaps="false" />
 
 </RelativeLayout>

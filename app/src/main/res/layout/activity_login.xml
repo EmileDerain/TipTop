@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:id="@+id/Login"
     tools:context=".activities.LoginActivity">
 
@@ -13,21 +12,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bienvenue"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"/>
+        android:textColor="@color/purple_700"
+        android:textSize="18sp"/>
 
-
+    <ImageView
+        android:id="@+id/Logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Bienvenue"
+        android:layout_gravity="top"
+        android:layout_marginTop="147dp"
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/idErreur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Bienvenue"
+        android:layout_below="@+id/Logo"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:text=""
@@ -42,10 +48,9 @@
         android:layout_below="@id/idErreur"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="160dp"
         android:hint="Email"
         android:minHeight="48dp"
-        android:textSize="20sp" />
+        android:textSize="15dp" />
 
     <EditText
         android:id="@+id/mdp"
@@ -56,7 +61,7 @@
         android:layout_gravity="center"
         android:hint="Mot de passe"
         android:minHeight="48dp"
-        android:textSize="20sp" />
+        android:textSize="15dp" />
 
     <Button
         android:id="@+id/idBtnLogin"
@@ -67,7 +72,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="15dp"
         android:hint="Valider"
-        android:backgroundTint="@color/greenAuth"/>
+        android:backgroundTint="@color/green"/>
 
     <Button
         android:id="@+id/idBtnGoRegister"
