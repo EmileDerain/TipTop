@@ -247,4 +247,19 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
 }
