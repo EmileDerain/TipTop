@@ -122,12 +122,7 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
         });
 
        // reglagesButton = view.findViewById(R.id.idButtonRéglages);
-        reglagesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(new ReglagesFragment());
-            }
-        });
+
 
         decoButton = view.findViewById(R.id.idButtonDeconnexion);
         decoButton.setOnClickListener(new View.OnClickListener() {
