@@ -3,37 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/Login"
     tools:context=".activities.LoginActivity">
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Bienvenue"
+        android:layout_marginTop="-165dp"
+        app:lottie_autoPlay="true"
+        android:id="@+id/animation"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/lieux" />
 
     <TextView
         android:id="@+id/Bienvenue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenue"
+        android:text="Welcome to TopTip"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/purple_700"
-        android:textSize="18sp"/>
+        android:textSize="30sp"/>
 
-    <ImageView
-        android:id="@+id/Logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Bienvenue"
-        android:layout_gravity="top"
-        android:layout_marginTop="147dp"
-        android:src="@drawable/logo" />
+
 
     <TextView
         android:id="@+id/idErreur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Logo"
+        android:layout_below="@+id/Bienvenue"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:text=""
@@ -46,8 +50,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/idErreur"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:layout_marginTop="356dp"
+        android:layout_centerHorizontal="true"
         android:hint="Email"
         android:minHeight="48dp"
         android:textSize="15dp" />
