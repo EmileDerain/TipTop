@@ -1,6 +1,7 @@
 package etu.toptip.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -120,6 +121,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
             public void onClick(View view) {
                 filterList(1);
                 selectedFilter = 1 ;
+                buttonR.setBackgroundColor(Color.BLUE);
             }
         });
 

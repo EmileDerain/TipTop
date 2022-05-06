@@ -62,6 +62,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/btn_state"
                     android:text="Restaurants">
                 </Button>
                 <Button
@@ -69,6 +70,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/btn_state"
+
                     android:text="Supermarchés">
                 </Button>
                 <Button
@@ -76,6 +79,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/btn_state"
+
                     android:text="Boulangeries">
                 </Button>
 
@@ -84,6 +89,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/btn_state"
+
                     android:text="Boulcheries">
                 </Button>
             </LinearLayout>
