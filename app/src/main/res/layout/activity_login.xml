@@ -9,12 +9,13 @@
 
 
     <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_below="@+id/Bienvenue"
-        android:layout_marginTop="-165dp"
+        android:layout_marginTop="-223dp"
         app:lottie_autoPlay="true"
-        android:id="@+id/animation"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/lieux" />
 
@@ -50,9 +51,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/idErreur"
-        android:layout_gravity="center"
-        android:layout_marginTop="356dp"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="330dp"
         android:hint="Email"
         android:minHeight="48dp"
         android:textSize="15dp" />
@@ -77,7 +78,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="15dp"
         android:hint="Valider"
-        android:backgroundTint="@color/green"/>
+        android:backgroundTint="@color/blue_medium"/>
 
     <Button
         android:id="@+id/idBtnGoRegister"
@@ -88,6 +89,6 @@
         android:layout_centerHorizontal="true"
         android:textSize="15dp"
         android:hint="S'inscrire"
-        android:backgroundTint="@color/green"/>
+        android:backgroundTint="@color/blue_medium"/>
 
 </RelativeLayout>
