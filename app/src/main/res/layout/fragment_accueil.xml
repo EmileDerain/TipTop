@@ -42,6 +42,55 @@
             app:queryHint="Ville">
 
         </androidx.appcompat.widget.SearchView>
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/lieux"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Tous les lieux">
+                </Button>
+
+                <Button
+                    android:id="@+id/resturants"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Restaurants">
+                </Button>
+                <Button
+                    android:id="@+id/supermarchés"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Supermarchés">
+                </Button>
+                <Button
+                    android:id="@+id/boulangeries"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Boulangeries">
+                </Button>
+
+                <Button
+                    android:id="@+id/boucherie"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Boulcheries">
+                </Button>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+
 
         <Button
             android:layout_width="wrap_content"
@@ -58,7 +107,7 @@
 
     </LinearLayout>
 
-    </LinearLayout>
+</LinearLayout>
 
 
 

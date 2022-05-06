@@ -46,6 +46,7 @@ public class PlaceAdapter extends BaseAdapter {
 
     @Override
     public Place getItem(int i) {
+        System.out.println(places.size());
         return places.get(i);
     }
 
@@ -58,9 +59,10 @@ public class PlaceAdapter extends BaseAdapter {
     public View getView(int i, View convertView, ViewGroup parent) {
         LinearLayout view ;
         view = (LinearLayout) (convertView == null ? inflater.inflate(R.layout.adapter_item, parent, false) : convertView);
+        System.out.println("i"+i);
         Place currentPlace = getItem(i);
         String name = currentPlace.getName();
-        String details = currentPlace.getVille() + " "+ currentPlace.getCodeP();
+        String details = currentPlace.getVille() + " "+ currentPlace.getCodeP() + " "+currentPlace.getType();
         String image = currentPlace.getImage();
 
         TextView nameView = view.findViewById(R.id.place_name);
@@ -73,11 +75,9 @@ public class PlaceAdapter extends BaseAdapter {
         Picasso.get().load(image).into(imageView);
 
         view.setOnClickListener(click->{
-            listner.OnClickPlace(currentPlace);
+            System.out.println("test"+i+getItem(i));
+            listner.OnClickPlace(getItem(i));
         });
-
-
-
         return view;
     }
 

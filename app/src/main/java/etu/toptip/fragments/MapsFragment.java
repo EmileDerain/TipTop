@@ -30,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -41,7 +42,10 @@ import java.util.List;
 import java.util.Locale;
 import etu.toptip.R;
 import etu.toptip.helper.ListPlacesThread;
+import etu.toptip.model.ListFavoris;
+import etu.toptip.model.ListWallet;
 import etu.toptip.model.Place;
+import etu.toptip.model.Wallet;
 
 
 public class MapsFragment extends Fragment  implements OnMapReadyCallback , LocationListener,
@@ -56,6 +60,8 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
     private Geocoder codergeo;
     private boolean first =true;
     SearchView searchView;
+    ListFavoris favoris = new ListFavoris();
+    ListWallet wallet = new ListWallet();
     private boolean textSubmitted =false;
 
     public ListPlacesThread places = new ListPlacesThread();
@@ -111,7 +117,6 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
                         Address address = addressList.get(0);
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-
                     } else {
                         Toast.makeText(getActivity(), "L'adresse entrée est introuvable  ", Toast.LENGTH_SHORT).show();  // Check whether the fields are not blank
                     }
@@ -148,9 +153,17 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         int i=0;
         for(Place place : places.getPlaces()){
             try {
-                Address location = codergeo.getFromLocationName(place.getAdresse()+place.getVille(), 5).get(0);
+                Address location = codergeo.getFromLocationName(place.getAdresse()+" "+place.getVille(), 5).get(0);
                 LatLng l = new LatLng(location.getLatitude(), location.getLongitude() );
                 MarkerOptions m = new MarkerOptions().position(l).title(place.getName()).zIndex(i);
+                for(Place f : favoris.getFavoris()){
+                    if(f.getName().equals(place.getName()) && f.getAdresse().equals(place.getAdresse()))
+                        m.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                }
+                for(Wallet w : wallet.getWallet()){
+                    if(w.getName().equals(place.getName()) )
+                        m.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                }
                 googleMap.addMarker(m);
                 i++;
             }

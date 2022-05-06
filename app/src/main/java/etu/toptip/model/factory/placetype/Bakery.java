@@ -11,4 +11,9 @@ public class Bakery  extends Place {
     protected Bakery (Parcel in) {
         super(in);
     }
+
+    @Override
+    public String toString() {
+        return "Boulangerie";
+    }
 }

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +47,20 @@ public class ReglagesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reglages, container, false);
+
+        Button buttonP = view.findViewById(R.id.button1);
+        Button buttonM = view.findViewById(R.id.button1);
+        Button buttonG = view.findViewById(R.id.button1);
+
+        buttonP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView r= view.findViewById(R.id.textView);
+                r.setTextSize(20);
+            }
+        });
+
+
         return view;
     }
 }

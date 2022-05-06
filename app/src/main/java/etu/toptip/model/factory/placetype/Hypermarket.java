@@ -12,4 +12,9 @@ public class Hypermarket extends Place {
     protected Hypermarket(Parcel in) {
         super(in);
     }
+
+    @Override
+    public String toString() {
+        return "hypermarché";
+    }
 }

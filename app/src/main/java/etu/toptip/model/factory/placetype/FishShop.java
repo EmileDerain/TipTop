@@ -11,4 +11,9 @@ public class FishShop  extends Place {
     protected FishShop (Parcel in) {
         super(in);
     }
+
+    @Override
+    public String toString() {
+        return "poissonerie";
+    }
 }

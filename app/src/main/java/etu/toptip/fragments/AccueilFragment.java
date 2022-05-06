@@ -25,6 +25,7 @@ import etu.toptip.IListner;
 import etu.toptip.R;
 import etu.toptip.activities.AddPlaceActivity;
 
+import etu.toptip.model.ListPlaces;
 import etu.toptip.model.Place;
 import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.model.PlaceAdapter;
@@ -41,6 +42,14 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    ListView listView;
+
+    private int selectedFilter = -1;
+    private String currentSearchText = "";
+    private SearchView searchView;
+    ListPlacesThread places ;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -77,7 +86,6 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ListPlacesThread places = null;
         try {
             places = new ListPlacesThread();
             AsyncTask<String, Integer, JSONObject> execute = places.execute("http://90.8.217.30:3000/api/lieu");
@@ -89,11 +97,40 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         }
 
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
-        ListView listView = view.findViewById(R.id.place_list_view);
+        listView = view.findViewById(R.id.place_list_view);
         PlaceAdapter adap = new PlaceAdapter(container.getContext(), places.getPlaces());
         listView.setAdapter(adap);
         adap.addListner(this);
-        initSearchWidgets(places,listView,view);
+        initSearchWidgets(places,view);
+
+        //supermarchés
+
+        Button buttonS = (Button) view.findViewById(R.id.supermarchés);
+        buttonS.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                filterList(0);
+                selectedFilter = 0;
+            }
+        });
+
+        Button buttonR = (Button) view.findViewById(R.id.resturants);
+        buttonR.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                filterList(1);
+                selectedFilter = 1 ;
+            }
+        });
+
+        Button buttonA = (Button) view.findViewById(R.id.lieux);
+        buttonA.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                allFilter();
+            }
+        });
+
 
         Button addBP = (Button) view.findViewById(R.id.BAjouterBP);
         addBP.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +165,8 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         fragmentTransaction.commit();
     }
 
-    public void initSearchWidgets(ListPlacesThread places,ListView listView , View view){
-        SearchView searchView = (SearchView) view.findViewById(R.id.idSearchView2);
+    public void initSearchWidgets(ListPlacesThread places, View view){
+        searchView = view.findViewById(R.id.idSearchView2);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -138,16 +175,51 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
 
             @Override
             public boolean onQueryTextChange(String s) {
+                currentSearchText = s;
                 ArrayList<Place> filtredPlaces = new ArrayList<>();
                 for(Place place :places.getPlaces() ){
                     if(place.getVille().toLowerCase().contains(s.toLowerCase())){
-                        filtredPlaces.add(place);
+                        if(selectedFilter ==-1)  filtredPlaces.add(place);
+                        else if(place.getType() == selectedFilter) filtredPlaces.add(place);
                     }
                 }
-                PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(),filtredPlaces);
-                listView.setAdapter(placeAdapter);
+                PlaceAdapter p = new PlaceAdapter(getContext().getApplicationContext(),filtredPlaces);
+                listView.setAdapter(p);
+                p.addListner(AccueilFragment.this);
+
                 return false;
             }
         });
     }
+
+    private void filterList(int status){
+        selectedFilter = status ;
+        ArrayList<Place> filtredPlaces = new ArrayList<>();
+        for(Place place : places.getPlaces() ){
+            if(place.getType() == status){
+                if(currentSearchText.equals("")){
+                    filtredPlaces.add(place);
+                }
+                else if(place.getVille().toLowerCase().contains(currentSearchText.toLowerCase())){
+                    filtredPlaces.add(place);
+                }
+            }
+        }
+        PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(),filtredPlaces);
+        listView.setAdapter(placeAdapter);
+        placeAdapter.addListner(this);
+
+    }
+
+    public void allFilter(){
+        searchView.setQuery("", false);
+        searchView.clearFocus();
+        selectedFilter = -1;
+        PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(),places.getPlaces());
+        listView.setAdapter(placeAdapter);
+        placeAdapter.addListner(this);
+
+    }
+
+
 }

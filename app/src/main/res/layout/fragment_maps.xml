@@ -35,6 +35,14 @@
 
         </androidx.appcompat.widget.SearchView>
 
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="340dp"
+            android:bottomLeftRadius="100dp"
+            android:src="@drawable/ic_info">
+        </ImageButton>
+
     </LinearLayout>
 
 </FrameLayout>

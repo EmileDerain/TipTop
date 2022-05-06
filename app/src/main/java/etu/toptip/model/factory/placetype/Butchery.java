@@ -12,4 +12,9 @@ public class Butchery extends Place {
     protected Butchery(Parcel in) {
         super(in);
     }
+
+    @Override
+    public String toString() {
+        return "Boucherie";
+    }
 }

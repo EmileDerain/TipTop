@@ -117,6 +117,8 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
                     nomDuLieu = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
                     listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse));
                 }
+                listPlaces.add(FactoryManager.build("test", 2, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Antibes", "", ""));
+
             }
 
 

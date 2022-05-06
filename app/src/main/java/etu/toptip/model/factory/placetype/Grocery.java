@@ -12,4 +12,9 @@ public class Grocery extends Place {
     protected Grocery(Parcel in) {
         super(in);
     }
+
+    @Override
+    public String toString() {
+        return "epecerie";
+    }
 }

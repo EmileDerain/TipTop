@@ -11,4 +11,9 @@ public class Supermarket extends Place {
     protected Supermarket(Parcel in) {
         super(in);
     }
+
+    @Override
+    public String toString() {
+        return "supermarchés";
+    }
 }
