@@ -35,13 +35,26 @@
 
         </androidx.appcompat.widget.SearchView>
 
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="340dp"
-            android:bottomLeftRadius="100dp"
-            android:src="@drawable/ic_info">
-        </ImageButton>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/info"
+                android:layout_width="192dp"
+                android:layout_height="128dp"
+                android:visibility="invisible"
+                android:src="@drawable/info"></ImageView>
+
+            <ImageButton
+                android:id="@+id/btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="140dp"
+                android:bottomLeftRadius="100dp"
+                android:src="@drawable/ic_info"></ImageButton>
+
+        </LinearLayout>
 
     </LinearLayout>
 
