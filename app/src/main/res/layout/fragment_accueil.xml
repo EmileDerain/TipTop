@@ -51,27 +51,39 @@
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/lieux"
+                    android:layout_margin="2dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Tous les lieux">
+                    android:textSize="11dp"
+                    android:background="@drawable/btn_state"
+                    android:textColor="@drawable/color_state"
+                    android:textStyle="bold"
+                    android:text="Tous">
                 </Button>
 
                 <Button
                     android:id="@+id/resturants"
+                    android:layout_margin="2dp"
                     android:layout_width="0dp"
+                    android:textSize="11dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/btn_state"
+                    android:textColor="@drawable/color_state"
+                    android:textStyle="bold"
                     android:text="Restaurants">
                 </Button>
                 <Button
                     android:id="@+id/supermarchés"
                     android:layout_width="0dp"
+                    android:layout_margin="2dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/btn_state"
-
+                    android:textColor="@drawable/color_state"
+                    android:textStyle="bold"
+                    android:textSize="11dp"
                     android:text="Supermarchés">
                 </Button>
                 <Button
@@ -79,24 +91,27 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_margin="2dp"
                     android:background="@drawable/btn_state"
-
+                    android:textColor="@drawable/color_state"
+                    android:textStyle="bold"
+                    android:textSize="11dp"
                     android:text="Boulangeries">
                 </Button>
-
                 <Button
                     android:id="@+id/boucherie"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_margin="2dp"
                     android:background="@drawable/btn_state"
-
+                    android:textColor="@drawable/color_state"
+                    android:textSize="11dp"
+                    android:textStyle="bold"
                     android:text="Boulcheries">
                 </Button>
             </LinearLayout>
         </HorizontalScrollView>
-
-
 
 
         <Button

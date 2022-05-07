@@ -104,31 +104,57 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         adap.addListner(this);
         initSearchWidgets(places,view);
 
-        //supermarchés
 
+
+        //supermarchés
+        Button buttonA = (Button) view.findViewById(R.id.lieux);
+        Button buttonR = (Button) view.findViewById(R.id.resturants);
+        Button buttonB = (Button) view.findViewById(R.id.boulangeries);
         Button buttonS = (Button) view.findViewById(R.id.supermarchés);
         buttonS.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 filterList(0);
                 selectedFilter = 0;
+                buttonR.setSelected(false);
+                buttonB.setSelected(false);
+                buttonS.setSelected(true);
+                buttonA.setSelected(false);
             }
         });
 
-        Button buttonR = (Button) view.findViewById(R.id.resturants);
         buttonR.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 filterList(1);
                 selectedFilter = 1 ;
-                buttonR.setBackgroundColor(Color.BLUE);
+                buttonR.setSelected(true);
+                buttonB.setSelected(false);
+                buttonS.setSelected(false);
+                buttonA.setSelected(false);
             }
         });
 
-        Button buttonA = (Button) view.findViewById(R.id.lieux);
+        buttonB.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                filterList(3);
+                selectedFilter = 3 ;
+                buttonB.setSelected(true);
+                buttonR.setSelected(false);
+                buttonS.setSelected(false);
+                buttonA.setSelected(false);
+            }
+        });
+
+        buttonA.setSelected(true);
         buttonA.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                buttonA.setSelected(true);
+                buttonB.setSelected(false);
+                buttonR.setSelected(false);
+                buttonS.setSelected(false);
                 allFilter();
             }
         });
