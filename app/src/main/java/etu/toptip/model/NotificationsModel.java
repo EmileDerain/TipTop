@@ -1,11 +1,9 @@
 package etu.toptip.model;
 
-import android.graphics.Bitmap;
-
 public class NotificationsModel {
     private static NotificationsModel instance;
-    private String notificationText = "";
-    private Bitmap notificationImage = null;
+    private String notificationText = "TopTip";
+    private String notificationImage = "";
 
     private NotificationsModel() {
     }
@@ -25,11 +23,11 @@ public class NotificationsModel {
         this.notificationText = notificationText;
     }
 
-    public Bitmap getNotificationImage() {
+    public String getNotificationImage() {
         return notificationImage;
     }
 
-    public void setNotificationImage(Bitmap notificationImage) {
+    public void setNotificationImage(String notificationImage) {
         this.notificationImage = notificationImage;
     }
 

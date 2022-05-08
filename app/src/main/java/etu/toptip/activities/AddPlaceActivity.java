@@ -33,6 +33,7 @@ import etu.toptip.R;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.fragments.ICameraPermission;
 import etu.toptip.fragments.IStorageActivity;
+import etu.toptip.fragments.NotificationsFragment;
 import etu.toptip.fragments.StorageFragment;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -54,6 +55,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
     private Bitmap picture;
     private CameraFragment cameraFragment;
     private StorageFragment storageFragment;
+    private NotificationsFragment notificationsFragment;
 
     Uri uri;
 
@@ -84,7 +86,13 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         EditText code = (EditText) findViewById(R.id.CodeP);
         EditText adresse = (EditText) findViewById(R.id.AdresseResto);
         Spinner typeSpinner = (Spinner) findViewById(R.id.typeResto);
-
+        
+        notificationsFragment = (NotificationsFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentNotifications);
+        if (notificationsFragment==null) notificationsFragment = new NotificationsFragment();
+        FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction3.replace(R.id.fragmentNotifications, notificationsFragment);
+        fragmentTransaction3.addToBackStack(null);
+        fragmentTransaction3.commit();
 
         Button addBP = (Button) findViewById(R.id.BtnAjouterBP);
         addBP.setOnClickListener(new View.OnClickListener() {
@@ -134,23 +142,6 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         startActivityIfNeeded(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        System.out.println("JE VIENS DE PASSER");
-//        if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK) {
-//            uri = null;
-//            System.out.println("JE VIENS DE PASSER2");
-//            if (data != null) {
-//                System.out.println("JE VIENS DE PASSER3");
-//                uri = data.getData();
-//                Log.i("Emile", "Uri: " + uri.toString());
-//                IVPreviewImage.setImageURI(uri);
-////                upload.setVisibility(View.VISIBLE);
-//            }
-//        }
-//    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -186,19 +177,6 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
             }
         }
     }
-
-
-    public void performFileSearch() {
-        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
-        // browser.
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        intent.setType("image/*");
-
-        startActivityForResult(intent, READ_REQUEST_CODE);
-    }
-
 
     private String uriToFilename(Uri uri) {
         String path = null;

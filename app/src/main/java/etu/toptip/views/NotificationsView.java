@@ -26,23 +26,34 @@ import etu.toptip.activities.MainActivity;
 import etu.toptip.controller.NotificationsController;
 import etu.toptip.model.NotificationsModel;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.widget.Button;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+
+import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Random;
+
 public class NotificationsView implements Observer {
     private NotificationsController notificationsController;
-    int notificationId=0;
+    private View root;
 
-    public AddBonPlanActivity getAddBonPlanActivity() {
-        return addBonPlanActivity;
-    }
-
-    private AddBonPlanActivity addBonPlanActivity;
-
-    public NotificationsView(AddBonPlanActivity addBonPlanActivity) {
-        this.addBonPlanActivity=addBonPlanActivity;
+    public NotificationsView(View root) {
+        this.root = root;
         this.setListeners();
     }
 
     private void setListeners() {
-        final Button showNotificationButton = addBonPlanActivity.findViewById(R.id.BtnAjouterBPOK);
+        final Button showNotificationButton = root.findViewById(R.id.show_notification_add_place);
         showNotificationButton.setOnClickListener(click -> notificationsController.newNotification());
     }
 
@@ -57,29 +68,30 @@ public class NotificationsView implements Observer {
      * @param text Text (String) to display on the notification
      */
     private void showNotificationWithImage(final String text, final Bitmap img) {
-        final String title = "TIP TOP";
+        final String title = "Nouveau lieu sur TopTip !";
+        final int notificationId = new Random().nextInt(100);
         final String channelId = "notification.channel2";
         final int flags = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
-        Context context = addBonPlanActivity.getBaseContext();
+        Context context = root.getContext();
 
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         Intent intent = new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, flags);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId);
 
-        .setSmallIcon(R.drawable.logo)
-        .setDefaults(NotificationCompat.DEFAULT_ALL)
-        .setContentTitle(title)
-        .setContentText(text)
-        .setContentIntent(pendingIntent)
-        .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(img))
-        .setAutoCancel(true)
-        .setPriority(NotificationCompat.PRIORITY_HIGH);
+        builder.setSmallIcon(R.drawable.logo);
+        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
+        builder.setContentTitle(title);
+        builder.setContentText(text);
+        builder.setContentIntent(pendingIntent);
+        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(img));
+        builder.setAutoCancel(true);
+        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (notificationManager != null && notificationManager.getNotificationChannel(channelId) == null) {
-                NotificationChannel notificationChannel = new NotificationChannel(channelId, "notification.bonPlan", NotificationManager.IMPORTANCE_HIGH);
-                notificationChannel.setDescription("Channel des nouveaux bons plans");
+                NotificationChannel notificationChannel = new NotificationChannel(channelId, "notification.channel2", NotificationManager.IMPORTANCE_HIGH);
+                notificationChannel.setDescription("Notif channel to notify user");
                 notificationChannel.enableVibration(true);
                 notificationChannel.enableLights(true);
                 notificationChannel.setLightColor(0xFFFF0000);
@@ -87,17 +99,15 @@ public class NotificationsView implements Observer {
             }
         }
 
-        //Notification notification = builder.build();
-        //Objects.requireNonNull(notificationManager).notify(notificationId++, notification);
-        notificationManager.notify(notificationId++, builder.build());
-
+        Notification notification = builder.build();
+        Objects.requireNonNull(notificationManager).notify(notificationId, notification);
     }
 
     /**
      * Create a thread which display a notification
      */
-    public void newNotification(final String text, Bitmap img) {
-        //final Bitmap img = notificationsController.fetchImage(url);
+    public void newNotification(final String text, final String url) {
+        final Bitmap img = notificationsController.fetchImage(url);
         new Thread(() -> showNotificationWithImage(text, img)).start();
     }
 
@@ -105,11 +115,11 @@ public class NotificationsView implements Observer {
     @Override
     public void update(Observable observable, Object o) {
         final String text = NotificationsModel.getInstance().getNotificationText();
-        final Bitmap img = NotificationsModel.getInstance().getNotificationImage();
-        this.newNotification(text, img);
+        final String url = NotificationsModel.getInstance().getNotificationImage();
+        this.newNotification(text, url);
 
         if (observable.hasChanged()) {
-            this.newNotification("t", img);
+            this.newNotification("t", url);
         }
     }
 }

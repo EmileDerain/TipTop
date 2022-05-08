@@ -87,7 +87,7 @@
             android:id="@+id/BSelectImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/BtnAjouterBP"
+            android:layout_below="@id/fragmentNotifications"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/green"
             android:text="SELECTIONNER UNE IMAGE"
@@ -115,16 +115,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/fragmentCamera"></FrameLayout>
 
-        <Button
-            android:id="@+id/BtnAjouterBP"
+        <FrameLayout
+            android:id="@+id/fragmentNotifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/CodeP"
-            android:layout_marginTop="9dp"
-            android:backgroundTint="@color/green"
-            android:text="AJOUTER LE BON PLAN"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:layout_below="@+id/CodeP"></FrameLayout>
+
 
     </RelativeLayout>
 </ScrollView>
