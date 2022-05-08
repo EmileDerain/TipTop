@@ -54,14 +54,12 @@
             android:text="@string/place_details" />
 
         <ListView
-            android:id="@+id/place_list_view"
+            android:id="@+id/bonplan_list_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/description"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"></ListView>
+            android:layout_margin="20dp"
+            ></ListView>
     </RelativeLayout>
 
 

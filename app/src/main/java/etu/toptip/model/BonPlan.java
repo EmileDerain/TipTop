@@ -2,11 +2,11 @@ package etu.toptip.model;
 
 public class BonPlan {
     private String date;
-    private Integer image;
+    private String image;
     private int idUser;
     private int idPlace;
 
-    public BonPlan(String date, Integer image, int idUser, int idPlace, String description) {
+    public BonPlan(String date, String image, int idUser, int idPlace, String description) {
         this.date = date;
         this.image = image;
         this.idUser = idUser;
@@ -20,7 +20,7 @@ public class BonPlan {
         return date;
     }
 
-    public Integer getImage() {
+    public String getImage() {
         return image;
     }
 

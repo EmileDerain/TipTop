@@ -9,13 +9,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
 
 public class BonPlanAdapter extends BaseAdapter {
-
 
     private Context context;
     private List<BonPlan> plans;
@@ -47,14 +48,20 @@ public class BonPlanAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         LinearLayout view;
-        view = (LinearLayout) (convertView == null ? inflater.inflate(R.layout.adapter_item, parent, false) : convertView);
+        view = (LinearLayout) (convertView == null ? inflater.inflate(R.layout.adapter_bonplan, parent, false) : convertView);
         BonPlan current = getItem(i);
         String description = current.getDescription();
         String date = current.getDate();
-        Integer image = current.getImage();
+        String image = current.getImage();
 
-        TextView detailsView = view.findViewById(R.id.place_details);
+        TextView detailsView = view.findViewById(R.id.plan_description);
+        TextView dateView = view.findViewById(R.id.plan_date);
+        ImageView imageView = view.findViewById(R.id.plan_icon);
+
         detailsView.setText(description);
+        dateView.setText("date expiration: "+date);
+        Picasso.get().load(image).into(imageView);
+
         return view;
     }
 

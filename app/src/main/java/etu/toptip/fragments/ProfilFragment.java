@@ -40,6 +40,7 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
     Button infoButton;
     Button walletButton;
     Button histButton;
+    Button supprimerCompteButton;
     Button reglagesButton;
     Button decoButton;
 
@@ -104,6 +105,15 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
                 replaceFragment(new InformationsCompteFragment());
             }
         });
+
+        supprimerCompteButton = view.findViewById(R.id.idButtonSupprimerCompte);
+        supprimerCompteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            // à ajouter
+                }
+        });
+
 
         walletButton = view.findViewById(R.id.idButtonWallet);
         walletButton.setOnClickListener(new View.OnClickListener() {

@@ -22,5 +22,9 @@
         android:id="@+id/favoris"
         android:icon="@drawable/ic_favoris"
         android:title="@string/title_facvoris"/>
+    <item
+        android:id="@+id/wallet"
+        android:icon="@drawable/ic_iwaller"
+        android:title="wallet"/>
 
 </menu>

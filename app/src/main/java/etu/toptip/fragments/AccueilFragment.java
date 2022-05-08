@@ -103,7 +103,6 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         adap.addListner(this);
         initSearchWidgets(places, view);
 
-
         //supermarchés
         Button buttonA = (Button) view.findViewById(R.id.lieux);
         Button buttonR = (Button) view.findViewById(R.id.resturants);

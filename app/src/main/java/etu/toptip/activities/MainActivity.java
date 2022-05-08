@@ -21,6 +21,7 @@ package etu.toptip.activities;
         import etu.toptip.fragments.MapsFragment;
         import etu.toptip.fragments.NavigationFragment;
         import etu.toptip.fragments.ProfilFragment;
+        import etu.toptip.fragments.WalletFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ListFavorisFragment();
                         break;
 
+                    case R.id.wallet:
+                        fragment = new WalletFragment();
+                        break;
 
                 }
                 assert fragment != null;

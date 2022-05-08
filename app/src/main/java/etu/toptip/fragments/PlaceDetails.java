@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -22,13 +23,17 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
 import etu.toptip.activities.AddBonPlanActivity;
 import etu.toptip.helper.Infologin;
 import etu.toptip.helper.ListPlacesThread;
+import etu.toptip.model.BonPlan;
+import etu.toptip.model.BonPlanAdapter;
 import etu.toptip.model.Place;
+import etu.toptip.model.PlaceAdapter;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -88,16 +93,14 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
         Bundle bundle = this.getArguments();
         Place model = bundle.getParcelable("place");
 
+        ListView listView = view.findViewById(R.id.bonplan_list_view);
 
-        Button add = (Button) view.findViewById(R.id.BAjouterBP);
-        add.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(container.getContext(), AddBonPlanActivity.class);
-                myIntent.putExtra("idLieu",model.getId());
-                startActivity(myIntent);
-            }
-        });
-
+        //tu ajoute ici les bon plan obtenu
+        ArrayList<BonPlan> plans = new ArrayList<>();
+        plans.add(new BonPlan("30/05/2022","https://t3.ftcdn.net/jpg/00/50/75/04/360_F_50750404_44TcEOe72JF2EZqPoar4gWjfiGELZ26T.jpg",1,22,"venez vite c'est super!!!"));
+        plans.add(new BonPlan("30/05/2022","https://t3.ftcdn.net/jpg/00/50/75/04/360_F_50750404_44TcEOe72JF2EZqPoar4gWjfiGELZ26T.jpg",1,22,"venez vite c'est super!!!"));
+        BonPlanAdapter adap = new BonPlanAdapter(container.getContext(), plans);
+        listView.setAdapter(adap);
 
 
         TextView nameView = view.findViewById(R.id.name);
@@ -111,6 +114,17 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
 
 
         Button addToFavs = (Button) view.findViewById(R.id.BAjouterAuxFavs);
+
+        Button add = (Button) view.findViewById(R.id.BAjouterBP);
+        add.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(container.getContext(), AddBonPlanActivity.class);
+                myIntent.putExtra("idLieu",model.getId());
+                startActivity(myIntent);
+            }
+        });
+
+
         addToFavs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 client = new OkHttpClient();
