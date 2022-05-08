@@ -22,6 +22,7 @@ import etu.toptip.R;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.fragments.ICameraPermission;
 import etu.toptip.fragments.IStorageActivity;
+import etu.toptip.fragments.NotificationsFragment;
 import etu.toptip.fragments.StorageFragment;
 import etu.toptip.model.Place;
 import etu.toptip.helper.ListPlacesThread;
@@ -38,6 +39,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
     private Bitmap picture;
     private CameraFragment cameraFragment;
     private StorageFragment storageFragment;
+    private NotificationsFragment notificationsFragment;
 
     public AddPlaceActivity() throws Throwable {
     }
@@ -61,7 +63,14 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         fragmentTransaction2.addToBackStack(null);
         fragmentTransaction2.commit();
 
-        Button addBP = (Button) findViewById(R.id.BtnAjouterBP);
+        notificationsFragment = (NotificationsFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentNotifications);
+        if (notificationsFragment==null) notificationsFragment = new NotificationsFragment();
+        FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction3.replace(R.id.fragmentNotifications, notificationsFragment);
+        fragmentTransaction3.addToBackStack(null);
+        fragmentTransaction3.commit();
+
+        /**Button addBP = (Button) findViewById(R.id.BtnAjouterBP);
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 EditText name = (EditText) findViewById(R.id.nameResto);
@@ -89,7 +98,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
                 startActivity(myIntent);
             }
 
-        });
+        });*/
 
         Button BSelectImage = (Button) findViewById(R.id.BSelectImage);
         IVPreviewImage = findViewById(R.id.IVPreviewImage);

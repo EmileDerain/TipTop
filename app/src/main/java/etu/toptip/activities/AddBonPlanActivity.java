@@ -71,8 +71,8 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         fragmentTransaction2.addToBackStack(null);
         fragmentTransaction2.commit();
 
-        notificationsView = new NotificationsView(this);
-        notificationsController = new NotificationsController(notificationsView);
+        //notificationsView = new NotificationsView(this);
+        //notificationsController = new NotificationsController(notificationsView);
 
 
         Button addBP = (Button) findViewById(R.id.BtnAjouterBPOK);
