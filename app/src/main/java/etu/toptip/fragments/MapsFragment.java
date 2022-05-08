@@ -24,7 +24,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -45,7 +44,7 @@ import java.util.List;
 import java.util.Locale;
 import etu.toptip.R;
 import etu.toptip.helper.ListPlacesThread;
-import etu.toptip.model.ListFavoris;
+import etu.toptip.helper.ListFavoriThread;
 import etu.toptip.model.ListWallet;
 import etu.toptip.model.Place;
 import etu.toptip.model.Wallet;
@@ -63,11 +62,11 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
     private Geocoder codergeo;
     private boolean first =true;
     SearchView searchView;
-    ListFavoris favoris = new ListFavoris();
+    ListFavoriThread favoris = new ListFavoriThread();
     ListWallet wallet = new ListWallet();
     private boolean textSubmitted =false;
 
-    public ListPlacesThread places = new ListPlacesThread();
+    public ListPlacesThread places;
 
     public MapsFragment() throws Throwable {
     }
@@ -79,8 +78,7 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
 
         try {
             places = new ListPlacesThread();
-            AsyncTask<String, Integer, JSONObject> execute = places.execute("http://90.8.217.30:3000/api/lieu");
-            Log.d("Emile", execute.get().toString());
+            places.execute("http://90.8.217.30:3000/api/lieu");  //2 endroits ou on actualise les lieux
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

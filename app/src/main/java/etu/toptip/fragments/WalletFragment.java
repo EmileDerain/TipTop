@@ -3,27 +3,19 @@ package etu.toptip.fragments;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.json.JSONObject;
-
 import etu.toptip.R;
-import etu.toptip.activities.AddPlaceActivity;
 import etu.toptip.activities.AddWalletActivity;
-import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.model.ListWallet;
-import etu.toptip.model.PlaceAdapter;
-import etu.toptip.model.Wallet;
 import etu.toptip.model.WalletAdapter;
 
 public class WalletFragment extends Fragment {

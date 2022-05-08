@@ -7,22 +7,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import etu.toptip.R;
 import etu.toptip.fragments.CameraFragment;
@@ -38,7 +31,6 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
     int SELECT_PICTURE = 200;
     private int notifID = 0;
 
-    ListPlacesThread places = new ListPlacesThread();
     ListWallet listWallet = new ListWallet();
     ArrayList<String> infos = new ArrayList<>();
     ImageView IVPreviewImage;
@@ -55,7 +47,7 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        for(Place l : places.getPlaces()){
+        for(Place l : ListPlacesThread.getPlaces()){
             System.out.println("ok");
             System.out.println(l.getName());
         }
@@ -76,7 +68,7 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
         fragmentTransaction2.addToBackStack(null);
         fragmentTransaction2.commit();
 
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, places.getNames());
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, ListPlacesThread.getNames());
         Spinner name =  findViewById(R.id.nameW);
         name.setAdapter(spinnerAdapter);
 

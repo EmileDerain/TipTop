@@ -5,8 +5,8 @@ import android.os.Parcel;
 import etu.toptip.model.Place;
 
 public class Grocery extends Place {
-    public Grocery(String name, String image, String ville, String codeP, String adresse) {
-        super(name, 3,image,ville, codeP, adresse);
+    public Grocery(String name, String image, String ville, String codeP, String adresse, String id) {
+        super(name, 3,image,ville, codeP, adresse, id);
     }
 
     protected Grocery(Parcel in) {

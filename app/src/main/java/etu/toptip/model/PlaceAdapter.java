@@ -46,7 +46,7 @@ public class PlaceAdapter extends BaseAdapter {
 
     @Override
     public Place getItem(int i) {
-        System.out.println(places.size());
+//        System.out.println(places.size());
         return places.get(i);
     }
 

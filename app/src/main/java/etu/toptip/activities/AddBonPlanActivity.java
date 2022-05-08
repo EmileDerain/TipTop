@@ -1,18 +1,13 @@
 package etu.toptip.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +24,6 @@ import etu.toptip.fragments.ICameraPermission;
 import etu.toptip.fragments.IStorageActivity;
 import etu.toptip.fragments.StorageFragment;
 import etu.toptip.model.BonPlan;
-import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.views.NotificationsView;
 
 
@@ -37,7 +31,6 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
 
     int SELECT_PICTURE = 200;
     private int notifID = 0;
-    ListPlacesThread listPlacesThread = new ListPlacesThread();
     ArrayList<String> infos = new ArrayList<>();
     ImageView IVPreviewImage;
 
@@ -109,10 +102,6 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         i.setAction(Intent.ACTION_GET_CONTENT);
 
         startActivityIfNeeded(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
-    }
-
-    public ListPlacesThread getListPlaces(){
-        return listPlacesThread;
     }
 
     /**private void sendNotificationChannel(String title, String message, String channelId, int priority, Bitmap bitmap) {

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import etu.toptip.model.Place;
 import etu.toptip.model.factory.FactoryManager;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -51,7 +52,7 @@ public class ListPlaces {
 
                 @Override
                 public void onResponse(Call call, Response response) {
-                    String adresse, codepostal, ville, nomDuLieu, imageUrl;
+                    String adresse, codepostal, ville, nomDuLieu, imageUrl, idLieu;
                     int typeBonPlan;
 
                     try (ResponseBody responseBody = response.body()) {
@@ -64,10 +65,11 @@ public class ListPlaces {
                             typeBonPlan = Integer.parseInt(((JSONObject) jsonarray.get(i)).getString("typeBonPlan"));
                             ville = ((JSONObject) jsonarray.get(i)).getString("ville");
                             nomDuLieu = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
+                            idLieu = ((JSONObject) jsonarray.get(i)).getString("_id");
                             System.out.println(imageUrl);
-                            listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse));
+                            listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse,idLieu));
                         }
-                        listPlaces.add(FactoryManager.build("Picare", 0, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Nice", "06600", "1770 Rte de Grasse"));
+                        listPlaces.add(FactoryManager.build("Picare", 0, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Nice", "06600", "1770 Rte de Grasse","1234"));
 
                     } catch (Exception e) {
                         e.printStackTrace();

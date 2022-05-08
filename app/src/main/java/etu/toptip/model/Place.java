@@ -14,17 +14,19 @@ public class Place implements Parcelable {
     private String ville;
     private String codeP;
     private String adresse;
+    private String id;
 
-    public Place(String name, int type, String image, String ville, String codeP, String adresse) {
+    public Place(String name, int type, String image, String ville, String codeP, String adresse, String id) {
         this.name = name;
         this.image = image;
         this.type = type;
         this.ville = ville;
         this.adresse = adresse;
-        this.codeP = codeP ;
+        this.codeP = codeP;
+        this.id = id;
     }
 
-    protected Place(Parcel in) {
+    protected Place(Parcel in) {   
         name = in.readString();
         type = in.readInt();
         if (in.readByte() == 0) {
@@ -48,6 +50,10 @@ public class Place implements Parcelable {
             return new Place[size];
         }
     };
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

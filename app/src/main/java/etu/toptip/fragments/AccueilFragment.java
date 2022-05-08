@@ -1,7 +1,6 @@
 package etu.toptip.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -10,25 +9,25 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+
 import androidx.appcompat.widget.SearchView;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
 import etu.toptip.activities.AddPlaceActivity;
 
-import etu.toptip.model.ListPlaces;
-import etu.toptip.model.Place;
 import etu.toptip.helper.ListPlacesThread;
+import etu.toptip.model.Place;
 import etu.toptip.model.PlaceAdapter;
 
 
@@ -49,8 +48,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
     private int selectedFilter = -1;
     private String currentSearchText = "";
     private SearchView searchView;
-    ListPlacesThread places ;
-
+    ListPlacesThread places;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -84,17 +82,18 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         try {
             places = new ListPlacesThread();
-            AsyncTask<String, Integer, JSONObject> execute = places.execute("http://90.8.217.30:3000/api/lieu");
-            System.out.println("ok"+places.getPlaces());
-
-            //            Log.d("Emile", execute.get().toString());
+            places.execute("http://90.8.217.30:3000/api/lieu"); //2 endroits ou on actualise les lieux
         } catch (Throwable throwable) {
             throwable.printStackTrace();
+        }
+
+        try {
+            places.get(5000, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
@@ -102,8 +101,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         PlaceAdapter adap = new PlaceAdapter(container.getContext(), places.getPlaces());
         listView.setAdapter(adap);
         adap.addListner(this);
-        initSearchWidgets(places,view);
-
+        initSearchWidgets(places, view);
 
 
         //supermarchés
@@ -127,7 +125,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
 
             public void onClick(View view) {
                 filterList(1);
-                selectedFilter = 1 ;
+                selectedFilter = 1;
                 buttonR.setSelected(true);
                 buttonB.setSelected(false);
                 buttonS.setSelected(false);
@@ -139,7 +137,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
 
             public void onClick(View view) {
                 filterList(3);
-                selectedFilter = 3 ;
+                selectedFilter = 3;
                 buttonB.setSelected(true);
                 buttonR.setSelected(false);
                 buttonS.setSelected(false);
@@ -193,7 +191,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         fragmentTransaction.commit();
     }
 
-    public void initSearchWidgets(ListPlacesThread places, View view){
+    public void initSearchWidgets(ListPlacesThread places, View view) {
         searchView = view.findViewById(R.id.idSearchView2);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -205,13 +203,13 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
             public boolean onQueryTextChange(String s) {
                 currentSearchText = s;
                 ArrayList<Place> filtredPlaces = new ArrayList<>();
-                for(Place place :places.getPlaces() ){
-                    if(place.getVille().toLowerCase().contains(s.toLowerCase())){
-                        if(selectedFilter ==-1)  filtredPlaces.add(place);
-                        else if(place.getType() == selectedFilter) filtredPlaces.add(place);
+                for (Place place : places.getPlaces()) {
+                    if (place.getVille().toLowerCase().contains(s.toLowerCase())) {
+                        if (selectedFilter == -1) filtredPlaces.add(place);
+                        else if (place.getType() == selectedFilter) filtredPlaces.add(place);
                     }
                 }
-                PlaceAdapter p = new PlaceAdapter(getContext().getApplicationContext(),filtredPlaces);
+                PlaceAdapter p = new PlaceAdapter(getContext().getApplicationContext(), filtredPlaces);
                 listView.setAdapter(p);
                 p.addListner(AccueilFragment.this);
 
@@ -220,34 +218,31 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         });
     }
 
-    private void filterList(int status){
-        selectedFilter = status ;
+    private void filterList(int status) {
+        selectedFilter = status;
         ArrayList<Place> filtredPlaces = new ArrayList<>();
-        for(Place place : places.getPlaces() ){
-            if(place.getType() == status){
-                if(currentSearchText.equals("")){
+        for (Place place : places.getPlaces()) {
+            if (place.getType() == status) {
+                if (currentSearchText.equals("")) {
                     filtredPlaces.add(place);
-                }
-                else if(place.getVille().toLowerCase().contains(currentSearchText.toLowerCase())){
+                } else if (place.getVille().toLowerCase().contains(currentSearchText.toLowerCase())) {
                     filtredPlaces.add(place);
                 }
             }
         }
-        PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(),filtredPlaces);
+        PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(), filtredPlaces);
         listView.setAdapter(placeAdapter);
         placeAdapter.addListner(this);
 
     }
 
-    public void allFilter(){
+    public void allFilter() {
         searchView.setQuery("", false);
         searchView.clearFocus();
         selectedFilter = -1;
-        PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(),places.getPlaces());
+        PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(), places.getPlaces());
         listView.setAdapter(placeAdapter);
         placeAdapter.addListner(this);
 
     }
-
-
 }

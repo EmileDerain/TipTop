@@ -1,6 +1,7 @@
 package etu.toptip.fragments;
 
 import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,14 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import etu.toptip.IListner;
 import etu.toptip.R;
-import etu.toptip.model.ListFavoris;
+import etu.toptip.helper.Infologin;
+import etu.toptip.helper.ListFavoriThread;
 import etu.toptip.model.Place;
 import etu.toptip.model.PlaceAdapter;
 
@@ -50,12 +56,22 @@ public class ListFavorisFragment extends Fragment implements IListner {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listefavoris, container, false);
 
-        ListFavoris favoris = new ListFavoris();
+        ListFavoriThread favoris = new ListFavoriThread();
+//        String url = "http://192.168.1.14:3000/api/favori/" + Infologin.getIdUser();
+        String url = "http://90.8.217.30:3000/api/favori/" + Infologin.getIdUser();
+        favoris.execute(url);
+
+        try {
+            favoris.get(5000, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         ListView listView = view.findViewById(R.id.place_fav_list_view);
-        PlaceAdapter adap = new PlaceAdapter(container.getContext(),favoris.getFavoris());
+        PlaceAdapter adap = new PlaceAdapter(container.getContext(), ListFavoriThread.getFavoris());
         listView.setAdapter(adap);
         adap.addListner(this);
-
 
         return view;
     }

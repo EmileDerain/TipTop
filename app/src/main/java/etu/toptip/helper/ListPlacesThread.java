@@ -25,8 +25,6 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
 
     public ListPlacesThread() throws Throwable {
 
-
-
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 //        listPlaces.add(FactoryManager.build("Picare", 0, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Antibes", "06600", "1770 Rte de Grasse"));
@@ -77,7 +75,7 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... urls) {
-        String adresse, codepostal, ville, nomDuLieu, imageUrl;
+        String adresse, codepostal, ville, nomDuLieu, imageUrl, idLieu;
         int typeBonPlan;
 
         String apiResponse = "";
@@ -106,7 +104,7 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
             jsonarray = new JSONArray(apiResponse);
 
 
-            if(listPlaces.size() != jsonarray.length()) {
+            if (listPlaces.size() != jsonarray.length()) {
                 listPlaces.clear();
                 for (int i = 0; i < jsonarray.length(); i++) {
                     imageUrl = ((JSONObject) jsonarray.get(i)).getString("imageUrl");
@@ -115,13 +113,11 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
                     typeBonPlan = Integer.parseInt(((JSONObject) jsonarray.get(i)).getString("typeBonPlan"));
                     ville = ((JSONObject) jsonarray.get(i)).getString("ville");
                     nomDuLieu = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
-                    listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse));
+                    idLieu = ((JSONObject) jsonarray.get(i)).getString("_id");
+                    listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse, idLieu));
                 }
-                listPlaces.add(FactoryManager.build("test", 2, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Antibes", "", ""));
-
+//                listPlaces.add(FactoryManager.build("test", 2, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Antibes", "", ""));
             }
-
-
 
 
         } catch (Exception e) {
@@ -133,20 +129,27 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
         return null;
     }
 
-    public ArrayList<Place> getPlaces() {
+    public static synchronized ArrayList<Place> getPlaces() {
         return listPlaces;
     }
 
-    public Place getPlaceByName(String name) {
-        for (Place place : listPlaces
-        ) {
+    public static synchronized Place getPlaceByName(String name) {
+        for (Place place : listPlaces) {
             if (place.getName() == name) return place;
         }
         return null;
     }
 
+    public static synchronized Place getPlaceById(String id) {
+        System.out.println("je recherche: " + id);
+        for (Place place : listPlaces) {
+            System.out.println(place.getName() + " " + place.getAdresse() + ":" + place.getId());
+            if (place.getId().equals(id)) return place;
+        }
+        return null;
+    }
 
-    public ArrayList<String> getNames(){
+    public static synchronized ArrayList<String> getNames() {
         ArrayList<String> set = new ArrayList<>();
         set.add("Lidl");
         set.add("Carrefour");
@@ -154,7 +157,6 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
         for (Place place : listPlaces) {
             set.add(place.getName());
         }
-
         return set;
     }
 }

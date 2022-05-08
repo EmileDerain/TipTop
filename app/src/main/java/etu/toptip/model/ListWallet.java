@@ -3,8 +3,6 @@ package etu.toptip.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import etu.toptip.helper.ListPlacesThread;
-
 public class ListWallet {
 
 
