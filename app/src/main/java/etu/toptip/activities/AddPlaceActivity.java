@@ -94,7 +94,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         fragmentTransaction3.addToBackStack(null);
         fragmentTransaction3.commit();
 
-        Button addBP = (Button) findViewById(R.id.BtnAjouterBP);
+        Button addBP = (Button) findViewById(R.id.BtnAjouterPlaceOK);
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 

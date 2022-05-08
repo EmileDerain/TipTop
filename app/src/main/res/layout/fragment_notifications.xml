@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        android:text="AJOUTER LE BON PLAN"
+        android:text="NOTIFIER L'AJOUT DU LIEU"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/green"
         android:textSize="18sp"/>
