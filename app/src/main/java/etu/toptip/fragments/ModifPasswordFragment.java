@@ -74,28 +74,27 @@ public class ModifPasswordFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_modif_pwd, container, false);
 
-        TextView test = view.findViewById(R.id.idInfoHeader);
-        test.setTextSize(50);
+        TextView test = view.findViewById(R.id.idInfoHeader5);
 
-        this.titre = view.findViewById(R.id.idErreurModifPassword);
-        this.oldPass = view.findViewById(R.id.oldPassword);
-        this.newPass = view.findViewById(R.id.newPassword);
+        this.titre = view.findViewById(R.id.idErreurModifPwd);
+        this.oldPass = view.findViewById(R.id.pwd1);
+        this.newPass = view.findViewById(R.id.pwd2);
         this.modifPasswordController = new ModifPasswordController(this);
 
-        Button modifMdp2 = view.findViewById(R.id.ok);
+        Button modifMdp2 = view.findViewById(R.id.idBtn);
 
         modifMdp2.setText("JE SUIS LA");
 
         modifMdp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Emile", "onClick(View v4");
+                Log.d("Emile", "edit pwd");
 //                modifPasswordController.OnModifPassword(oldPass.getText().toString(), newPass.getText().toString());
             }
         });
         Log.d("Emile", "onClick(View v3bis2");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_modif_password, container, false);
+        return view;
     }
 
     public void showError(String error, Boolean create) {

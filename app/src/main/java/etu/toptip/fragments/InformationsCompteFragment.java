@@ -98,7 +98,7 @@ public class InformationsCompteFragment extends Fragment {
         modifMdp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment modif = new ModifPwdFragment();
+                Fragment modif = new ModifPasswordFragment();
                 replaceFragment(modif);
             }
 
