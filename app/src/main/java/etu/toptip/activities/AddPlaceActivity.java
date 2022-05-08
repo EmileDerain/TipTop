@@ -86,7 +86,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         EditText code = (EditText) findViewById(R.id.CodeP);
         EditText adresse = (EditText) findViewById(R.id.AdresseResto);
         Spinner typeSpinner = (Spinner) findViewById(R.id.typeResto);
-        
+
         notificationsFragment = (NotificationsFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentNotifications);
         if (notificationsFragment==null) notificationsFragment = new NotificationsFragment();
         FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();

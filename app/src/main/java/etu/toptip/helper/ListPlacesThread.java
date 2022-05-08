@@ -23,55 +23,7 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
 
     public static ArrayList<Place> listPlaces = new ArrayList<>();
 
-    public ListPlacesThread() throws Throwable {
-
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-//        listPlaces.add(FactoryManager.build("Picare", 0, "https://www.pagesjaunes.fr/media/agc/a7/8c/4d/00/00/43/c5/1d/0a/c0/5fa1a78c4d000043c51d0ac0/5fa1a78c4d000043c51d0ac1.jpg", "Antibes", "06600", "1770 Rte de Grasse"));
-        //
-//        try {
-//            OkHttpClient client = new OkHttpClient();
-//
-//            Request request = new Request.Builder()
-////                    .url("http://192.168.1.14:3000/api/lieu")
-//                    .url("http://90.8.217.30:3000/api/lieu")
-//                    .build();
-//
-//            client.newCall(request).enqueue(new Callback() {
-//                @Override
-//                public void onFailure(Call call, IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                @Override
-//                public void onResponse(Call call, Response response) {
-//                    String adresse, codepostal, ville, nomDuLieu, imageUrl;
-//                    int typeBonPlan;
-//
-//                    try (ResponseBody responseBody = response.body()) {
-//                        JSONArray jsonarray = new JSONArray(responseBody.string());
-//
-//                        for (int i = 0; i < jsonarray.length(); i++) {
-//                            adresse = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
-//                            codepostal = ((JSONObject) jsonarray.get(i)).getString("codepostal");
-//                            typeBonPlan = Integer.parseInt(((JSONObject) jsonarray.get(i)).getString("typeBonPlan"));
-//                            ville = ((JSONObject) jsonarray.get(i)).getString("ville");
-//                            nomDuLieu = ((JSONObject) jsonarray.get(i)).getString("nomDuLieu");
-//                            imageUrl = ((JSONObject) jsonarray.get(i)).getString("imageUrl");
-//
-//                            listPlaces.add(FactoryManager.build(nomDuLieu, typeBonPlan, imageUrl, ville, codepostal, adresse));
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } catch (Throwable throwable) {
-//                        throwable.printStackTrace();
-//                    }
-//                }
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-    }
+    public ListPlacesThread() throws Throwable { }
 
     @Override
     protected JSONObject doInBackground(String... urls) {
@@ -132,6 +84,7 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
     public static synchronized ArrayList<Place> getPlaces() {
         return listPlaces;
     }
+
 
     public static synchronized Place getPlaceByName(String name) {
         for (Place place : listPlaces) {

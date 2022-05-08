@@ -50,7 +50,6 @@ public class ModifPasswordModel {
 
             Request request = new Request.Builder()
                     .url(url)
-//                    .url("http://192.168.1.14:3000/api/user/auth/login")
                     .put(requestBody)
                     .build();
 
