@@ -13,8 +13,14 @@ import android.widget.GridView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.concurrent.TimeUnit;
+
 import etu.toptip.R;
 import etu.toptip.activities.AddWalletActivity;
+import etu.toptip.helper.Infologin;
+import etu.toptip.helper.ListBonPlanThread;
+import etu.toptip.helper.ListPlacesThread;
+import etu.toptip.helper.ListWalletThread;
 import etu.toptip.model.ListWallet;
 import etu.toptip.model.WalletAdapter;
 
@@ -52,10 +58,27 @@ public class WalletFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wallet, container, false);
         // Inflate the layout for this fragment
-        ListWallet wallet = new ListWallet();
+        ListWalletThread wallet = null;
 
         GridView listView = view.findViewById(R.id.wallet);
-        WalletAdapter adap = new WalletAdapter(container.getContext(), wallet.getWallet());
+
+        String url = "http://90.8.217.30:3000/api/carte/" + Infologin.getIdUser();
+
+        try {
+            wallet = new ListWalletThread();
+            wallet.execute(url);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
+        try {
+            wallet.get(5000, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        WalletAdapter adap = new WalletAdapter(container.getContext(), wallet.getListWallet());
         listView.setAdapter(adap);
         Button addBP = (Button) view.findViewById(R.id.add);
         addBP.setOnClickListener(new View.OnClickListener() {

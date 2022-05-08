@@ -59,7 +59,7 @@ public class PlaceAdapter extends BaseAdapter {
     public View getView(int i, View convertView, ViewGroup parent) {
         LinearLayout view ;
         view = (LinearLayout) (convertView == null ? inflater.inflate(R.layout.adapter_item, parent, false) : convertView);
-        System.out.println("i"+i);
+//        System.out.println("i"+i);
         Place currentPlace = getItem(i);
         String name = currentPlace.getName();
         String details = currentPlace.getVille() + " "+ currentPlace.getCodeP() + " "+currentPlace.getType();

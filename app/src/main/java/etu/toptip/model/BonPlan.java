@@ -3,10 +3,10 @@ package etu.toptip.model;
 public class BonPlan {
     private String date;
     private String image;
-    private int idUser;
-    private int idPlace;
+    private String idUser;
+    private String idPlace;
 
-    public BonPlan(String date, String image, int idUser, int idPlace, String description) {
+    public BonPlan(String date, String image, String idUser, String idPlace, String description) {
         this.date = date;
         this.image = image;
         this.idUser = idUser;
@@ -24,11 +24,11 @@ public class BonPlan {
         return image;
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public int getIdPlace() {
+    public String getIdPlace() {
         return idPlace;
     }
 

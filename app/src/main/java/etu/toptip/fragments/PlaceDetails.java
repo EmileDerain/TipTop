@@ -24,11 +24,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import etu.toptip.IListner;
 import etu.toptip.R;
 import etu.toptip.activities.AddBonPlanActivity;
 import etu.toptip.helper.Infologin;
+import etu.toptip.helper.ListBonPlanThread;
 import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.model.BonPlan;
 import etu.toptip.model.BonPlanAdapter;
@@ -59,6 +61,7 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
     private String mParam2;
 
     OkHttpClient client;
+    ListBonPlanThread bonplan;
 
     public PlaceDetails() {
         // Required empty public constructor
@@ -95,10 +98,23 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
 
         ListView listView = view.findViewById(R.id.bonplan_list_view);
 
+        String url = "http://90.8.217.30:3000/api/bonplan/lieu/" + model.getId();
+
+        try {
+            bonplan = new ListBonPlanThread();
+            bonplan.execute(url);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
+        try {
+            bonplan.get(5000, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         //tu ajoute ici les bon plan obtenu
-        ArrayList<BonPlan> plans = new ArrayList<>();
-        plans.add(new BonPlan("30/05/2022","https://t3.ftcdn.net/jpg/00/50/75/04/360_F_50750404_44TcEOe72JF2EZqPoar4gWjfiGELZ26T.jpg",1,22,"venez vite c'est super!!!"));
-        plans.add(new BonPlan("30/05/2022","https://t3.ftcdn.net/jpg/00/50/75/04/360_F_50750404_44TcEOe72JF2EZqPoar4gWjfiGELZ26T.jpg",1,22,"venez vite c'est super!!!"));
+        ArrayList<BonPlan> plans = ListBonPlanThread.getListBonPlan();
         BonPlanAdapter adap = new BonPlanAdapter(container.getContext(), plans);
         listView.setAdapter(adap);
 
@@ -119,7 +135,7 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
         add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent myIntent = new Intent(container.getContext(), AddBonPlanActivity.class);
-                myIntent.putExtra("idLieu",model.getId());
+                myIntent.putExtra("idLieu", model.getId());
                 startActivity(myIntent);
             }
         });

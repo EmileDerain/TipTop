@@ -52,7 +52,7 @@
             android:layout_below="@id/BSelectImage"
             android:layout_marginTop="9dp"
             android:backgroundTint="@color/green"
-            android:text="AJOUTER LE BON PLAN"
+            android:text="AJOUTER LA CARTE"
             android:textColor="@android:color/white"
             android:textSize="18dp" />
 

@@ -23,11 +23,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Objects;
 
 import etu.toptip.R;
 import etu.toptip.activities.CameraActivity;
 import etu.toptip.activities.LoginActivity;
+import etu.toptip.helper.Infologin;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,8 +122,8 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
         supprimerCompteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            // à ajouter
-                }
+                // à ajouter
+            }
         });
 
 
@@ -131,7 +143,7 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
             }
         });
 
-       // reglagesButton = view.findViewById(R.id.idButtonRéglages);
+        // reglagesButton = view.findViewById(R.id.idButtonRéglages);
 
 
         decoButton = view.findViewById(R.id.idButtonDeconnexion);
@@ -140,6 +152,36 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getContext(), LoginActivity.class);
                 startActivity(myIntent);
+            }
+        });
+
+        decoButton = view.findViewById(R.id.idButtonSupprimerCompte);
+        decoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                OkHttpClient client = new OkHttpClient();
+
+                String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
+//                String url = "http://192.168.1.14:3000/api/user/" + Infologin.getIdUser();
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .delete()
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) {
+                        Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(myIntent);
+                    }
+                });
             }
         });
 

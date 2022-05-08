@@ -104,9 +104,6 @@ public class ListPlacesThread extends AsyncTask<String, Integer, JSONObject> {
 
     public static synchronized ArrayList<String> getNames() {
         ArrayList<String> set = new ArrayList<>();
-        set.add("Lidl");
-        set.add("Carrefour");
-        set.add("Casino");
         for (Place place : listPlaces) {
             set.add(place.getName());
         }

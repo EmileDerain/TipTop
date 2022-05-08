@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -26,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -88,7 +91,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         Spinner typeSpinner = (Spinner) findViewById(R.id.typeResto);
 
         notificationsFragment = (NotificationsFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentNotifications);
-        if (notificationsFragment==null) notificationsFragment = new NotificationsFragment();
+        if (notificationsFragment == null) notificationsFragment = new NotificationsFragment();
         FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
         fragmentTransaction3.replace(R.id.fragmentNotifications, notificationsFragment);
         fragmentTransaction3.addToBackStack(null);
@@ -238,6 +241,8 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
     }
 
     public String uploadImage(String name, int type, String ville, String codeP, String adresse) {
+        File imgFile2 = null;
+
         if (TextUtils.isEmpty(name))
             return "Veuillez rentrer un nom";
         else if (TextUtils.isEmpty(adresse))
@@ -246,52 +251,71 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
             return "Veuillez rentrer une ville";
         else if (TextUtils.isEmpty(codeP))
             return "Veuillez rentrer un code postal";
-        try {                                           // NE PREND PAS EN COMPTE LES PHOTOS !!!!
-            uri.toString();
-        } catch (NullPointerException e) {
-            return "Veuillez selectionner une image";
+        else if (picture != null) {
+            File f = new File(Environment.getExternalStorageDirectory().toString() + "/photo.png");
+
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+            }
+            FileOutputStream fOut = null;
+            try {
+                fOut = new FileOutputStream(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            picture.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            try {
+                fOut.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            imgFile2 = f;
+
+        } else if (picture == null) {
+            try {                                           // NE PREND PAS EN COMPTE LES PHOTOS !!!!
+                imgFile2 = new File(uriToFilename(uri));
+            } catch (NullPointerException e) {
+                return "Veuillez selectionner une image";
+            }
         }
-        if (TextUtils.isEmpty(uri.toString()))
-            return "Veuillez selectionner une image";
-        else {
 
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
 
-            File imgFile2 = new File(uriToFilename(uri));
+        System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
+        System.out.println(imgFile2.getAbsolutePath());
 
-            System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
-            System.out.println(imgFile2.getAbsolutePath());
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", imgFile2.getName(),
+                        RequestBody.create(MediaType.parse("image/png"), imgFile2))
+                .addFormDataPart("adresse", adresse)
+                .addFormDataPart("codepostal", codeP)
+                .addFormDataPart("typeBonPlan", Integer.toString(type))
+                .addFormDataPart("ville", ville)
+                .addFormDataPart("nomDuLieu", name)
+                .build();
 
-            RequestBody requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("image", imgFile2.getName(),
-                            RequestBody.create(MediaType.parse("image/png"), imgFile2))
-                    .addFormDataPart("adresse", adresse)
-                    .addFormDataPart("codepostal", codeP)
-                    .addFormDataPart("typeBonPlan", Integer.toString(type))
-                    .addFormDataPart("ville", ville)
-                    .addFormDataPart("nomDuLieu", name)
-                    .build();
-
-            Request request = new Request.Builder()
+        Request request = new Request.Builder()
 //                    .url("http://192.168.1.14:3000/api/lieu/")
-                    .url("http://90.8.217.30:3000/api/lieu/")
-                    .post(requestBody)
-                    .build();
+                .url("http://90.8.217.30:3000/api/lieu/")
+                .post(requestBody)
+                .build();
 
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    System.out.println("MB");
-                }
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("MB");
+            }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    System.out.println("GG");
-                }
-            });
-        }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("GG");
+            }
+        });
+
         return "true";
     }
 

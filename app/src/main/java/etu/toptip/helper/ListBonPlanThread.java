@@ -25,8 +25,8 @@ public class ListBonPlanThread extends AsyncTask<String, Integer, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... urls) {
-        String date, image, description;
-        int idUser, idPlace;
+        listBonPlan.clear();
+        String date, image, description, idUser, idPlace;
 
         String apiResponse = "";
         JSONArray jsonarray = null;
@@ -53,17 +53,14 @@ public class ListBonPlanThread extends AsyncTask<String, Integer, JSONObject> {
 
             jsonarray = new JSONArray(apiResponse);
 
-
-            if (listBonPlan.size() != jsonarray.length()) {
-                listBonPlan.clear();
-                for (int i = 0; i < jsonarray.length(); i++) {
-                    date = ((JSONObject) jsonarray.get(i)).getString("dateExpiration");
-                    image = ((JSONObject) jsonarray.get(i)).getString("imageUrl");
-                    idUser = Integer.parseInt (((JSONObject) jsonarray.get(i)).getString("idUser"));
-                    idPlace = Integer.parseInt(((JSONObject) jsonarray.get(i)).getString("idLieu"));
-                    description = ((JSONObject) jsonarray.get(i)).getString("description");
-//                    listBonPlan.add(FactoryManager.build(date, image, idUser, idPlace, description));
-                }
+            System.out.println(jsonarray.toString());
+            for (int i = 0; i < jsonarray.length(); i++) {
+                date = ((JSONObject) jsonarray.get(i)).getString("dateExpiration");
+                image = ((JSONObject) jsonarray.get(i)).getString("imageUrl");
+                idUser = ((JSONObject) jsonarray.get(i)).getString("idUser");
+                idPlace = ((JSONObject) jsonarray.get(i)).getString("idLieu");
+                description = ((JSONObject) jsonarray.get(i)).getString("description");
+                listBonPlan.add(new BonPlan(date, image, idUser, idPlace, description));
             }
 
 
@@ -80,10 +77,10 @@ public class ListBonPlanThread extends AsyncTask<String, Integer, JSONObject> {
         return listBonPlan;
     }
 
-    public static synchronized ArrayList<BonPlan> getBPByIdLieu(int id) {
+    public static synchronized ArrayList<BonPlan> getBPByIdLieu(String id) {
         ArrayList<BonPlan> listBonPlan2 = new ArrayList<>();
         for (BonPlan bonPlan : listBonPlan) {
-            if (bonPlan.getIdUser() == id){
+            if (bonPlan.getIdUser().equals(id)) {
                 listBonPlan2.add(bonPlan);
             }
         }
