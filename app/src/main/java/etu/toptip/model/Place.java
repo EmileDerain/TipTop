@@ -37,6 +37,7 @@ public class Place implements Parcelable {
         ville = in.readString();
         codeP = in.readString();
         adresse = in.readString();
+        id = in.readString();
     }
 
     public static final Creator<Place> CREATOR = new Creator<Place>() {

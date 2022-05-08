@@ -69,6 +69,10 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bon_plan);
 
+        Bundle bundle = getIntent().getExtras();
+        String id = bundle.getString("idLieu");
+        System.out.println("idLieu"+id);
+
         cameraFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentCamera);
         if (cameraFragment == null) cameraFragment = new CameraFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -93,8 +97,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
                 String descriptionText = description.getText().toString();
                 String expirationText = expiration.getText().toString();
 
-
-                String sot = uploadImage(descriptionText, expirationText, "ICI IL FAUT L'idLieu");
+                String sot = uploadImage(descriptionText, expirationText, id);
 
                 System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
 
@@ -261,7 +264,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
 
             Request request = new Request.Builder()
 //                    .url("http://192.168.1.14:3000/api/lieu/")
-                    .url("http://90.8.217.30:3000/api/lieu/")
+                    .url("http://90.8.217.30:3000/api/bonplan/")
                     .post(requestBody)
                     .build();
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,18 +85,20 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_place_details, container, false);
+        Bundle bundle = this.getArguments();
+        Place model = bundle.getParcelable("place");
+
 
         Button add = (Button) view.findViewById(R.id.BAjouterBP);
         add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent myIntent = new Intent(container.getContext(), AddBonPlanActivity.class);
+                myIntent.putExtra("idLieu",model.getId());
                 startActivity(myIntent);
             }
         });
 
-        Bundle bundle = this.getArguments();
 
-        Place model = bundle.getParcelable("place");
 
         TextView nameView = view.findViewById(R.id.name);
         nameView.setText(model.getName());
@@ -113,7 +116,7 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
                 client = new OkHttpClient();
 
                 RequestBody requestBody = new FormBody.Builder()
-                        .add("idLieu", ListPlacesThread.getPlaceByName(nameView.getText().toString()).getId())
+                        .add("idLieu", model.getId())
                         .add("idUser", Infologin.getIdUser())
                         .build();
 
