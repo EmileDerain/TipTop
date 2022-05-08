@@ -1,12 +1,20 @@
 package etu.toptip.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +34,6 @@ import etu.toptip.activities.MainActivity;
  * A simple {@link Fragment} subclass.
  * Use the {@link AddPlaceFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class AddPlaceFragment extends Fragment {
 
@@ -37,7 +44,8 @@ public class AddPlaceFragment extends Fragment {
     CameraFragment cameraFragment;
     ImageView IVPreviewImage;
     TextView titre;
-
+    Uri uri;
+    private static final int READ_REQUEST_CODE = 42;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,34 +95,27 @@ public class AddPlaceFragment extends Fragment {
 
         this.titre = view.findViewById(R.id.idErreurModifLieu);
 
-        /**imageView = findViewById(R.id.click_imageBP);
-         imageView.setImageBitmap(cameraFragment.getBitmap());
-
-         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
-         Bitmap bitmap = drawable.getBitmap();*/
-
         Button addBP = (Button) view.findViewById(R.id.BtnAjouterBP);
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                EditText name = (EditText) view.findViewById(R.id.nameResto);
+                EditText name = view.findViewById(R.id.nameResto);
                 String nameText = name.getText().toString();
 
 
-                EditText adresse = (EditText) view.findViewById(R.id.AdresseResto);
+                EditText adresse = view.findViewById(R.id.AdresseResto);
                 String adresseText = adresse.getText().toString();
 
 
-                Spinner typeSpinner = (Spinner) view.findViewById(R.id.typeResto);
+                Spinner typeSpinner = view.findViewById(R.id.typeResto);
                 int type = typeSpinner.getSelectedItemPosition();
 
 
                 Intent myIntent = new Intent(getActivity(), MainActivity.class);
                 startActivity(myIntent);
             }
-
         });
 
-        Button cam = (Button) view.findViewById(R.id.BCamera);
+        Button cam = view.findViewById(R.id.BCamera);
         cam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,11 +124,15 @@ public class AddPlaceFragment extends Fragment {
             }
         });
 
-        Button BSelectImage = view.findViewById(R.id.selectImage);
+        Button BSelectImage = view.findViewById(R.id.BSelectImage);
+        BSelectImage.setText("JE SUIS MOI");
+
         IVPreviewImage = view.findViewById(R.id.IVPreviewImage);
+
         BSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("++++++++++++++++++++++++++++++++++++++");
                 imageChooser();
             }
         });
@@ -135,33 +140,118 @@ public class AddPlaceFragment extends Fragment {
     }
 
     void imageChooser() {
+        System.out.println("=============================================");
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
+        uri = i.getData();
+        System.out.println("JESUILA: " + uri.toString());
         getActivity().startActivityIfNeeded(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("test","ok");
-        if (resultCode == getActivity().RESULT_OK) {
+//    public void performFileSearch() {
+//        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
+//        // browser.
+//        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+//        intent.setType("image/*");
+//
+//        startActivityForResult(intent, READ_REQUEST_CODE);
+//    }
 
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    IVPreviewImage.setImageURI(selectedImageUri);
-                    System.out.println("j'ai rentré");
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        System.out.println("JJJJJJJJJJJJJJEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+//        Log.d("Emile", "ok");
+//        if (resultCode == getActivity().RESULT_OK) {
+//
+//            // compare the resultCode with the
+//            // SELECT_PICTURE constant
+//            if (requestCode == SELECT_PICTURE) {
+//                // Get the url of the image from data
+//                uri = data.getData();
+//                if (null != uri) {
+//                    // update the preview image in the layout
+//                    IVPreviewImage.setImageURI(uri);
+//                    System.out.println("j'ai rentré");
+//
+//                }
+//            }
+//        }
+//    }
 
-                }
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        System.out.println("JE VIENS DE PASSER");
+//        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            uri = null;
+//            if (data != null) {
+//                uri = data.getData();
+//                Log.i("Emile", "Uri: " + uri.toString());
+//                IVPreviewImage.setImageURI(uri);
+//            }
+//        }
+//    }
 
-
+//    private String uriToFilename(Uri uri) {
+//        String path = null;
+//
+//        if ((Build.VERSION.SDK_INT < 19) && (Build.VERSION.SDK_INT > 11)) {
+//            path = getRealPathFromURI_API11to18(this, uri);
+//            System.out.println("111111111111111111111111111: " + getRealPathFromURI_API11to18(this, uri));
+//        } else {
+//            System.out.println("22222222222222222222222");
+//            path = getFilePath(this, uri);
+//        }
+//
+//        return path;
+//    }
+//
+//    public String getRealPathFromURI_API11to18(Context context, Uri contentUri) {
+//        String path = "";
+//        if (getContentResolver() != null) {
+//            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+//            if (cursor != null) {
+//                cursor.moveToFirst();
+//                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+//                path = cursor.getString(idx);
+//                cursor.close();
+//            }
+//        }
+//        return path;
+//    }
+//
+//
+//    public String getFilePath(Context context, Uri uri) {
+//        //Log.e("uri", uri.getPath());
+//        String filePath = "";
+//        if (DocumentsContract.isDocumentUri(context, uri)) {
+//            String wholeID = DocumentsContract.getDocumentId(uri);
+//            //Log.e("wholeID", wholeID);
+//            // Split at colon, use second item in the array
+//            String[] splits = wholeID.split(":");
+//            if (splits.length == 2) {
+//                String id = splits[1];
+//
+//                String[] column = {MediaStore.Images.Media.DATA};
+//                // where id is equal to
+//                String sel = MediaStore.Images.Media._ID + "=?";
+//                Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                        column, sel, new String[]{id}, null);
+//                int columnIndex = cursor.getColumnIndex(column[0]);
+//                if (cursor.moveToFirst()) {
+//                    filePath = cursor.getString(columnIndex);
+//                }
+//                cursor.close();
+//            }
+//        } else {
+//            filePath = uri.getPath();
+//        }
+//
+//        return filePath;
+//    }
 
     public void showError(String error, Boolean create) {
 //        Toast toast = Toast.makeText(this, error, Toast.LENGTH_SHORT);
