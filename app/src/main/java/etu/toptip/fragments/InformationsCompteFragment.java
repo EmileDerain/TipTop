@@ -98,7 +98,6 @@ public class InformationsCompteFragment extends Fragment {
         modifMdp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Emile", "TETSETESTSET2");
                 Fragment modif = new ModifPwdFragment();
                 replaceFragment(modif);
             }

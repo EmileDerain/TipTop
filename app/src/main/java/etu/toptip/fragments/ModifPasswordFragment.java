@@ -73,23 +73,19 @@ public class ModifPasswordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_modif_pwd, container, false);
-        Log.d("Emile", "onClick(View v1");
+
         TextView test = view.findViewById(R.id.idInfoHeader);
         test.setTextSize(50);
-        Log.d("NADIM", test.getText().toString());
-        test.setText("ok");
 
         this.titre = view.findViewById(R.id.idErreurModifPassword);
         this.oldPass = view.findViewById(R.id.oldPassword);
         this.newPass = view.findViewById(R.id.newPassword);
-        Log.d("Emile", "onClick(View v2");
         this.modifPasswordController = new ModifPasswordController(this);
-        Log.d("Emile", "onClick(View v3");
-        Button modifMdp2 = view.findViewById(R.id.ok);
-        this.titre.setText("efhyjtutyhgrfeasrht");
-        modifMdp2.setText("JE SUIS UN TEST2");
 
-        Log.d("Emile", "onClick(View v3bis");
+        Button modifMdp2 = view.findViewById(R.id.ok);
+
+        modifMdp2.setText("JE SUIS LA");
+
         modifMdp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,18 +3,27 @@ package etu.toptip.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import etu.toptip.R;
@@ -23,8 +32,17 @@ import etu.toptip.fragments.CameraFragment;
 import etu.toptip.fragments.ICameraPermission;
 import etu.toptip.fragments.IStorageActivity;
 import etu.toptip.fragments.StorageFragment;
+import etu.toptip.helper.Infologin;
 import etu.toptip.model.BonPlan;
 import etu.toptip.views.NotificationsView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class AddBonPlanActivity extends AppCompatActivity implements ICameraPermission, IStorageActivity {
@@ -33,6 +51,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
     private int notifID = 0;
     ArrayList<String> infos = new ArrayList<>();
     ImageView IVPreviewImage;
+    Uri uri;
 
     private Bitmap picture;
     NotificationsController notificationsController;
@@ -51,38 +70,43 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         setContentView(R.layout.activity_add_bon_plan);
 
         cameraFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentCamera);
-        if (cameraFragment==null) cameraFragment = new CameraFragment();
+        if (cameraFragment == null) cameraFragment = new CameraFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentCamera, cameraFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
         storageFragment = (StorageFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentStorage);
-        if (storageFragment==null) storageFragment = new StorageFragment(this);
+        if (storageFragment == null) storageFragment = new StorageFragment(this);
         FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
         fragmentTransaction2.replace(R.id.fragmentStorage, storageFragment);
         fragmentTransaction2.addToBackStack(null);
         fragmentTransaction2.commit();
 
-        //notificationsView = new NotificationsView(this);
-        //notificationsController = new NotificationsController(notificationsView);
-
+        EditText description = (EditText) findViewById(R.id.description);
+        EditText expiration = (EditText) findViewById(R.id.description);
 
         Button addBP = (Button) findViewById(R.id.BtnAjouterBPOK);
         addBP.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                EditText description = (EditText) findViewById(R.id.description);
                 String descriptionText = description.getText().toString();
-
-                EditText expiration = (EditText) findViewById(R.id.description);
                 String expirationText = expiration.getText().toString();
 
-                BonPlan plan = new BonPlan(expirationText,null,0,0,descriptionText);
-                //a ajouter le lieu et à regler l'image
-                Log.d("test",plan.getDescription());
-                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(myIntent);
+
+                String sot = uploadImage(descriptionText, expirationText, "ICI IL FAUT L'idLieu");
+
+                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
+
+                if (sot.equals("true")) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                    startActivity(myIntent);
+                }
             }
         });
 
@@ -97,25 +121,180 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
     }
 
     void imageChooser() {
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
 
-        startActivityIfNeeded(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+        startActivityIfNeeded(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
     }
 
-    /**private void sendNotificationChannel(String title, String message, String channelId, int priority, Bitmap bitmap) {
-        NotificationCompat.Builder notif = new NotificationCompat.Builder(getApplicationContext(), channelId) //création de la notif
-                .setSmallIcon(R.drawable.logo)
-                .setLargeIcon(bitmap)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(priority)
-                .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(bitmap)
-                        .bigLargeIcon(null));
-        NotificationActivity.getNotificationManager().notify(notifID, notif.build());
-    }*/
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                uri = data.getData();
+                if (null != uri) {
+                    // update the preview image in the layout
+                    IVPreviewImage.setImageURI(uri);
+                    //System.out.println("j'ai rentré");
+                }
+            }
+            if (requestCode == 101) {
+                Bitmap bitmap = (Bitmap) (data != null ? data.getExtras().get("data") : null);
+                IVPreviewImage.setImageBitmap(bitmap);
+            }
+            if (requestCode == REQUEST_CAMERA) {
+                if (resultCode == RESULT_OK) {
+                    picture = (Bitmap) data.getExtras().get("data");
+                    cameraFragment.setImage(picture);
+                    storageFragment.setEnabledSaveButton();
+                } else if (resultCode == RESULT_CANCELED) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "picture canceled", Toast.LENGTH_LONG);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "action failed", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        }
+    }
+
+
+    private String uriToFilename(Uri uri) {
+        String path = null;
+
+        if ((Build.VERSION.SDK_INT < 19) && (Build.VERSION.SDK_INT > 11)) {
+            path = getRealPathFromURI_API11to18(this, uri);
+            System.out.println("111111111111111111111111111: " + getRealPathFromURI_API11to18(this, uri));
+        } else {
+            System.out.println("22222222222222222222222");
+            path = getFilePath(this, uri);
+        }
+
+        return path;
+    }
+
+    public String getRealPathFromURI_API11to18(Context context, Uri contentUri) {
+        String path = "";
+        if (getContentResolver() != null) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                path = cursor.getString(idx);
+                cursor.close();
+            }
+        }
+        return path;
+    }
+
+
+    public String getFilePath(Context context, Uri uri) {
+        //Log.e("uri", uri.getPath());
+        String filePath = "";
+        if (DocumentsContract.isDocumentUri(context, uri)) {
+            String wholeID = DocumentsContract.getDocumentId(uri);
+            //Log.e("wholeID", wholeID);
+            // Split at colon, use second item in the array
+            String[] splits = wholeID.split(":");
+            if (splits.length == 2) {
+                String id = splits[1];
+
+                String[] column = {MediaStore.Images.Media.DATA};
+                // where id is equal to
+                String sel = MediaStore.Images.Media._ID + "=?";
+
+                Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        column, sel, new String[]{id}, null);
+                int columnIndex = cursor.getColumnIndex(column[0]);
+                if (cursor.moveToFirst()) {
+                    filePath = cursor.getString(columnIndex);
+                }
+                cursor.close();
+            }
+        } else {
+            filePath = uri.getPath();
+        }
+
+        return filePath;
+    }
+
+    public String uploadImage(String descriptionText,String expirationText, String idLieu) {
+
+        if (TextUtils.isEmpty(descriptionText))
+            return "Veuillez rentrer une desciption";
+        else if (TextUtils.isEmpty(expirationText))
+            return "Veuillez rentrer une date d'expiration";
+        try {                                           // NE PREND PAS EN COMPTE LES PHOTOS !!!!
+            uri.toString();
+        } catch (NullPointerException e) {
+            return "Veuillez selectionner une image";
+        }
+        if (TextUtils.isEmpty(uri.toString()))
+            return "Veuillez selectionner une image";
+        else {
+
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .build();
+
+            File imgFile2 = new File(uriToFilename(uri));
+
+            System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
+            System.out.println(imgFile2.getAbsolutePath());
+
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("image", imgFile2.getName(),
+                            RequestBody.create(MediaType.parse("image/png"), imgFile2))
+                    .addFormDataPart("description", descriptionText)
+                    .addFormDataPart("dateExpiration", expirationText)
+                    .addFormDataPart("idUser", Infologin.getIdUser())
+                    .addFormDataPart("idLieu", idLieu)
+                    .build();
+
+            Request request = new Request.Builder()
+//                    .url("http://192.168.1.14:3000/api/lieu/")
+                    .url("http://90.8.217.30:3000/api/lieu/")
+                    .post(requestBody)
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    System.out.println("MB");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    System.out.println("GG");
+                }
+            });
+        }
+        return "true";
+    }
+
+
+    /**
+     * private void sendNotificationChannel(String title, String message, String channelId, int priority, Bitmap bitmap) {
+     * NotificationCompat.Builder notif = new NotificationCompat.Builder(getApplicationContext(), channelId) //création de la notif
+     * .setSmallIcon(R.drawable.logo)
+     * .setLargeIcon(bitmap)
+     * .setContentTitle(title)
+     * .setContentText(message)
+     * .setPriority(priority)
+     * .setStyle(new NotificationCompat.BigPictureStyle()
+     * .bigPicture(bitmap)
+     * .bigLargeIcon(null));
+     * NotificationActivity.getNotificationManager().notify(notifID, notif.build());
+     * }
+     */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -154,57 +333,24 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         }
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    IVPreviewImage.setImageURI(selectedImageUri);
-                    //System.out.println("j'ai rentré");
-                }
-            }
-            if (requestCode == 101) {
-                Bitmap bitmap = (Bitmap) (data != null ? data.getExtras().get("data") : null);
-                IVPreviewImage.setImageBitmap(bitmap);
-            }
-            if (requestCode == REQUEST_CAMERA) {
-                if (resultCode == RESULT_OK) {
-                    picture = (Bitmap) data.getExtras().get("data");
-                    cameraFragment.setImage(picture);
-                    storageFragment.setEnabledSaveButton();
-                } else if (resultCode == RESULT_CANCELED) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "picture canceled", Toast.LENGTH_LONG);
-                    toast.show();
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "action failed", Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        }
-    }
-
     //public void setImage(Bitmap bitmap){IVPreviewImage.setImageBitmap(bitmap);}
 
-    /**public void takePicture(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivity(intent);
-    }*/
+    /**
+     * public void takePicture(){
+     * Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+     * startActivity(intent);
+     * }
+     */
 
-        @Override
-        public void onPictureLoad(Bitmap bitmap) {
-            cameraFragment.setImage(bitmap);
-        }
+    @Override
+    public void onPictureLoad(Bitmap bitmap) {
+        cameraFragment.setImage(bitmap);
+    }
 
-        @Override
-        public Bitmap getPictureToSave() {
-            return picture;
-        }
+    @Override
+    public Bitmap getPictureToSave() {
+        return picture;
+    }
 
     public Bitmap getPicture() {
         return picture;

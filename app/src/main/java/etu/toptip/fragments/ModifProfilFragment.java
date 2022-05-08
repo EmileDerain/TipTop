@@ -83,7 +83,6 @@ public class ModifProfilFragment extends Fragment {
         pseudoView.setText(model);
 
         Button buttonOK = view.findViewById(R.id.idBtnModifUserName);
-        buttonOK.setText("JE SUIS UN TEST");
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
