@@ -101,14 +101,6 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
 
-        favButton = view.findViewById(R.id.idButtonFavoris);
-        favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(new ListFavorisFragment());
-            }
-        });
-
         infoButton = view.findViewById(R.id.idButtonInfo);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,15 +115,6 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
             @Override
             public void onClick(View v) {
                 // à ajouter
-            }
-        });
-
-
-        walletButton = view.findViewById(R.id.idButtonWallet);
-        walletButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(new WalletFragment());
             }
         });
 

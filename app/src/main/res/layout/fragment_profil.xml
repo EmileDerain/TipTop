@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/idButtonInfo"
         android:padding="5dp"
         android:text="Mon compte"
         android:textAlignment="center"
@@ -25,7 +24,7 @@
         android:id="@+id/idButtonInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/idButtonWallet"
+        android:layout_below="@id/idProfilHeader"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="250dp"
@@ -36,35 +35,10 @@
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/idButtonWallet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/idButtonFavoris"
-        android:text="Wallet"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/green"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/idButtonFavoris"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/green"
-        android:text="Favoris"
-        android:textAllCaps="false" />
-
-    <Button
         android:id="@+id/idButtonHistorique"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idButtonFavoris"
+        android:layout_below="@id/idButtonInfo"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="66dp"
@@ -80,6 +54,7 @@
         android:layout_below="@id/idButtonHistorique"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/green"
         android:text="Supprimer compte"
