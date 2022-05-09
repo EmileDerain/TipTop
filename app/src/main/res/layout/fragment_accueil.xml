@@ -120,12 +120,38 @@
             android:layout_marginLeft="120dp"
             android:id="@+id/BAjouterBP"
             android:text="AJOUTER UN LIEU" />
+
+
         <ListView
             android:id="@+id/place_list_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             ></ListView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="232dp"
+            android:layout_below="@+id/place_list_view"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/search" />
+
+        <TextView
+            android:layout_width="421dp"
+            android:layout_height="37dp"
+            android:text="AUCUN LIEU TROUVE"
+            android:id="@+id/textSearch"
+            android:textSize="25dp"
+            android:typeface="monospace"
+            android:textStyle="bold"
+            android:layout_below="@+id/search"
+            android:textAlignment="center">
+
+        </TextView>
+
+
 
     </LinearLayout>
 

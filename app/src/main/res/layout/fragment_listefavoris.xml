@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/idListFavoris"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -22,5 +23,28 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/idFavorisHeader"
         android:layout_marginTop="80dp"></ListView>
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="232dp"
+        android:layout_below="@+id/place_fav_list_view"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/favoris" />
+
+    <TextView
+        android:layout_width="421dp"
+        android:layout_height="37dp"
+        android:text="AUCUN LIEU FAVORIS"
+        android:id="@+id/textSearch"
+        android:textSize="25dp"
+        android:typeface="monospace"
+        android:textStyle="bold"
+        android:layout_below="@+id/search"
+        android:textAlignment="center">
+
+    </TextView>
 
 </RelativeLayout>

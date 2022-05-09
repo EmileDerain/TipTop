@@ -14,8 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import org.json.JSONObject;
 
@@ -49,6 +52,9 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
     private String currentSearchText = "";
     private SearchView searchView;
     ListPlacesThread places;
+    TextView text;
+    LottieAnimationView lottie;
+    View view;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -98,9 +104,20 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
             e.printStackTrace();
         }
 
-        View view = inflater.inflate(R.layout.fragment_accueil, container, false);
+       view = inflater.inflate(R.layout.fragment_accueil, container, false);
         listView = view.findViewById(R.id.place_list_view);
         PlaceAdapter adap = new PlaceAdapter(container.getContext(), places.getPlaces());
+
+        text = (TextView) view.findViewById(R.id.textSearch) ;
+        lottie = view.findViewById(R.id.search);
+
+        text.setVisibility(view.INVISIBLE);
+        lottie.setVisibility(view.INVISIBLE);
+        if(places.getPlaces().size() ==0){
+            text.setVisibility(view.VISIBLE);
+            lottie.setVisibility(view.VISIBLE);
+        }
+
         listView.setAdapter(adap);
         adap.addListner(this);
         initSearchWidgets(places, view);
@@ -213,6 +230,12 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
                 PlaceAdapter p = new PlaceAdapter(getContext().getApplicationContext(), filtredPlaces);
                 listView.setAdapter(p);
                 p.addListner(AccueilFragment.this);
+                text.setVisibility(view.INVISIBLE);
+                lottie.setVisibility(view.INVISIBLE);
+                if(filtredPlaces.size() ==0){
+                    text.setVisibility(view.VISIBLE);
+                    lottie.setVisibility(view.VISIBLE);
+                }
 
                 return false;
             }
@@ -232,6 +255,12 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
             }
         }
         PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(), filtredPlaces);
+        text.setVisibility(view.INVISIBLE);
+        lottie.setVisibility(view.INVISIBLE);
+        if(filtredPlaces.size() ==0){
+            text.setVisibility(view.VISIBLE);
+            lottie.setVisibility(view.VISIBLE);
+        }
         listView.setAdapter(placeAdapter);
         placeAdapter.addListner(this);
 
@@ -242,6 +271,12 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         searchView.clearFocus();
         selectedFilter = -1;
         PlaceAdapter placeAdapter = new PlaceAdapter(getContext().getApplicationContext(), places.getPlaces());
+        text.setVisibility(view.INVISIBLE);
+        lottie.setVisibility(view.INVISIBLE);
+        if(places.getPlaces().size() ==0){
+            text.setVisibility(view.VISIBLE);
+            lottie.setVisibility(view.VISIBLE);
+        }
         listView.setAdapter(placeAdapter);
         placeAdapter.addListner(this);
 
