@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -141,7 +142,7 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
             }
         });
 
-        Button retour = (Button) view .findViewById(R.id.Retour);
+        ImageButton retour =  view .findViewById(R.id.btn);
         retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

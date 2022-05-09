@@ -21,6 +21,7 @@
             android:text="Vos cartes de fidélités"
             android:textSize="30dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:shadowColor="@color/white">
@@ -28,7 +29,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="90dp"
             android:id="@+id/add"
             android:text="AJOUTER UNE carte de fidélité" />
         <GridView
@@ -38,6 +39,29 @@
             android:layout_height="wrap_content"
             android:numColumns="2"
             ></GridView>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="232dp"
+            android:layout_marginTop="100dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/wallet" />
+
+        <TextView
+            android:id="@+id/textSearch"
+            android:layout_width="421dp"
+            android:layout_height="37dp"
+            android:layout_below="@+id/search"
+            android:text="AUCUNE CARTE AJOUTEE"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:typeface="monospace">
+
+        </TextView>
 
     </LinearLayout>
 

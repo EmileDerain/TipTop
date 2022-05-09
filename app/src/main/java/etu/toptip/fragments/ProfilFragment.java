@@ -2,6 +2,7 @@ package etu.toptip.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,15 +23,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import etu.toptip.R;
 import etu.toptip.activities.CameraActivity;
 import etu.toptip.activities.LoginActivity;
+import etu.toptip.helper.InfoCompteThread;
 import etu.toptip.helper.Infologin;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -48,13 +53,13 @@ import okhttp3.ResponseBody;
  */
 public class ProfilFragment extends Fragment implements FragmentChangeListener {
 
-    Button favButton;
     Button infoButton;
-    Button walletButton;
     Button histButton;
     Button supprimerCompteButton;
-    Button reglagesButton;
     Button decoButton;
+
+    public TextView email, pseudo;
+    public String EMAIL, PSEUDO;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,14 +106,46 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
 
-        infoButton = view.findViewById(R.id.idButtonInfo);
-        infoButton.setOnClickListener(new View.OnClickListener() {
+
+        try {
+            String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
+
+            InfoCompteThread infoCompteThread = new InfoCompteThread();
+            AsyncTask<String, Integer, JSONObject> execute;
+            execute = infoCompteThread.execute(url);
+
+            this.email = view.findViewById(R.id.emailInfoCompteET);
+            this.EMAIL = execute.get().getString("email");
+            this.email.setText(EMAIL);
+            this.pseudo = view.findViewById(R.id.pseudoInfoCompteET);
+            this.PSEUDO = execute.get().getString("userName");
+            this.pseudo.setText(this.PSEUDO);
+
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            Log.d("Emile", "EROR: " + e.toString());
+            e.printStackTrace();
+        }
+
+        Button modifProfil = view.findViewById(R.id.idBtnModifProfil);
+        modifProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Emile", "TETSETESTSET");
-                replaceFragment(new InformationsCompteFragment());
+                Fragment modif = new ModifProfilFragment();
+                replaceFragment(modif);
             }
+
         });
+
+        Button modifMdp = view.findViewById(R.id.idBtnModifMdp);
+        modifMdp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment modif = new ModifPasswordFragment();
+                replaceFragment(modif);
+            }
+
+        });
+
 
         supprimerCompteButton = view.findViewById(R.id.idButtonSupprimerCompte);
         supprimerCompteButton.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +210,9 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
 
     @Override
     public void replaceFragment(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("pseudo", this.PSEUDO);//value= my value from code
+        fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment, fragment.toString());
