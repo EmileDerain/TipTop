@@ -107,16 +107,16 @@ public class NotificationsView implements Observer {
     /**
      * Create a thread which display a notification
      */
-    public void newNotification(final String text, final String url) {
-        final Bitmap img = notificationsController.fetchImage(url);
-        new Thread(() -> showNotificationWithImage(text, img)).start();
+    public void newNotification(final String text, final Bitmap url) {
+        //final Bitmap img = notificationsController.fetchImage(url);
+        new Thread(() -> showNotificationWithImage(text, url)).start();
     }
 
 
     @Override
     public void update(Observable observable, Object o) {
         final String text = NotificationsModel.getInstance().getNotificationText();
-        final String url = NotificationsModel.getInstance().getNotificationImage();
+        final Bitmap url = NotificationsModel.getInstance().getNotificationImage();
         this.newNotification(text, url);
 
         if (observable.hasChanged()) {
