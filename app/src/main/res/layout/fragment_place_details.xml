@@ -6,45 +6,57 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Retour"
+        android:text="retour"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
         android:orientation="vertical">
-    <Button
-        android:id="@+id/BAjouterAuxFavs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="280dp"
-        android:text="AJOUTER AUX FAVORIS" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="280dp"
-        android:id="@+id/BAjouterBP"
-        android:text="AJOUTER Un Bon Plan ici" />
+        <Button
+            android:id="@+id/BAjouterAuxFavs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="280dp"
+            android:text="AJOUTER AUX FAVORIS" />
+
+        <Button
+            android:id="@+id/BAjouterBP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="280dp"
+            android:text="AJOUTER Un Bon Plan ici" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="131dp"
+            android:layout_height="97dp"
+            android:src="@drawable/img" />
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="131dp"
-        android:layout_height="97dp"
-        android:src="@drawable/img" />
-
     <RelativeLayout
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="307dp"
+        android:layout_height="457dp"
         android:layout_below="@+id/icon"
-        android:layout_height="wrap_content">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:text="@string/place_name"
             android:textColor="@color/green"
-            android:text="@string/place_name"/>
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/description"
@@ -55,11 +67,13 @@
 
         <ListView
             android:id="@+id/bonplan_list_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="295dp"
+            android:layout_height="358dp"
             android:layout_below="@id/description"
-            android:layout_margin="20dp"
-            ></ListView>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="97dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"></ListView>
     </RelativeLayout>
 
 

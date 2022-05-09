@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -137,6 +138,14 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
                 Intent myIntent = new Intent(container.getContext(), AddBonPlanActivity.class);
                 myIntent.putExtra("idLieu", model.getId());
                 startActivity(myIntent);
+            }
+        });
+
+        Button retour = (Button) view .findViewById(R.id.Retour);
+        retour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment(new AccueilFragment());
             }
         });
 
