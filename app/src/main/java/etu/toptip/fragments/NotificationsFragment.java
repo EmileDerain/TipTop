@@ -22,7 +22,7 @@ public class NotificationsFragment extends Fragment {
         StrictMode.setThreadPolicy(policy);
 
         NotificationsView notificationsView = new NotificationsView(view);
-        NotificationsController notificationsController = new NotificationsController(this.getActivity(),this, notificationsView);
+        NotificationsController notificationsController = new NotificationsController(this.getActivity(), notificationsView);
         notificationsView.setController(notificationsController);
 
         return view;

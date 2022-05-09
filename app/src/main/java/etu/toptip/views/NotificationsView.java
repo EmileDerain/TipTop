@@ -46,6 +46,7 @@ import java.util.Random;
 public class NotificationsView implements Observer {
     private NotificationsController notificationsController;
     private View root;
+    private int notificationId = 0;
 
     public NotificationsView(View root) {
         this.root = root;
@@ -69,8 +70,8 @@ public class NotificationsView implements Observer {
      */
     private void showNotificationWithImage(final String text, final Bitmap img) {
         final String title = "Nouveau lieu sur TopTip !";
-        final int notificationId = new Random().nextInt(100);
-        final String channelId = "notification.channel2";
+        notificationId++;
+        final String channelId = "notification.channel";
         final int flags = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
         Context context = root.getContext();
 
@@ -79,7 +80,7 @@ public class NotificationsView implements Observer {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, flags);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId);
 
-        builder.setSmallIcon(R.drawable.logo);
+        builder.setSmallIcon(R.drawable.logodetoure);
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         builder.setContentTitle(title);
         builder.setContentText(text);
