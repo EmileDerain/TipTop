@@ -38,18 +38,30 @@
             android:id="@+id/BSelectImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameW"
+            android:layout_below="@id/ajout"
             android:layout_marginTop="33dp"
             android:backgroundTint="@color/green"
             android:text="SELECTIONNER UNE IMAGE"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
+        <FrameLayout
+            android:id="@+id/fragmentCameraWallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/BSelectImage"></FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fragmentStorageWallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragmentCamera"></FrameLayout>
+
         <Button
             android:id="@+id/ajout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/BSelectImage"
+            android:layout_below="@id/nameW"
             android:layout_marginTop="9dp"
             android:backgroundTint="@color/green"
             android:text="AJOUTER LA CARTE"

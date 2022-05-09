@@ -3,6 +3,8 @@ package etu.toptip.controller;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.util.Base64;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -10,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -62,8 +65,17 @@ public class NotificationsController {
         EditText adresse = (EditText) addPlaceActivity.findViewById(R.id.AdresseResto);
         String adresseText = adresse.getText().toString();
 
+        ImageView image = (ImageView) addPlaceActivity.findViewById(R.id.IVPreviewImage);
+        Bitmap bitmap = Bitmap.createBitmap(image .getWidth(), image .getHeight(), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        image.draw(canvas);
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String imageAsString = Base64.encodeToString(b, Base64.DEFAULT);
+
         notificationsModel.setNotificationText(nameText+", "+adresseText+", "+villeText);
-        notificationsModel.setNotificationImage("src/main/res/drawable/logo.png");
+        notificationsModel.setNotificationImage("file:///C:/Users/morga/Downloads/logo.webp");
         notificationsView.update(e, notificationsModel);
     }
 }
