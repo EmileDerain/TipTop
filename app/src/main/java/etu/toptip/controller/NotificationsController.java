@@ -61,8 +61,12 @@ public class NotificationsController {
         image.buildDrawingCache();
         Bitmap bitmap = image.getDrawingCache();
 
+        Bitmap icon = BitmapFactory.decodeResource(addPlaceActivity.getResources(),
+                R.drawable.logo);
+
         notificationsModel.setNotificationText(nameText + ", " + adresseText + ", " + villeText);
-        notificationsModel.setNotificationImage(bitmap);
+        if (image.getDrawable()!=null) notificationsModel.setNotificationImage(bitmap);
+        else notificationsModel.setNotificationImage(icon);
         notificationsView.update(e, notificationsModel);
     }
 }

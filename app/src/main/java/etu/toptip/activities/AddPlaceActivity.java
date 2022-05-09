@@ -367,4 +367,8 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
     public Bitmap getPictureToSave() {
         return picture;
     }
+
+    public Bitmap getPicture() {
+        return picture;
+    }
 }
