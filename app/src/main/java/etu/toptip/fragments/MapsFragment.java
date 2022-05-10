@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -57,6 +58,7 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         GoogleMap.OnMarkerClickListener , FragmentChangeListener {
 
     GoogleMap map;
+    List<Marker> markers;
     private LocationManager locationManager;
     private static final int PERMS_CALL_ID = 1234;
     private SupportMapFragment mapFragment;
@@ -68,6 +70,12 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
     ListFavoriThread favoris = new ListFavoriThread();
     ListWalletThread wallet = new ListWalletThread();
     private boolean textSubmitted =false;
+    Button buttonA ;
+    Button buttonR ;
+    Button buttonB ;
+    Button buttonS;
+    Button buttonBoucherie;
+
 
     public ListPlacesThread places;
 
@@ -103,6 +111,12 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
                 else info.setVisibility(view.INVISIBLE);
             }
         });
+        buttonA = (Button) view.findViewById(R.id.lieux);
+        buttonR = (Button) view.findViewById(R.id.resturants);
+        buttonB = (Button) view.findViewById(R.id.boulangeries);
+        buttonS = (Button) view.findViewById(R.id.supermarchés);
+
+        buttonBoucherie = (Button) view.findViewById(R.id.boucherie);
 
         codergeo = new Geocoder(getActivity(), Locale.getDefault());
 
@@ -175,35 +189,80 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
 
         int i=0;
 
+        //supermarchés
 
+
+
+        markers = new ArrayList<>();
         for(Place place : places.getPlaces()){
-            try {
-                Address location = codergeo.getFromLocationName(place.getAdresse()+" "+place.getVille(), 5).get(0);
-                LatLng l = new LatLng(location.getLatitude(), location.getLongitude() );
-
-
-
-                MarkerOptions m = new MarkerOptions().position(l).title(place.getName()).zIndex(i);
-
-                for(Place f : favoris.getFavoris()) {
-                    if(f.getName().equals(place.getName()) && f.getAdresse().equals(place.getAdresse())) {
-                        m.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-                        break;
-                    }
-                }
-
-                for(Wallet w : wallet.getListWallet()) {
-                    if (w.getName().equals(place.getName())) {
-                        m.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
-                        break;
-                    }
-                }
-                googleMap.addMarker(m);
-                i++;
-            }
-            catch (Exception e){
-            }
+           addMarers(place,i);
+           i++;
         }
+
+        buttonR.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                filter(2);
+                buttonR.setSelected(true);
+                buttonB.setSelected(false);
+                buttonS.setSelected(false);
+                buttonA.setSelected(false);
+                buttonBoucherie.setSelected(false);
+
+            }
+        });
+        buttonS.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                filter(0);
+                buttonR.setSelected(false);
+                buttonB.setSelected(false);
+                buttonS.setSelected(true);
+                buttonA.setSelected(false);
+                buttonBoucherie.setSelected(false);
+
+            }
+        });
+
+        buttonB.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                filter(5);
+                buttonB.setSelected(true);
+                buttonR.setSelected(false);
+                buttonS.setSelected(false);
+                buttonA.setSelected(false);
+                buttonBoucherie.setSelected(false);
+
+            }
+        });
+
+        buttonA.setSelected(true);
+        buttonA.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                buttonA.setSelected(true);
+                buttonB.setSelected(false);
+                buttonR.setSelected(false);
+                buttonS.setSelected(false);
+                buttonBoucherie.setSelected(false);
+                allFilter();
+            }
+        });
+
+        buttonBoucherie.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                buttonA.setSelected(false);
+                buttonB.setSelected(false);
+                buttonR.setSelected(false);
+                buttonS.setSelected(false);
+                buttonBoucherie.setSelected(true);
+                filter(4);
+            }
+        });
+
+
     }
 
     /**
@@ -308,5 +367,48 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
     }
+    public void filter(int type){
+            map.clear();
+            int i=0;
+        for(Place place : places.getPlaces()) {
+            if (place.getType() == type) {
+                addMarers(place,i);
+            }
+            i++;
+        }
+    }
 
+    public void allFilter(){
+        int i=0;
+        for(Place place : places.getPlaces()) {
+            addMarers(place,i);
+            i++;
+        }
+    }
+
+
+    public void addMarers(Place place, int i){
+        try {
+            Address location = codergeo.getFromLocationName(place.getAdresse() + " " + place.getVille(), 5).get(0);
+            LatLng l = new LatLng(location.getLatitude(), location.getLongitude());
+
+            MarkerOptions m = new MarkerOptions().position(l).title(place.getName()).zIndex(i);
+
+            for (Place f : favoris.getFavoris()) {
+                if (f.getName().equals(place.getName()) && f.getAdresse().equals(place.getAdresse())) {
+                    m.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                    break;
+                }
+            }
+
+            for (Wallet w : wallet.getListWallet()) {
+                if (w.getName().equals(place.getName())) {
+                    m.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                    break;
+                }
+            }
+            markers.add(googleMap.addMarker(m));
+        } catch (Exception e) {
+        }
+    }
 }

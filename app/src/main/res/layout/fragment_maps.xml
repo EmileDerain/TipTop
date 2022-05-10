@@ -34,6 +34,76 @@
             app:queryHint="Ville">
 
         </androidx.appcompat.widget.SearchView>
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/lieux"
+                    android:layout_margin="2dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="11dp"
+                    android:background="@drawable/btn_state"
+                    android:textColor="@drawable/color_state"
+                    android:textStyle="bold"
+                    android:text="Tous">
+                </Button>
+
+                <Button
+                    android:id="@+id/resturants"
+                    android:layout_margin="2dp"
+                    android:layout_width="0dp"
+                    android:textSize="11dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_state"
+                    android:textColor="@drawable/color_state"
+                    android:textStyle="bold"
+                    android:text="Restaurants">
+                </Button>
+                <Button
+                    android:id="@+id/supermarchés"
+                    android:layout_width="0dp"
+                    android:layout_margin="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_state"
+                    android:textColor="@drawable/color_state"
+                    android:textStyle="bold"
+                    android:textSize="11dp"
+                    android:text="Supermarchés">
+                </Button>
+                <Button
+                    android:id="@+id/boulangeries"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/btn_state"
+                    android:textColor="@drawable/color_state"
+                    android:textStyle="bold"
+                    android:textSize="11dp"
+                    android:text="Boulangeries">
+                </Button>
+                <Button
+                    android:id="@+id/boucherie"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/btn_state"
+                    android:textColor="@drawable/color_state"
+                    android:textSize="11dp"
+                    android:textStyle="bold"
+                    android:text="Boulcheries">
+                </Button>
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +123,6 @@
                 android:layout_marginLeft="140dp"
                 android:bottomLeftRadius="100dp"
                 android:src="@drawable/ic_info"></ImageButton>
-
         </LinearLayout>
 
     </LinearLayout>

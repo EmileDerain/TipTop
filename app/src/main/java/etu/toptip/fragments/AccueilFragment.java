@@ -127,6 +127,8 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
         Button buttonR = (Button) view.findViewById(R.id.resturants);
         Button buttonB = (Button) view.findViewById(R.id.boulangeries);
         Button buttonS = (Button) view.findViewById(R.id.supermarchés);
+        Button buttonBoucherie = (Button) view.findViewById(R.id.boucherie);
+
         buttonS.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -136,30 +138,49 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
                 buttonB.setSelected(false);
                 buttonS.setSelected(true);
                 buttonA.setSelected(false);
+                buttonBoucherie.setSelected(false);
+
             }
         });
 
         buttonR.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                filterList(1);
-                selectedFilter = 1;
+                filterList(2);
+                selectedFilter = 2;
                 buttonR.setSelected(true);
                 buttonB.setSelected(false);
                 buttonS.setSelected(false);
                 buttonA.setSelected(false);
+                buttonBoucherie.setSelected(false);
+
             }
         });
 
         buttonB.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                filterList(3);
-                selectedFilter = 3;
+                filterList(5);
+                selectedFilter = 5;
                 buttonB.setSelected(true);
                 buttonR.setSelected(false);
                 buttonS.setSelected(false);
                 buttonA.setSelected(false);
+                buttonBoucherie.setSelected(false);
+            }
+        });
+
+        buttonBoucherie.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                filterList(4);
+                selectedFilter = 4;
+                buttonB.setSelected(false);
+                buttonR.setSelected(false);
+                buttonS.setSelected(false);
+                buttonA.setSelected(false);
+                buttonBoucherie.setSelected(true);
+
             }
         });
 
@@ -171,6 +192,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
                 buttonB.setSelected(false);
                 buttonR.setSelected(false);
                 buttonS.setSelected(false);
+                buttonBoucherie.setSelected(false);
                 allFilter();
             }
         });
