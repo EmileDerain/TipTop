@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:background="@drawable/bg"
     android:layout_height="match_parent"
+    android:background="#e4e9ef"
     tools:context=".activities.AddWalletActivity">
 
-    <RelativeLayout
+
+    <TextView
+        android:id="@+id/idAddHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="120dp"
+        android:background="#0e81d1"
+        android:gravity="center_horizontal"
+        android:paddingTop="50dp"
+        android:text="Ajoutez une carte"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Retour"
-            android:text="retour"/>
+    <ImageButton
+        android:id="@+id/retour"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:bottomLeftRadius="100dp"
+        android:src="@drawable/ic_return"></ImageButton>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp">
 
-        <TextView
-            android:id="@+id/idAddHeader"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:gravity="center_horizontal"
-            android:padding="5dp"
-            android:text="Ajoutez une carte "
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:layout_margin="20dp"
+            android:layout_height="match_parent">
+
 
 
         <Spinner
             android:id="@+id/nameW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/idAddHeader"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="10dp" />
 
 
@@ -95,5 +105,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/fragmentCamera"></FrameLayout>
 
-    </RelativeLayout>
-</ScrollView>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

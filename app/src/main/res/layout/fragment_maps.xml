@@ -44,7 +44,7 @@
                 android:layout_width="192dp"
                 android:layout_height="128dp"
                 android:visibility="invisible"
-                android:src="@drawable/info"></ImageView>
+                android:src="@drawable/mapinfo"></ImageView>
 
             <ImageButton
                 android:id="@+id/btn"

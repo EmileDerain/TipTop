@@ -40,11 +40,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import etu.toptip.R;
+import etu.toptip.helper.Infologin;
 import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.helper.ListFavoriThread;
+import etu.toptip.helper.ListWalletThread;
 import etu.toptip.model.ListWallet;
 import etu.toptip.model.Place;
 import etu.toptip.model.Wallet;
@@ -63,7 +66,7 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
     private boolean first =true;
     SearchView searchView;
     ListFavoriThread favoris = new ListFavoriThread();
-    ListWallet wallet = new ListWallet();
+    ListWalletThread wallet = new ListWalletThread();
     private boolean textSubmitted =false;
 
     public ListPlacesThread places;
@@ -82,6 +85,13 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
+
+        String url = "http://90.8.217.30:3000/api/favori/" + Infologin.getIdUser();
+        favoris.execute(url);
+
+        String urlW = "http://90.8.217.30:3000/api/carte/" + Infologin.getIdUser();
+        wallet.execute(urlW);
+
 
         ImageButton btn= view.findViewById(R.id.btn);
         ImageView info = view.findViewById(R.id.info);
@@ -152,6 +162,7 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
+
     }
 
     @SuppressLint("MissingPermission")
@@ -163,18 +174,29 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         int i=0;
+
+
         for(Place place : places.getPlaces()){
             try {
                 Address location = codergeo.getFromLocationName(place.getAdresse()+" "+place.getVille(), 5).get(0);
                 LatLng l = new LatLng(location.getLatitude(), location.getLongitude() );
+
+
+
                 MarkerOptions m = new MarkerOptions().position(l).title(place.getName()).zIndex(i);
-                for(Place f : favoris.getFavoris()){
-                    if(f.getName().equals(place.getName()) && f.getAdresse().equals(place.getAdresse()))
+
+                for(Place f : favoris.getFavoris()) {
+                    if(f.getName().equals(place.getName()) && f.getAdresse().equals(place.getAdresse())) {
                         m.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                        break;
+                    }
                 }
-                for(Wallet w : wallet.getWallet()){
-                    if(w.getName().equals(place.getName()) )
+
+                for(Wallet w : wallet.getListWallet()) {
+                    if (w.getName().equals(place.getName())) {
                         m.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                        break;
+                    }
                 }
                 googleMap.addMarker(m);
                 i++;
