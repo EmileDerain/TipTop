@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#e4e9ef"
     android:id="@+id/Login"
     tools:context=".activities.SignUpActivity">
@@ -23,7 +22,7 @@
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:layout_below="@+id/BienvenueLogo"
-        android:text="Saisir vos informations pour créer votre compte"
+        android:text="Saisissez vos informations pour créer votre compte"
         android:textAlignment="center"
         android:textColor="@color/blue"
         android:textSize="20dp" />
@@ -104,7 +103,7 @@
         android:layout_below="@+id/idBtnRegister"
         android:layout_centerHorizontal="true"
         android:textSize="13dp"
-        android:hint="Tu as déjà un compte ? se connecter"
+        android:hint="Vous avez déjà un compte ? se connecter"
         android:backgroundTint="@color/white"/>
 
 </RelativeLayout>

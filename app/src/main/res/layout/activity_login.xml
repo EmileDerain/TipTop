@@ -128,7 +128,7 @@
         android:layout_below="@+id/idBtnLogin"
         android:layout_centerHorizontal="true"
         android:textSize="13dp"
-        android:hint="Tu n'as pas encore un compte ? inscrivez vous"
+        android:hint="Vous n'avez pas encore un compte ? inscrivez vous"
         android:backgroundTint="@color/white"/>
 
 </RelativeLayout>
