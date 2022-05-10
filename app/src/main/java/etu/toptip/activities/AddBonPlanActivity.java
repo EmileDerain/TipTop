@@ -264,7 +264,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         else if (TextUtils.isEmpty(expirationText))
             return "Veuillez rentrer une date d'expiration";
         else if (picture != null) {
-            File f = new File(Environment.getExternalStorageDirectory().toString() + "/photo.png");
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/photo.png");
 
             try {
                 f.createNewFile();
@@ -292,15 +292,6 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
                 return "Veuillez selectionner une image";
             }
         }
-
-//        try {
-//            uri.toString();
-//        } catch (NullPointerException e) {
-//            return "Veuillez selectionner une image";
-//        }
-//        if (TextUtils.isEmpty(uri.toString()))
-//            return "Veuillez selectionner une image";
-//        else {
 
 
         OkHttpClient client = new OkHttpClient.Builder()

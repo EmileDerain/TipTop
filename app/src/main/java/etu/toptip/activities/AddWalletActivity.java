@@ -262,7 +262,7 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
         if (TextUtils.isEmpty(nomLieu))
             return "Veuillez choisir un lieu";
         else if (picture != null) {
-            File f = new File(Environment.getExternalStorageDirectory().toString() + "/photoCarte.png");
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/photoCarte.png");
 
             try {
                 f.createNewFile();

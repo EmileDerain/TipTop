@@ -271,7 +271,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         else if (TextUtils.isEmpty(codeP))
             return "Veuillez rentrer un code postal";
         else if (picture != null) {
-            File f = new File(Environment.getExternalStorageDirectory().toString() + "/photo.png");
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/photo.png");
 
             try {
                 f.createNewFile();
