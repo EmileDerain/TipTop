@@ -32,7 +32,7 @@
         android:textSize="15sp" />
 
         <ImageButton
-            android:id="@+id/btn"
+            android:id="@+id/retour"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"

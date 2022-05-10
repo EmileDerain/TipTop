@@ -33,6 +33,15 @@ public class SignUpActivity extends AppCompatActivity {
         this.password = findViewById(R.id.idEdtPassword);
         Button next = findViewById(R.id.idBtnRegister);
 
+        Button goLogin = (Button) findViewById(R.id.idBtnGoLogin);
+        goLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
         this.signUpController = new SignUpController(this);
 
         next.setOnClickListener(new View.OnClickListener() {

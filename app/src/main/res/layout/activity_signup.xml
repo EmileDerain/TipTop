@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="#e4e9ef"
+    android:id="@+id/Login"
     tools:context=".activities.SignUpActivity">
 
+    <ImageView
+        android:id="@id/BienvenueLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="20dp"
+        android:src="@raw/logo"></ImageView>
 
-    <!--text view for heading-->
     <TextView
-        android:id="@+id/idTVHeader"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:padding="5dp"
-        android:text="Veuillez saisir vos informations "
+        android:layout_below="@+id/BienvenueLogo"
+        android:text="Saisissez vos informations pour créer votre compte"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textColor="@color/blue"
+        android:textSize="20dp" />
 
+
+    <!--edit text for user name-->
     <!--edit text for user name-->
 
     <TextView
@@ -29,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/idTVHeader"
         android:gravity="center_horizontal"
-        android:padding="5dp"
+        android:layout_below="@id/title"
+        android:layout_margin="10dp"
         android:text=""
         android:textAlignment="center"
         android:textColor="@color/redAuth"
@@ -39,10 +48,8 @@
         android:id="@+id/idEdtUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idTVHeader"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginEnd="10dp"
+        android:layout_below="@id/idTVHeaderErreur"
+        android:layout_margin="10dp"
         android:hint="Nom d'utilisateur"
         android:inputType="textEmailAddress" />
 
@@ -56,9 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/idEdtUserName"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="10dp"
+        android:layout_margin="10dp"
         android:hint="Email"
         android:inputType="textEmailAddress" />
 
@@ -66,10 +71,8 @@
         android:id="@+id/idEdtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idEdtUserName"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="74dp"
-        android:layout_marginEnd="10dp"
+        android:layout_below="@id/Email"
+        android:layout_margin="10dp"
         android:hint="Mot de passe (min 7 caractères)"
         android:inputType="textPassword" />
 
@@ -77,10 +80,8 @@
         android:id="@+id/ConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idEdtUserName"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="135dp"
-        android:layout_marginEnd="10dp"
+        android:layout_below="@id/idEdtPassword"
+        android:layout_margin="10dp"
         android:hint="Confirmation mot de passe"
         android:inputType="textPassword" />
 
@@ -88,12 +89,21 @@
         android:id="@+id/idBtnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idEdtPassword"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="87dp"
-        android:layout_marginEnd="10dp"
+        android:layout_below="@id/ConfirmPassword"
+        android:layout_margin="10dp"
         android:text="Inscrivez-vous"
         android:backgroundTint="@color/green"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/idBtnGoLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@+id/idBtnRegister"
+        android:layout_centerHorizontal="true"
+        android:textSize="13dp"
+        android:hint="Vous avez déjà un compte ? se connecter"
+        android:backgroundTint="@color/white"/>
 
 </RelativeLayout>

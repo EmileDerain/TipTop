@@ -1,6 +1,7 @@
 package etu.toptip.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
@@ -20,9 +21,12 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.api.Api;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +36,7 @@ import java.util.ArrayList;
 
 import etu.toptip.R;
 import etu.toptip.controller.NotificationsController;
+import etu.toptip.fragments.AccueilFragment;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.fragments.ICameraPermission;
 import etu.toptip.fragments.IStorageActivity;
@@ -72,6 +77,15 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bon_plan);
+
+        ImageButton retour = findViewById(R.id.retour);
+        retour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(myIntent);
+            }
+            });
+
 
         Bundle bundle = getIntent().getExtras();
         String id = bundle.getString("idLieu");

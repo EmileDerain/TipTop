@@ -1,8 +1,10 @@
 package etu.toptip.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,10 +21,13 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,10 +36,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import etu.toptip.R;
+import etu.toptip.fragments.AccueilFragment;
 import etu.toptip.fragments.CameraFragment;
 import etu.toptip.fragments.ICameraPermission;
 import etu.toptip.fragments.IStorageActivity;
 import etu.toptip.fragments.StorageFragment;
+import etu.toptip.fragments.WalletFragment;
 import etu.toptip.helper.Infologin;
 import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.model.ListWallet;
@@ -75,6 +82,14 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
             System.out.println(l.getName());
         }
         setContentView(R.layout.activity_add_wallet);
+
+        ImageButton retour = findViewById(R.id.retour);
+        retour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
 
         cameraFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentCamera);
         if (cameraFragment == null) cameraFragment = new CameraFragment();

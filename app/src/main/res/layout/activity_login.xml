@@ -4,40 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#e4e9ef"
     android:id="@+id/Login"
     tools:context=".activities.LoginActivity">
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/Bienvenue"
-        android:layout_marginTop="-223dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/lieux" />
+    <ImageView
+        android:id="@id/Bienvenue"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="20dp"
+        android:src="@raw/logo"></ImageView>
 
     <TextView
-        android:id="@+id/Bienvenue"
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bienvenue sur TopTip"
-        android:layout_marginTop="30dp"
-        android:gravity="center_horizontal"
+        android:layout_below="@+id/Bienvenue"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
+        android:text="Trouvez les meilleurs Bons Plans chez         Top Tip "
         android:textAlignment="center"
-        android:textColor="@color/purple_700"
-        android:textSize="30sp"/>
+        android:textColor="@color/blue"
+        android:textSize="20dp" />
 
-
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginTop="150dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/app2" />
 
     <TextView
         android:id="@+id/idErreur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Bienvenue"
+        android:layout_marginTop="400dp"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:text=""
@@ -45,49 +50,85 @@
         android:textColor="@color/redAuth"
         android:textSize="15dp" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="300dp"
+    <LinearLayout
+        android:id="@+id/emailT"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:layout_below="@id/idErreur"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="330dp"
-        android:hint="Email"
-        android:minHeight="48dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Email :"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="15dp" />
 
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:hint="Email"
+            android:minHeight="48dp"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mdpT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailT"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/emailInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Mot de passe :"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
     <EditText
         android:id="@+id/mdp"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/email"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:hint="Mot de passe"
         android:minHeight="48dp"
+        android:inputType="textPassword"
         android:textSize="15dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/idBtnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_below="@id/mdp"
+        android:layout_below="@id/mdpT"
         android:layout_centerHorizontal="true"
         android:textSize="15dp"
-        android:hint="Valider"
-        android:backgroundTint="@color/blue_medium"/>
-
+        android:hint="Se connecter"
+        android:backgroundTint="@color/green"/>
     <Button
         android:id="@+id/idBtnGoRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_below="@id/idBtnLogin"
+        android:layout_below="@+id/idBtnLogin"
         android:layout_centerHorizontal="true"
-        android:textSize="15dp"
-        android:hint="S'inscrire"
-        android:backgroundTint="@color/blue_medium"/>
+        android:textSize="13dp"
+        android:hint="Vous n'avez pas encore un compte ? inscrivez vous"
+        android:backgroundTint="@color/white"/>
 
 </RelativeLayout>
