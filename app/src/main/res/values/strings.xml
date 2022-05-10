@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TopTip</string>
     <string-array name="types_bon_plan">
-        <item>Suermarchés</item>
+        <item>Supermarchés</item>
         <item>Hypermarchés</item>
         <item>Restaurants</item>
         <item>Epiceries</item>

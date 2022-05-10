@@ -23,7 +23,7 @@
         android:id="@+id/Bienvenue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to TopTip"
+        android:text="Bienvenue sur TopTip"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
