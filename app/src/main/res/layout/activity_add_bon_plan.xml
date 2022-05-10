@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.AddBonPlanActivity">
 
-
     <TextView
         android:id="@+id/idAddHeader"
         android:layout_width="match_parent"
@@ -18,6 +17,18 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/idTVHeaderErreur1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idAddHeader"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/redAuth"
+        android:textSize="15sp" />
 
     <ImageButton
         android:id="@+id/btn"

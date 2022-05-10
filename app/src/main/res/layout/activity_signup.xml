@@ -27,7 +27,7 @@
         android:id="@+id/idTVHeaderErreur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_below="@id/idTVHeader"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text=""

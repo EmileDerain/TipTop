@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -94,6 +95,8 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
         Spinner name = findViewById(R.id.nameW);
         name.setAdapter(spinnerAdapter);
 
+        TextView erreur = findViewById(R.id.idTVHeaderErreur3);
+
 
         Button addBP = (Button) findViewById(R.id.ajout);
         addBP.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +106,8 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
 
                 String sot = uploadImage(nomLieu);
 
-                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
+                erreur.setText(sot);
+//                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
 
                 if (sot.equals("true")) {
                     try {
@@ -270,8 +274,8 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
-        System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
-        System.out.println(imgFile2.getAbsolutePath());
+//        System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
+//        System.out.println(imgFile2.getAbsolutePath());
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
