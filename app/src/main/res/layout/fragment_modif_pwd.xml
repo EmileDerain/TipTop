@@ -50,6 +50,7 @@
         android:layout_marginTop="50dp"
         android:hint="Ancien mot de passe"
         android:minHeight="48dp"
+        android:inputType="textPassword"
         android:textSize="15dp" />
 
     <EditText
@@ -62,6 +63,7 @@
         android:layout_marginTop="10dp"
         android:hint="Nouveau mot de passe"
         android:minHeight="48dp"
+        android:inputType="textPassword"
         android:textSize="15dp" />
 
     <Button
