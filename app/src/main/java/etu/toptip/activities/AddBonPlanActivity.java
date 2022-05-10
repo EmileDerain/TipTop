@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -22,11 +23,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Api;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -85,7 +89,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
 
         Bundle bundle = getIntent().getExtras();
         String id = bundle.getString("idLieu");
-        System.out.println("idLieu"+id);
+        System.out.println("idLieu" + id);
 
         cameraFragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentCamera);
         if (cameraFragment == null) cameraFragment = new CameraFragment();
@@ -103,6 +107,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
 
         EditText description = (EditText) findViewById(R.id.description);
         EditText expiration = (EditText) findViewById(R.id.description);
+        TextView erreur = (TextView) findViewById(R.id.idTVHeaderErreur1);
 
         Button addBP = (Button) findViewById(R.id.BtnAjouterBPOK);
         addBP.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +118,15 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
 
                 String sot = uploadImage(descriptionText, expirationText, id);
 
-                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
+                if (sot.equals("true")) {
+                    erreur.setTextColor(getResources().getColor(R.color.greenAuth));
+                    erreur.setText("Bon plan ajouté");
+                }else{
+                    erreur.setText(sot);
+                }
+
+
+//                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
 
                 if (sot.equals("true")) {
                     try {
@@ -243,57 +256,78 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         return filePath;
     }
 
-    public String uploadImage(String descriptionText,String expirationText, String idLieu) {
+    public String uploadImage(String descriptionText, String expirationText, String idLieu) {
+        File imgFile2 = null;
 
         if (TextUtils.isEmpty(descriptionText))
             return "Veuillez rentrer une desciption";
         else if (TextUtils.isEmpty(expirationText))
             return "Veuillez rentrer une date d'expiration";
-        try {                                           // NE PREND PAS EN COMPTE LES PHOTOS !!!!
-            uri.toString();
-        } catch (NullPointerException e) {
-            return "Veuillez selectionner une image";
+        else if (picture != null) {
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/photo.png");
+
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+            }
+            FileOutputStream fOut = null;
+            try {
+                fOut = new FileOutputStream(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            picture.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            try {
+                fOut.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            imgFile2 = f;
+
+        } else if (picture == null) {
+            try {
+                imgFile2 = new File(uriToFilename(uri));
+            } catch (NullPointerException e) {
+                return "Veuillez selectionner une image";
+            }
         }
-        if (TextUtils.isEmpty(uri.toString()))
-            return "Veuillez selectionner une image";
-        else {
 
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .build();
 
-            File imgFile2 = new File(uriToFilename(uri));
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
 
-            System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
-            System.out.println(imgFile2.getAbsolutePath());
+//        System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
+//        System.out.println(imgFile2.getAbsolutePath());
 
-            RequestBody requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("image", imgFile2.getName(),
-                            RequestBody.create(MediaType.parse("image/png"), imgFile2))
-                    .addFormDataPart("description", descriptionText)
-                    .addFormDataPart("dateExpiration", expirationText)
-                    .addFormDataPart("idUser", Infologin.getIdUser())
-                    .addFormDataPart("idLieu", idLieu)
-                    .build();
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", imgFile2.getName(),
+                        RequestBody.create(MediaType.parse("image/png"), imgFile2))
+                .addFormDataPart("description", descriptionText)
+                .addFormDataPart("dateExpiration", expirationText)
+                .addFormDataPart("idUser", Infologin.getIdUser())
+                .addFormDataPart("idLieu", idLieu)
+                .build();
 
-            Request request = new Request.Builder()
+        Request request = new Request.Builder()
 //                    .url("http://192.168.1.14:3000/api/lieu/")
-                    .url("http://90.8.217.30:3000/api/bonplan/")
-                    .post(requestBody)
-                    .build();
+                .url("http://90.8.217.30:3000/api/bonplan/")
+                .post(requestBody)
+                .build();
 
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    System.out.println("MB");
-                }
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("MB");
+            }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    System.out.println("GG");
-                }
-            });
-        }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("GG");
+            }
+        });
+
         return "true";
     }
 

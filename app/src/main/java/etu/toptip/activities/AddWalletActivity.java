@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -109,6 +110,8 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
         Spinner name = findViewById(R.id.nameW);
         name.setAdapter(spinnerAdapter);
 
+        TextView erreur = findViewById(R.id.idTVHeaderErreur3);
+
 
         Button addBP = (Button) findViewById(R.id.ajout);
         addBP.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +121,13 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
 
                 String sot = uploadImage(nomLieu);
 
-                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
+                if (sot.equals("true")) {
+                    erreur.setTextColor(getResources().getColor(R.color.greenAuth));
+                    erreur.setText("Carte ajoutée au wallet");
+                }else{
+                    erreur.setText(sot);
+                }
+//                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
 
                 if (sot.equals("true")) {
                     try {
@@ -253,7 +262,7 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
         if (TextUtils.isEmpty(nomLieu))
             return "Veuillez choisir un lieu";
         else if (picture != null) {
-            File f = new File(Environment.getExternalStorageDirectory().toString() + "/photoCarte.png");
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/photoCarte.png");
 
             try {
                 f.createNewFile();
@@ -285,8 +294,8 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
-        System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
-        System.out.println(imgFile2.getAbsolutePath());
+//        System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
+//        System.out.println(imgFile2.getAbsolutePath());
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,6 +100,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         EditText code = (EditText) findViewById(R.id.CodeP);
         EditText adresse = (EditText) findViewById(R.id.AdresseResto);
         Spinner typeSpinner = (Spinner) findViewById(R.id.typeResto);
+        TextView erreur = findViewById(R.id.idTVHeaderErreur2);
 
         notificationsFragment = (NotificationsFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentNotifications);
         if (notificationsFragment == null) notificationsFragment = new NotificationsFragment();
@@ -119,7 +121,14 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
 
                 String sot = uploadImage(nameText, type, villeText, codeText, adresseText);
 
-                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
+
+                if (sot.equals("true")) {
+                    erreur.setTextColor(getResources().getColor(R.color.greenAuth));
+                    erreur.setText("Lieu ajouté");
+                }else{
+                    erreur.setText(sot);
+                }
+//                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
 
                 if (sot.equals("true")) {
                     try {
@@ -262,7 +271,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         else if (TextUtils.isEmpty(codeP))
             return "Veuillez rentrer un code postal";
         else if (picture != null) {
-            File f = new File(Environment.getExternalStorageDirectory().toString() + "/photo.png");
+            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/photo.png");
 
             try {
                 f.createNewFile();
@@ -284,7 +293,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
             imgFile2 = f;
 
         } else if (picture == null) {
-            try {                                           // NE PREND PAS EN COMPTE LES PHOTOS !!!!
+            try {
                 imgFile2 = new File(uriToFilename(uri));
             } catch (NullPointerException e) {
                 return "Veuillez selectionner une image";
@@ -294,8 +303,8 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
-        System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
-        System.out.println(imgFile2.getAbsolutePath());
+//        System.out.println("MimeTypeMap.getFileExtensionFromUrl: " + MimeTypeMap.getFileExtensionFromUrl(imgFile2.getAbsolutePath()));
+//        System.out.println(imgFile2.getAbsolutePath());
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

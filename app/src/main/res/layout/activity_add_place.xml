@@ -8,16 +8,28 @@
     tools:context=".activities.AddPlaceActivity">
 
     <TextView
-            android:id="@+id/idAddHeader"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="#0e81d1"
-            android:gravity="center_horizontal"
-            android:paddingTop="50dp"
+        android:id="@+id/idAddHeader"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="#0e81d1"
+        android:gravity="center_horizontal"
+        android:paddingTop="50dp"
         android:text="Ajoutez un lieu"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/idTVHeaderErreur2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idAddHeader"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/redAuth"
+        android:textSize="15sp" />
 
         <ImageButton
             android:id="@+id/retour"

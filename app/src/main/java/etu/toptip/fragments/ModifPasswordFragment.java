@@ -83,13 +83,11 @@ public class ModifPasswordFragment extends Fragment {
 
         Button modifMdp2 = view.findViewById(R.id.idBtn);
 
-        modifMdp2.setText("JE SUIS LA");
-
         modifMdp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("Emile", "edit pwd");
-//                modifPasswordController.OnModifPassword(oldPass.getText().toString(), newPass.getText().toString());
+                modifPasswordController.OnModifPassword(oldPass.getText().toString(), newPass.getText().toString());
             }
         });
         Log.d("Emile", "onClick(View v3bis2");

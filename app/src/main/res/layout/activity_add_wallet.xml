@@ -40,6 +40,17 @@
             android:layout_height="match_parent">
 
 
+        <TextView
+            android:id="@+id/idTVHeaderErreur3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idAddHeader"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/redAuth"
+            android:textSize="15sp" />
 
         <Spinner
             android:id="@+id/nameW"
