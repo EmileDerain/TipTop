@@ -62,7 +62,7 @@ public class PlaceAdapter extends BaseAdapter {
 //        System.out.println("i"+i);
         Place currentPlace = getItem(i);
         String name = currentPlace.getName();
-        String details = currentPlace.getVille() + " "+ currentPlace.getCodeP() + " "+currentPlace.getType();
+        String details = currentPlace.getVille() + " "+ currentPlace.getCodeP() ;
         String image = currentPlace.getImage();
 
         TextView nameView = view.findViewById(R.id.place_name);
@@ -75,7 +75,6 @@ public class PlaceAdapter extends BaseAdapter {
         Picasso.get().load(image).into(imageView);
 
         view.setOnClickListener(click->{
-            System.out.println("test"+i+getItem(i));
             listner.OnClickPlace(getItem(i));
         });
         return view;
