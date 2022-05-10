@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +32,9 @@ public class ListFavorisFragment extends Fragment implements IListner {
 
     private String mParam1;
     private String mParam2;
+    TextView text;
+    LottieAnimationView lottie;
+
 
     public ListFavorisFragment() {
     }
@@ -71,6 +77,17 @@ public class ListFavorisFragment extends Fragment implements IListner {
         ListView listView = view.findViewById(R.id.place_fav_list_view);
         PlaceAdapter adap = new PlaceAdapter(container.getContext(), ListFavoriThread.getFavoris());
         listView.setAdapter(adap);
+        text = (TextView) view.findViewById(R.id.textSearch) ;
+        lottie = view.findViewById(R.id.search);
+
+        text.setVisibility(view.INVISIBLE);
+        lottie.setVisibility(view.INVISIBLE);
+        if(ListFavoriThread.getFavoris().size() ==0){
+            text.setVisibility(view.VISIBLE);
+            lottie.setVisibility(view.VISIBLE);
+        }
+
+
         adap.addListner(this);
 
         return view;

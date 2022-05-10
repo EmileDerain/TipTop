@@ -8,12 +8,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -137,6 +139,14 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
                 Intent myIntent = new Intent(container.getContext(), AddBonPlanActivity.class);
                 myIntent.putExtra("idLieu", model.getId());
                 startActivity(myIntent);
+            }
+        });
+
+        ImageButton retour =  view .findViewById(R.id.btn);
+        retour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment(new AccueilFragment());
             }
         });
 

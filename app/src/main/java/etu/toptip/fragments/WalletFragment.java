@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +22,7 @@ import etu.toptip.R;
 import etu.toptip.activities.AddWalletActivity;
 import etu.toptip.helper.Infologin;
 import etu.toptip.helper.ListBonPlanThread;
+import etu.toptip.helper.ListFavoriThread;
 import etu.toptip.helper.ListPlacesThread;
 import etu.toptip.helper.ListWalletThread;
 import etu.toptip.model.ListWallet;
@@ -31,6 +35,8 @@ public class WalletFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    TextView text;
+    LottieAnimationView lottie;
 
     public WalletFragment() {
     }
@@ -75,6 +81,16 @@ public class WalletFragment extends Fragment {
             wallet.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        text = (TextView) view.findViewById(R.id.textSearch) ;
+        lottie = view.findViewById(R.id.search);
+
+        text.setVisibility(view.INVISIBLE);
+        lottie.setVisibility(view.INVISIBLE);
+        if(wallet.getListWallet().size() ==0){
+            text.setVisibility(view.VISIBLE);
+            lottie.setVisibility(view.VISIBLE);
         }
 
 
