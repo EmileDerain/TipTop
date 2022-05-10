@@ -121,7 +121,13 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
 
                 String sot = uploadImage(nameText, type, villeText, codeText, adresseText);
 
-                erreur.setText(sot);
+
+                if (sot.equals("true")) {
+                    erreur.setTextColor(getResources().getColor(R.color.greenAuth));
+                    erreur.setText("Lieu ajouté");
+                }else{
+                    erreur.setText(sot);
+                }
 //                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
 
                 if (sot.equals("true")) {

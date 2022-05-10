@@ -118,7 +118,14 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
 
                 String sot = uploadImage(descriptionText, expirationText, id);
 
-                erreur.setText(sot);
+                if (sot.equals("true")) {
+                    erreur.setTextColor(getResources().getColor(R.color.greenAuth));
+                    erreur.setText("Bon plan ajouté");
+                }else{
+                    erreur.setText(sot);
+                }
+
+
 //                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
 
                 if (sot.equals("true")) {

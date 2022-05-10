@@ -121,7 +121,12 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
 
                 String sot = uploadImage(nomLieu);
 
-                erreur.setText(sot);
+                if (sot.equals("true")) {
+                    erreur.setTextColor(getResources().getColor(R.color.greenAuth));
+                    erreur.setText("Carte ajoutée au wallet");
+                }else{
+                    erreur.setText(sot);
+                }
 //                System.out.println("INNNNNFFFFFFFFFFFOOOOOO: " + sot);
 
                 if (sot.equals("true")) {
