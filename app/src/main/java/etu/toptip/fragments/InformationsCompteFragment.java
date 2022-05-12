@@ -65,7 +65,7 @@ public class InformationsCompteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_infocompte, container, false);
 
         try {
-            String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
+            String url = "http://90.8.219.224:3000/api/user/" + Infologin.getIdUser();
 
             InfoCompteThread infoCompteThread = new InfoCompteThread();
             AsyncTask<String, Integer, JSONObject> execute;

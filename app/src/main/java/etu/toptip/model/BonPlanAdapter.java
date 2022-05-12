@@ -59,7 +59,7 @@ public class BonPlanAdapter extends BaseAdapter {
         ImageView imageView = view.findViewById(R.id.plan_icon);
 
         detailsView.setText(description);
-        dateView.setText("date expiration: "+date);
+        dateView.setText("date expiration: "+ date);
         Picasso.get().load(image).into(imageView);
 
         return view;

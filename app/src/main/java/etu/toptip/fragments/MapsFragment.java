@@ -89,15 +89,15 @@ public class MapsFragment extends Fragment  implements OnMapReadyCallback , Loca
 
         try {
             places = new ListPlacesThread();
-            places.execute("http://90.8.217.30:3000/api/lieu");  //2 endroits ou on actualise les lieux
+            places.execute("http://90.8.219.224:3000/api/lieu");  //2 endroits ou on actualise les lieux
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
 
-        String url = "http://90.8.217.30:3000/api/favori/" + Infologin.getIdUser();
+        String url = "http://90.8.219.224:3000/api/favori/" + Infologin.getIdUser();
         favoris.execute(url);
 
-        String urlW = "http://90.8.217.30:3000/api/carte/" + Infologin.getIdUser();
+        String urlW = "http://90.8.219.224:3000/api/carte/" + Infologin.getIdUser();
         wallet.execute(urlW);
 
 

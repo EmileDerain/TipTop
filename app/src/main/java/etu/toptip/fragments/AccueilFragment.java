@@ -93,7 +93,7 @@ public class AccueilFragment extends Fragment implements IListner, FragmentChang
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         try {
             places = new ListPlacesThread();
-            places.execute("http://90.8.217.30:3000/api/lieu"); //2 endroits ou on actualise les lieux
+            places.execute("http://90.8.219.224:3000/api/lieu"); //2 endroits ou on actualise les lieux
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

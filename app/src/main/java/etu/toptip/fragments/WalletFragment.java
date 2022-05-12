@@ -68,7 +68,7 @@ public class WalletFragment extends Fragment {
 
         GridView listView = view.findViewById(R.id.wallet);
 
-        String url = "http://90.8.217.30:3000/api/carte/" + Infologin.getIdUser();
+        String url = "http://90.8.219.224:3000/api/carte/" + Infologin.getIdUser();
 
         try {
             wallet = new ListWalletThread();

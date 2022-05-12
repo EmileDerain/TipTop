@@ -108,7 +108,7 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
 
 
         try {
-            String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
+            String url = "http://90.8.219.224:3000/api/user/" + Infologin.getIdUser();
 
             InfoCompteThread infoCompteThread = new InfoCompteThread();
             AsyncTask<String, Integer, JSONObject> execute;
@@ -182,7 +182,7 @@ public class ProfilFragment extends Fragment implements FragmentChangeListener {
 
                 OkHttpClient client = new OkHttpClient();
 
-                String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
+                String url = "http://90.8.219.224:3000/api/user/" + Infologin.getIdUser();
 //                String url = "http://192.168.1.14:3000/api/user/" + Infologin.getIdUser();
 
                 Request request = new Request.Builder()

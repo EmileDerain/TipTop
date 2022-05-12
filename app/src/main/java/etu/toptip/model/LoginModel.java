@@ -49,7 +49,7 @@ public class LoginModel {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://90.8.217.30:3000/api/user/auth/login")
+                    .url("http://90.8.219.224:3000/api/user/auth/login")
 //                    .url("http://192.168.1.14:3000/api/user/auth/login")
                     .post(requestBody)
                     .build();
@@ -63,7 +63,6 @@ public class LoginModel {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-
                     try (ResponseBody responseBody = response.body()) {
 
                         JSONObject jsonObj = new JSONObject(responseBody.string());

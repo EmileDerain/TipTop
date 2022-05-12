@@ -319,7 +319,7 @@ public class AddPlaceActivity extends AppCompatActivity implements ICameraPermis
 
         Request request = new Request.Builder()
 //                    .url("http://192.168.1.14:3000/api/lieu/")
-                .url("http://90.8.217.30:3000/api/lieu/")
+                .url("http://90.8.219.224:3000/api/lieu/")
                 .post(requestBody)
                 .build();
 

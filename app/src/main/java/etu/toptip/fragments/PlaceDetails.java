@@ -100,7 +100,7 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
 
         ListView listView = view.findViewById(R.id.bonplan_list_view);
 
-        String url = "http://90.8.217.30:3000/api/bonplan/lieu/" + model.getId();
+        String url = "http://90.8.219.224:3000/api/bonplan/lieu/" + model.getId();
 
         try {
             bonplan = new ListBonPlanThread();
@@ -162,7 +162,7 @@ public class PlaceDetails extends Fragment implements IListner, FragmentChangeLi
 
                 Request request = new Request.Builder()
 //                        .url("http://192.168.1.14:3000/api/favori")
-                        .url("http://90.8.217.30:3000/api/favori")
+                        .url("http://90.8.219.224:3000/api/favori")
                         .post(requestBody)
                         .build();
 

@@ -64,7 +64,7 @@ public class ListFavorisFragment extends Fragment implements IListner {
 
         ListFavoriThread favoris = new ListFavoriThread();
 //        String url = "http://192.168.1.14:3000/api/favori/" + Infologin.getIdUser();
-        String url = "http://90.8.217.30:3000/api/favori/" + Infologin.getIdUser();
+        String url = "http://90.8.219.224:3000/api/favori/" + Infologin.getIdUser();
         favoris.execute(url);
 
         try {

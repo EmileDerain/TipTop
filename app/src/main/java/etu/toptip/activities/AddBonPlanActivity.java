@@ -106,7 +106,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
         fragmentTransaction2.commit();
 
         EditText description = (EditText) findViewById(R.id.description);
-        EditText expiration = (EditText) findViewById(R.id.description);
+        EditText expiration = (EditText) findViewById(R.id.expiration);
         TextView erreur = (TextView) findViewById(R.id.idTVHeaderErreur1);
 
         Button addBP = (Button) findViewById(R.id.BtnAjouterBPOK);
@@ -312,7 +312,7 @@ public class AddBonPlanActivity extends AppCompatActivity implements ICameraPerm
 
         Request request = new Request.Builder()
 //                    .url("http://192.168.1.14:3000/api/lieu/")
-                .url("http://90.8.217.30:3000/api/bonplan/")
+                .url("http://90.8.219.224:3000/api/bonplan/")
                 .post(requestBody)
                 .build();
 

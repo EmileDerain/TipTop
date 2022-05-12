@@ -46,7 +46,7 @@ public class ModifPasswordModel {
                     .add("newPassword", newPassword)
                     .build();
 
-            String url ="http://90.8.217.30:3000/api/user/"+ Infologin.getIdUser() + "/password";
+            String url ="http://90.8.219.224:3000/api/user/"+ Infologin.getIdUser() + "/password";
 
             Request request = new Request.Builder()
                     .url(url)

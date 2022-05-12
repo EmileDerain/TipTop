@@ -41,7 +41,7 @@ public class ListPlaces {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://90.8.217.30:3000/api/lieu")
+                    .url("http://90.8.219.224:3000/api/lieu")
                     .build();
 
             client.newCall(request).enqueue(new Callback() {

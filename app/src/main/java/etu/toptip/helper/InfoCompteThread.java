@@ -17,7 +17,7 @@ public class InfoCompteThread extends AsyncTask<String, Integer, JSONObject> {
 //
 //        OkHttpClient client = new OkHttpClient();
 //
-//        String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
+//        String url = "http://90.8.219.224:3000/api/user/" + Infologin.getIdUser();
 ////        String url = "http://192.168.1.14:3000/api/user/" + Infologin.getIdUser();
 //
 //        Request request = new Request.Builder()

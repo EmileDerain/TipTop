@@ -307,7 +307,7 @@ public class AddWalletActivity extends AppCompatActivity implements ICameraPermi
 
         Request request = new Request.Builder()
 //                    .url("http://192.168.1.14:3000/api/carte/")
-                .url("http://90.8.217.30:3000/api/carte/")
+                .url("http://90.8.219.224:3000/api/carte/")
                 .post(requestBody)
                 .build();
 

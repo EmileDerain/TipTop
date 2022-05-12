@@ -42,7 +42,7 @@ public class ModifProfilModel {
                     .add("userName", userName)
                     .build();
 
-            String url = "http://90.8.217.30:3000/api/user/" + Infologin.getIdUser();
+            String url = "http://90.8.219.224:3000/api/user/" + Infologin.getIdUser();
 
             Request request = new Request.Builder()
                     .url(url)
